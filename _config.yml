@@ -62,18 +62,15 @@ author:
   avatar : "assets/images/profile.jpg"
   bio    : "레벨 디자이너"
   links:
-    - label: "Website"
-      icon: "fas fa-fw fa-link"
-      url: "https://"
-    - label: "Twitter"
-      icon: "fab fa-fw fa-twitter-square"
-      url: "https://twitter.com/"
-    - label: "GitHub"
-      icon: "fab fa-fw fa-github"
-      url: "https://github.com/"
-    - label: "Instagram"
-      icon: "fab fa-fw fa-instagram"
-      url: "https://instagram.com/"
+    - label: "Naver Blog"
+      icon: "fas fa-fw fa-blog" 
+      url: "https://blog.naver.com/qustjdals46"
+    - label: "YouTube"
+      icon: "fab fa-fw fa-youtube" 
+      url: "https://www.youtube.com/@%EB%B3%80%EC%84%B1%EB%AF%BC"
+    - label: "Notion"
+      icon: "fas fa-fw fa-book" 
+      url: "https://app.notion.com/p/36ee398987dc801a8339fc3a361769c2?source=copy_link&assetsVersion=23.13.20260529.1029"
 
 footer:
   links:
