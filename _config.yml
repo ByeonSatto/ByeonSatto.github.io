@@ -1,112 +1,84 @@
-# Welcome to Jekyll!
-#
-# This config file is meant for settings that affect your whole blog, values
-# which you are expected to set up once and rarely edit after that. If you find
-# yourself editing this file very often, consider using Jekyll's data files
-# feature for the data you need to update frequently.
-#
-# For technical reasons, this file is *NOT* reloaded automatically when you use
-# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
+# ==============================================================================
+# Byeon's Portfolio & Game Archive - Jekyll Configuration
+# ==============================================================================
 
-# Site settings
-# These are used to personalize your new site. If you look in the HTML files,
-# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
-# You can create any custom variable you would like, and they will be accessible
-# in the templates via {{ site.myvariable }}.
-title: 변성민 포트폴리오
-email: qustjdals46@naver.com
-description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
-twitter_username: username
-github_username: username
-minimal_mistakes_skin: default
-search: true
+title: "Byeon's Portfolio & Game Archive"
+tagline: "레벨 디자인 · 게임 시스템 분석 · 심층 리뷰 & 프로젝트 아카이브"
+description: >-
+  게임 레벨 디자이너 변성민의 개인 포트폴리오 및 게임 칼럼, 심층 리뷰 아카이브입니다.
+  공간 설계, 플레이어 경험 유도, 게임 메커니즘 분석과 프로젝트 기록을 다룹니다.
 
-# Build settings
-markdown: kramdown
-remote_theme: mmistakes/minimal-mistakes
-# Outputting
+baseurl: ""
+url: "https://byeonsatto.github.io"
+lang: "ko-KR"
+timezone: "Asia/Seoul"
+
+# Permalink Structure
 permalink: /:categories/:title/
-paginate: 5 # amount of posts to show
-paginate_path: /page:num/
-timezone: # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 
-include:
-  - _pages
+# Build Settings
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  toc_levels: 2..3
 
-# Exclude from processing.
-# The following items will not be processed, by default. Create a custom list
-# to override the default setting.
-# exclude:
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
-
-# Plugins (previously gems:)
+# Plugins supported natively by GitHub Pages
 plugins:
-  - jekyll-paginate
-  - jekyll-sitemap
-  - jekyll-gist
   - jekyll-feed
-  - jemoji
-  - jekyll-include-cache
+  - jekyll-seo-tag
+  - jekyll-sitemap
 
+# Navigation Menu
+navigation:
+  - title: "Home"
+    url: "/"
+  - title: "Portfolio"
+    url: "/portfolio/"
+  - title: "Column"
+    url: "/column/"
+  - title: "Review"
+    url: "/review/"
+
+# Author & Social Profile
 author:
-  name   : "변성민"
-  avatar : "assets/images/profile.jpg"
-  bio    : "레벨 디자이너"
+  name: "변성민 (Byeon Seong-min)"
+  role: "Game Level & System Designer"
+  email: "qustjdals46@naver.com"
+  avatar: "/assets/images/profile.jpg"
+  bio: "플레이어의 시선과 동선을 설계하는 레벨 디자이너입니다. 게임의 공간 구조와 시스템 메커니즘을 해부하고 기록합니다."
   links:
     - label: "Naver Blog"
-      icon: "fas fa-fw fa-blog" 
       url: "https://blog.naver.com/qustjdals46"
     - label: "YouTube"
-      icon: "fab fa-fw fa-youtube" 
       url: "https://www.youtube.com/@%EB%B3%80%EC%84%B1%EB%AF%BC"
     - label: "Notion"
-      icon: "fas fa-fw fa-book" 
       url: "https://app.notion.com/p/36ee398987dc801a8339fc3a361769c2?source=copy_link&assetsVersion=23.13.20260529.1029"
+    - label: "GitHub"
+      url: "https://github.com/byeonsatto"
 
-footer:
-  links:
-    - label: "Naver Blog"
-      icon: "fas fa-fw fa-blog" 
-      url: "https://blog.naver.com/qustjdals46"
-    - label: "YouTube"
-      icon: "fab fa-fw fa-youtube" # 유튜브 공식 아이콘
-      url: "https://www.youtube.com/@%EB%B3%80%EC%84%B1%EB%AF%BC"
-    - label: "Notion"
-      icon: "fas fa-fw fa-book" 
-      url: "https://app.notion.com/p/36ee398987dc801a8339fc3a361769c2?source=copy_link&assetsVersion=23.13.20260529.1029"
+# Include underscore-prefixed portfolio project pages if needed
+include:
+  - portfolio/_sample-project.md
 
+# Default Front-matter Values
 defaults:
-  # _posts
   - scope:
       path: ""
-      type: posts
+      type: "posts"
     values:
-      layout: single
-      author_profile: true
-      read_time: true
-      comments: true
-      share: true
-      related: true
-  # _pages
+      layout: "post"
+      author: "변성민"
   - scope:
-      path: "_pages"
-      type: pages
+      path: "portfolio"
     values:
-      layout: single
-      author_profile: true
+      layout: "post"
+      author: "변성민"
 
-category_archive:
-  type: liquid
-  path: /categories/
-tag_archive:
-  type: liquid
-  path: /tags/
+# Exclude from build
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - README.md

@@ -1,0 +1,37 @@
+<header class="site-header" role="banner">
+  <div class="container header-inner">
+    <a class="site-brand" href="{{ '/' | relative_url }}">
+      <span class="brand-badge">ARCHIVE</span>
+      <span class="brand-title">{{ site.title }}</span>
+    </a>
+
+    <button class="nav-toggle" aria-label="메뉴 열기" aria-expanded="false" onclick="document.querySelector('.site-nav').classList.toggle('is-open'); this.setAttribute('aria-expanded', this.getAttribute('aria-expanded') === 'true' ? 'false' : 'true');">
+      <span class="hamburger-bar"></span>
+      <span class="hamburger-bar"></span>
+      <span class="hamburger-bar"></span>
+    </button>
+
+    <nav class="site-nav" role="navigation" aria-label="Main Navigation">
+      <ul class="nav-list">
+        {% for item in site.navigation %}
+          {% assign current_path = page.url | replace: 'index.html', '' %}
+          {% assign is_active = false %}
+          {% if item.url == '/' and current_path == '/' %}
+            {% assign is_active = true %}
+          {% elsif item.url != '/' and current_path contains item.url %}
+            {% assign is_active = true %}
+          {% elsif item.url == '/column/' and page.categories contains 'column' %}
+            {% assign is_active = true %}
+          {% elsif item.url == '/review/' and page.categories contains 'review' %}
+            {% assign is_active = true %}
+          {% endif %}
+          <li class="nav-item">
+            <a class="nav-link {% if is_active %}active{% endif %}" href="{{ item.url | relative_url }}">
+              {{ item.title }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </nav>
+  </div>
+</header>

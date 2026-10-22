@@ -1,0 +1,90 @@
+---
+layout: default
+---
+
+<section class="page-hero">
+  <div class="container">
+    <span class="page-kicker">{{ page.kicker | default: 'PORTFOLIO ARCHIVE' }}</span>
+    <h1 class="page-title">{{ page.title }}</h1>
+    {% if page.description %}
+    <p class="page-desc">{{ page.description }}</p>
+    {% endif %}
+  </div>
+</section>
+
+<div class="container page-container">
+  {% if content and content != "" %}
+  <div class="portfolio-intro prose">
+    {{ content }}
+  </div>
+  {% endif %}
+
+  <div class="portfolio-grid portfolio-grid-full">
+    {% assign portfolio_pages = site.pages | where: "category", "portfolio-item" %}
+    {% for project in portfolio_pages %}
+    <article class="portfolio-card">
+      <a href="{{ project.url | relative_url }}" class="card-link-wrapper">
+        <div class="card-thumb">
+          {% if project.thumbnail %}
+          <img src="{{ project.thumbnail | relative_url }}" alt="{{ project.title }}" loading="lazy">
+          {% else %}
+          <div class="thumb-placeholder">
+            <span>{{ project.genre | default: 'GAME PROJECT' }}</span>
+          </div>
+          {% endif %}
+          {% if project.period %}
+          <span class="card-period-badge">{{ project.period }}</span>
+          {% endif %}
+        </div>
+        <div class="card-body">
+          <div class="card-tags">
+            {% for tag in project.tags %}
+            <span class="tag-chip">{{ tag }}</span>
+            {% endfor %}
+          </div>
+          <h2 class="card-title">{{ project.title }}</h2>
+          <p class="card-summary">{{ project.summary | default: project.excerpt | strip_html | truncate: 130 }}</p>
+          <div class="card-footer">
+            <span class="card-role">{{ project.role | default: 'Level Design' }}</span>
+            <span class="card-cta">프로젝트 상세 →</span>
+          </div>
+        </div>
+      </a>
+    </article>
+    {% endfor %}
+
+    {% if page.projects %}
+      {% for item in page.projects %}
+      <article class="portfolio-card">
+        <a href="{{ item.url | relative_url }}" class="card-link-wrapper">
+          <div class="card-thumb">
+            {% if item.thumbnail %}
+            <img src="{{ item.thumbnail | relative_url }}" alt="{{ item.title }}" loading="lazy">
+            {% else %}
+            <div class="thumb-placeholder">
+              <span>{{ item.genre | default: 'PROJECT' }}</span>
+            </div>
+            {% endif %}
+            {% if item.period %}
+            <span class="card-period-badge">{{ item.period }}</span>
+            {% endif %}
+          </div>
+          <div class="card-body">
+            <div class="card-tags">
+              {% for tag in item.tags %}
+              <span class="tag-chip">{{ tag }}</span>
+              {% endfor %}
+            </div>
+            <h2 class="card-title">{{ item.title }}</h2>
+            <p class="card-summary">{{ item.summary }}</p>
+            <div class="card-footer">
+              <span class="card-role">{{ item.role | default: 'Level & System Design' }}</span>
+              <span class="card-cta">프로젝트 상세 →</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      {% endfor %}
+    {% endif %}
+  </div>
+</div>

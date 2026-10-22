@@ -1,0 +1,221 @@
+---
+layout: default
+---
+
+<article class="post-article review-article">
+  <!-- Review Hero Header -->
+  <header class="post-header review-header">
+    <div class="container post-header-inner">
+      <div class="review-header-grid">
+        <div class="review-header-main">
+          <div class="post-meta-top">
+            <span class="cat-badge cat-review">GAME REVIEW</span>
+            {% if page.date %}
+            <time class="post-date" datetime="{{ page.date | date_to_xmlschema }}">
+              {{ page.date | date: "%Y년 %m월 %d일" }}
+            </time>
+            {% endif %}
+            {% if page.game_info.genre %}
+            <span class="meta-divider">·</span>
+            <span class="review-genre-meta">{{ page.game_info.genre }}</span>
+            {% endif %}
+          </div>
+
+          <h1 class="post-title">{{ page.title }}</h1>
+
+          {% if page.subtitle or page.summary %}
+          <p class="post-subtitle">{{ page.subtitle | default: page.summary }}</p>
+          {% endif %}
+
+          {% if page.tags and page.tags.size > 0 %}
+          <div class="post-tags">
+            {% for tag in page.tags %}
+            <span class="tag-chip">#{{ tag }}</span>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+
+        <!-- Score Badge Area (10점 만점 배지 + 별점 시각화) -->
+        {% if page.rating %}
+        <div class="review-score-card" aria-label="평점 {{ page.rating }}점 (10점 만점)">
+          <span class="score-label">VERDICT SCORE</span>
+          <div class="score-number-wrap">
+            <span class="score-value">{{ page.rating }}</span>
+            <span class="score-max">/ 10</span>
+          </div>
+          <div class="score-stars" aria-hidden="true">
+            {% assign star_score = page.rating | times: 1.0 %}
+            {% for i in (1..5) %}
+              {% assign threshold = i | times: 2 %}
+              {% assign half_threshold = threshold | minus: 1 %}
+              {% if star_score >= threshold %}
+                <span class="star filled">★</span>
+              {% elsif star_score >= half_threshold %}
+                <span class="star half">★</span>
+              {% else %}
+                <span class="star empty">☆</span>
+              {% endif %}
+            {% endfor %}
+          </div>
+          {% if page.verdict %}
+          <p class="score-verdict">"{{ page.verdict }}"</p>
+          {% endif %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </header>
+
+  <div class="container review-content-container">
+    <!-- Game Info Spec Sheet Box -->
+    {% if page.game_info %}
+    <section class="game-info-box" aria-label="게임 기본 정보">
+      <div class="game-info-header">
+        <span class="info-kicker">SPECIFICATION SHEET</span>
+        <h2 class="info-title">{{ page.game_info.title | default: page.title }} 기본 정보</h2>
+      </div>
+      <div class="game-info-grid">
+        <div class="info-cell">
+          <span class="info-label">장르 (Genre)</span>
+          <strong class="info-value">{{ page.game_info.genre | default: "-" }}</strong>
+        </div>
+        <div class="info-cell">
+          <span class="info-label">플랫폼 (Platform)</span>
+          <strong class="info-value">{{ page.game_info.platform | default: "-" }}</strong>
+        </div>
+        <div class="info-cell">
+          <span class="info-label">개발사 / 배급사</span>
+          <strong class="info-value">{{ page.game_info.developer | default: "-" }}{% if page.game_info.publisher %} / {{ page.game_info.publisher }}{% endif %}</strong>
+        </div>
+        <div class="info-cell">
+          <span class="info-label">클리어 타임 (Playtime)</span>
+          <strong class="info-value highlight">{{ page.game_info.playtime | default: "-" }}</strong>
+        </div>
+        {% if page.game_info.release_date %}
+        <div class="info-cell">
+          <span class="info-label">출시일 (Release)</span>
+          <strong class="info-value">{{ page.game_info.release_date }}</strong>
+        </div>
+        {% endif %}
+        {% if page.game_info.perspective %}
+        <div class="info-cell">
+          <span class="info-label">핵심 분석 관점</span>
+          <strong class="info-value">{{ page.game_info.perspective }}</strong>
+        </div>
+        {% endif %}
+      </div>
+    </section>
+    {% endif %}
+
+    <!-- Pros & Cons Comparison Component -->
+    {% if page.pros or page.cons %}
+    <section class="pros-cons-section" aria-label="장단점 요약 비교">
+      <div class="pros-cons-grid">
+        <div class="pros-card">
+          <div class="pc-card-header pros-header">
+            <span class="pc-icon">+</span>
+            <h3>장점 (PROS)</h3>
+          </div>
+          <ul class="pc-list">
+            {% for item in page.pros %}
+            <li>{{ item }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <div class="cons-card">
+          <div class="pc-card-header cons-header">
+            <span class="pc-icon">−</span>
+            <h3>단점 및 아쉬운 점 (CONS)</h3>
+          </div>
+          <ul class="pc-list">
+            {% for item in page.cons %}
+            <li>{{ item }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </section>
+    {% endif %}
+
+    <!-- Main Review Body + TOC -->
+    <div class="post-layout-grid">
+      <div class="post-body prose" id="post-content">
+        {{ content }}
+      </div>
+
+      {% if page.toc != false %}
+      <aside class="post-sidebar" aria-label="리뷰 목차">
+        <div class="toc-box" id="toc-container">
+          <h2 class="toc-title">리뷰 목차</h2>
+          <nav id="toc-nav" class="toc-nav"></nav>
+        </div>
+      </aside>
+      {% endif %}
+    </div>
+  </div>
+
+  <footer class="container post-footer">
+    <div class="post-author-card">
+      {% if site.author.avatar %}
+      <img src="{{ site.author.avatar | relative_url }}" alt="{{ site.author.name }}" class="author-card-avatar" onerror="this.style.display='none'">
+      {% endif %}
+      <div class="author-card-info">
+        <strong>{{ page.author | default: site.author.name }}</strong>
+        <p>{{ site.author.bio }}</p>
+      </div>
+    </div>
+
+    {% if page.previous or page.next %}
+    <nav class="post-pagination" aria-label="이전/다음 글">
+      {% if page.previous %}
+      <a href="{{ page.previous.url | relative_url }}" class="page-nav-card prev">
+        <span class="nav-label">← 이전 글</span>
+        <strong class="nav-post-title">{{ page.previous.title }}</strong>
+      </a>
+      {% endif %}
+      {% if page.next %}
+      <a href="{{ page.next.url | relative_url }}" class="page-nav-card next">
+        <span class="nav-label">다음 글 →</span>
+        <strong class="nav-post-title">{{ page.next.title }}</strong>
+      </a>
+      {% endif %}
+    </nav>
+    {% endif %}
+  </footer>
+</article>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var content = document.getElementById("post-content");
+    var tocNav = document.getElementById("toc-nav");
+    var tocContainer = document.getElementById("toc-container");
+    if (!content || !tocNav) return;
+
+    var headings = content.querySelectorAll("h2, h3");
+    if (headings.length === 0) {
+      if (tocContainer) tocContainer.style.display = "none";
+      return;
+    }
+
+    var ul = document.createElement("ul");
+    ul.className = "toc-list";
+
+    headings.forEach(function (heading, index) {
+      if (!heading.id) {
+        heading.id = "review-sec-" + (index + 1);
+      }
+      var li = document.createElement("li");
+      li.className = "toc-item toc-" + heading.tagName.toLowerCase();
+      var a = document.createElement("a");
+      a.href = "#" + heading.id;
+      a.textContent = heading.textContent;
+      a.className = "toc-link";
+      li.appendChild(a);
+      ul.appendChild(li);
+    });
+
+    tocNav.appendChild(ul);
+  });
+</script>

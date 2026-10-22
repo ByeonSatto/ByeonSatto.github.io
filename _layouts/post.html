@@ -1,0 +1,161 @@
+---
+layout: default
+---
+
+<article class="post-article">
+  <header class="post-header">
+    <div class="container post-header-inner">
+      <div class="post-meta-top">
+        {% if page.categories and page.categories.size > 0 %}
+          {% for cat in page.categories %}
+          <span class="cat-badge cat-{{ cat | downcase }}">{{ cat | upcase }}</span>
+          {% endfor %}
+        {% elsif page.category == 'portfolio-item' %}
+          <span class="cat-badge cat-portfolio">PORTFOLIO PROJECT</span>
+        {% endif %}
+
+        {% if page.date %}
+        <time class="post-date" datetime="{{ page.date | date_to_xmlschema }}">
+          {{ page.date | date: "%Y년 %m월 %d일" }}
+        </time>
+        {% endif %}
+
+        {% if page.period %}
+        <span class="meta-divider">·</span>
+        <span class="post-period">개발 기간: {{ page.period }}</span>
+        {% endif %}
+
+        {% assign words = content | strip_html | number_of_words %}
+        {% assign read_min = words | divided_by: 220 | plus: 1 %}
+        <span class="meta-divider">·</span>
+        <span class="post-readtime">약 {{ read_min }}분 소요</span>
+      </div>
+
+      <h1 class="post-title">{{ page.title }}</h1>
+
+      {% if page.subtitle or page.summary %}
+      <p class="post-subtitle">{{ page.subtitle | default: page.summary }}</p>
+      {% endif %}
+
+      {% if page.tags and page.tags.size > 0 %}
+      <div class="post-tags">
+        {% for tag in page.tags %}
+        <span class="tag-chip">#{{ tag }}</span>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      {% if page.tech_stack or page.role or page.team_size %}
+      <div class="project-spec-bar">
+        {% if page.role %}
+        <div class="spec-bar-item">
+          <span class="spec-label">담당 역할</span>
+          <span class="spec-val">{{ page.role }}</span>
+        </div>
+        {% endif %}
+        {% if page.period %}
+        <div class="spec-bar-item">
+          <span class="spec-label">개발 기간</span>
+          <span class="spec-val">{{ page.period }}</span>
+        </div>
+        {% endif %}
+        {% if page.team_size %}
+        <div class="spec-bar-item">
+          <span class="spec-label">팀 규모</span>
+          <span class="spec-val">{{ page.team_size }}</span>
+        </div>
+        {% endif %}
+        {% if page.tech_stack %}
+        <div class="spec-bar-item">
+          <span class="spec-label">기술 스택 / 엔진</span>
+          <span class="spec-val">{{ page.tech_stack | join: ", " }}</span>
+        </div>
+        {% endif %}
+      </div>
+      {% endif %}
+    </div>
+  </header>
+
+  <div class="container post-layout-grid">
+    <!-- Main Prose Content -->
+    <div class="post-body prose" id="post-content">
+      {{ content }}
+    </div>
+
+    <!-- Sticky Table of Contents Sidebar -->
+    {% if page.toc != false %}
+    <aside class="post-sidebar" aria-label="목차">
+      <div class="toc-box" id="toc-container">
+        <h2 class="toc-title">목차 (Table of Contents)</h2>
+        <nav id="toc-nav" class="toc-nav">
+          <!-- Populated automatically via JS from H2/H3 headings -->
+        </nav>
+      </div>
+    </aside>
+    {% endif %}
+  </div>
+
+  <!-- Post Footer / Navigation -->
+  <footer class="container post-footer">
+    <div class="post-author-card">
+      {% if site.author.avatar %}
+      <img src="{{ site.author.avatar | relative_url }}" alt="{{ site.author.name }}" class="author-card-avatar" onerror="this.style.display='none'">
+      {% endif %}
+      <div class="author-card-info">
+        <strong>{{ page.author | default: site.author.name }}</strong>
+        <p>{{ site.author.bio }}</p>
+      </div>
+    </div>
+
+    {% if page.previous or page.next %}
+    <nav class="post-pagination" aria-label="이전/다음 글">
+      {% if page.previous %}
+      <a href="{{ page.previous.url | relative_url }}" class="page-nav-card prev">
+        <span class="nav-label">← 이전 글</span>
+        <strong class="nav-post-title">{{ page.previous.title }}</strong>
+      </a>
+      {% endif %}
+      {% if page.next %}
+      <a href="{{ page.next.url | relative_url }}" class="page-nav-card next">
+        <span class="nav-label">다음 글 →</span>
+        <strong class="nav-post-title">{{ page.next.title }}</strong>
+      </a>
+      {% endif %}
+    </nav>
+    {% endif %}
+  </footer>
+</article>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var content = document.getElementById("post-content");
+    var tocNav = document.getElementById("toc-nav");
+    var tocContainer = document.getElementById("toc-container");
+    if (!content || !tocNav) return;
+
+    var headings = content.querySelectorAll("h2, h3");
+    if (headings.length === 0) {
+      if (tocContainer) tocContainer.style.display = "none";
+      return;
+    }
+
+    var ul = document.createElement("ul");
+    ul.className = "toc-list";
+
+    headings.forEach(function (heading, index) {
+      if (!heading.id) {
+        heading.id = "section-" + (index + 1);
+      }
+      var li = document.createElement("li");
+      li.className = "toc-item toc-" + heading.tagName.toLowerCase();
+      var a = document.createElement("a");
+      a.href = "#" + heading.id;
+      a.textContent = heading.textContent;
+      a.className = "toc-link";
+      li.appendChild(a);
+      ul.appendChild(li);
+    });
+
+    tocNav.appendChild(ul);
+  });
+</script>

@@ -1,0 +1,168 @@
+---
+layout: default
+---
+
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="container hero-inner">
+    <div class="hero-profile">
+      {% if site.author.avatar %}
+      <img src="{{ site.author.avatar | relative_url }}" alt="{{ site.author.name }}" class="hero-avatar" onerror="this.style.display='none'">
+      {% endif %}
+      <div class="hero-text">
+        <span class="hero-eyebrow">{{ site.author.role | default: 'Game Level & System Designer' }}</span>
+        <h1 class="hero-title">{{ page.hero_title | default: site.title }}</h1>
+        <p class="hero-subtitle">{{ page.hero_subtitle | default: site.author.bio }}</p>
+        <div class="hero-actions">
+          <a href="{{ '/portfolio/' | relative_url }}" class="btn btn-primary">포트폴리오 보기</a>
+          <a href="{{ '/column/' | relative_url }}" class="btn btn-secondary">게임 칼럼 읽기</a>
+          <a href="{{ '/review/' | relative_url }}" class="btn btn-outline">게임 리뷰</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container home-content">
+  {% if content and content != "" %}
+  <div class="home-intro prose">
+    {{ content }}
+  </div>
+  {% endif %}
+
+  <!-- Featured Portfolio Section -->
+  <section class="home-section">
+    <div class="section-header">
+      <div>
+        <span class="section-kicker">FEATURED WORKS</span>
+        <h2 class="section-title">대표 포트폴리오</h2>
+      </div>
+      <a href="{{ '/portfolio/' | relative_url }}" class="section-more">전체 프로젝트 보기 →</a>
+    </div>
+
+    <div class="portfolio-grid">
+      {% assign portfolio_pages = site.pages | where: "category", "portfolio-item" %}
+      {% if portfolio_pages.size > 0 %}
+        {% for project in portfolio_pages limit: 3 %}
+        <article class="portfolio-card">
+          <a href="{{ project.url | relative_url }}" class="card-link-wrapper">
+            <div class="card-thumb">
+              {% if project.thumbnail %}
+              <img src="{{ project.thumbnail | relative_url }}" alt="{{ project.title }}" loading="lazy">
+              {% else %}
+              <div class="thumb-placeholder">
+                <span>{{ project.genre | default: 'PROJECT' }}</span>
+              </div>
+              {% endif %}
+              {% if project.period %}
+              <span class="card-period-badge">{{ project.period }}</span>
+              {% endif %}
+            </div>
+            <div class="card-body">
+              <div class="card-tags">
+                {% for tag in project.tags limit: 4 %}
+                <span class="tag-chip">{{ tag }}</span>
+                {% endfor %}
+              </div>
+              <h3 class="card-title">{{ project.title }}</h3>
+              <p class="card-summary">{{ project.summary | default: project.excerpt | strip_html | truncate: 110 }}</p>
+              <div class="card-footer">
+                <span class="card-role">{{ project.role | default: 'Level Design' }}</span>
+                <span class="card-cta">상세 보기 →</span>
+              </div>
+            </div>
+          </a>
+        </article>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </section>
+
+  <!-- Latest Columns & Reviews Dual Grid -->
+  <div class="home-feeds-grid">
+    <!-- Latest Game Columns -->
+    <section class="home-section">
+      <div class="section-header">
+        <div>
+          <span class="section-kicker">DEEP DIVE &amp; ANALYSIS</span>
+          <h2 class="section-title">최신 게임 칼럼</h2>
+        </div>
+        <a href="{{ '/column/' | relative_url }}" class="section-more">더보기 →</a>
+      </div>
+
+      <div class="post-feed">
+        {% assign column_posts = site.categories.column %}
+        {% if column_posts and column_posts.size > 0 %}
+          {% for post in column_posts limit: 4 %}
+          <article class="feed-card">
+            <div class="feed-meta">
+              <span class="cat-badge cat-column">COLUMN</span>
+              <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y.%m.%d" }}</time>
+            </div>
+            <h3 class="feed-title">
+              <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+            </h3>
+            {% if post.subtitle %}
+            <p class="feed-subtitle">{{ post.subtitle }}</p>
+            {% else %}
+            <p class="feed-excerpt">{{ post.excerpt | strip_html | truncate: 110 }}</p>
+            {% endif %}
+            {% if post.tags %}
+            <div class="feed-tags">
+              {% for tag in post.tags limit: 3 %}
+              <span class="tag-mini">#{{ tag }}</span>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </article>
+          {% endfor %}
+        {% else %}
+          <p class="empty-state">등록된 칼럼이 없습니다.</p>
+        {% endif %}
+      </div>
+    </section>
+
+    <!-- Latest Game Reviews -->
+    <section class="home-section">
+      <div class="section-header">
+        <div>
+          <span class="section-kicker">CRITIQUE &amp; VERDICT</span>
+          <h2 class="section-title">최신 게임 리뷰</h2>
+        </div>
+        <a href="{{ '/review/' | relative_url }}" class="section-more">더보기 →</a>
+      </div>
+
+      <div class="post-feed">
+        {% assign review_posts = site.categories.review %}
+        {% if review_posts and review_posts.size > 0 %}
+          {% for post in review_posts limit: 4 %}
+          <article class="feed-card feed-card-review">
+            <div class="feed-review-top">
+              <div class="feed-meta">
+                <span class="cat-badge cat-review">REVIEW</span>
+                <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y.%m.%d" }}</time>
+                {% if post.game_info.platform %}
+                <span class="meta-divider">·</span>
+                <span class="meta-platform">{{ post.game_info.platform }}</span>
+                {% endif %}
+              </div>
+              {% if post.rating %}
+              <div class="rating-pill" title="평점 {{ post.rating }} / 10">
+                <span class="rating-star">★</span>
+                <span class="rating-num">{{ post.rating }}</span><span class="rating-max">/10</span>
+              </div>
+              {% endif %}
+            </div>
+            <h3 class="feed-title">
+              <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+            </h3>
+            <p class="feed-excerpt">{{ post.summary | default: post.excerpt | strip_html | truncate: 110 }}</p>
+          </article>
+          {% endfor %}
+        {% else %}
+          <p class="empty-state">등록된 리뷰가 없습니다.</p>
+        {% endif %}
+      </div>
+    </section>
+  </div>
+</div>
