@@ -49,17 +49,18 @@ author:
   bio: "플레이어의 시선과 동선을 설계하는 레벨 디자이너입니다. 게임의 공간 구조와 시스템 메커니즘을 해부하고 기록합니다."
   links:
     - label: "Naver Blog"
+      icon: "naver-blog"
       url: "https://blog.naver.com/qustjdals46"
     - label: "YouTube"
+      icon: "youtube"
       url: "https://www.youtube.com/@%EB%B3%80%EC%84%B1%EB%AF%BC"
     - label: "Notion"
+      icon: "notion"
       url: "https://app.notion.com/p/36ee398987dc801a8339fc3a361769c2?source=copy_link&assetsVersion=23.13.20260529.1029"
-    - label: "GitHub"
-      url: "https://github.com/byeonsatto"
 
-# Include underscore-prefixed portfolio project pages if needed
+# Include underscore-prefixed files in Jekyll build
 include:
-  - portfolio/_sample-project.md
+  - "_sample-project.md"
 
 # Default Front-matter Values
 defaults:
