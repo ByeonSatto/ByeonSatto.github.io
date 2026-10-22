@@ -7,6 +7,7 @@ tags: [PokeRogue, Roguelike, GameColumn]
 author: "변성민"
 summary: "최근 포켓로그가 큰 인기를 끌었다."
 original_url: "https://blog.naver.com/qustjdals46/223521682551"
+thumbnail: "/assets/images/posts/223521682551_1.png"
 toc: true
 ---
 

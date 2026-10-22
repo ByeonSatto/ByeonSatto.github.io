@@ -20,6 +20,7 @@ pros:
 cons:
   - "초견 플레이 시 매우 빠른 템포와 2데미지 피격으로 인한 높은 진입 장벽"
 original_url: "https://blog.naver.com/qustjdals46/223783865034"
+thumbnail: "/assets/images/posts/223783865034_thumb.jpg"
 toc: true
 ---
 

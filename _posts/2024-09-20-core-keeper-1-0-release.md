@@ -7,6 +7,7 @@ tags: [CoreKeeper, PatchAnalysis, GameColumn]
 author: "변성민"
 summary: "코어키퍼 전반에 대한 내용을 다뤘다."
 original_url: "https://blog.naver.com/qustjdals46/223590333180"
+thumbnail: "/assets/images/posts/223590333180_1.png"
 toc: true
 ---
 

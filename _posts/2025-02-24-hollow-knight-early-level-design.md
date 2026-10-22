@@ -7,6 +7,7 @@ tags: [HollowKnight, LevelDesign, Metroidvania, GameColumn]
 author: "변성민"
 summary: "메트로배니아 장르에 대한 관심이 생겼다."
 original_url: "https://blog.naver.com/qustjdals46/223772136360"
+thumbnail: "/assets/images/posts/223772136360_1.png"
 toc: true
 ---
 

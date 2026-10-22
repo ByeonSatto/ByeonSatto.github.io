@@ -7,6 +7,7 @@ tags: [Civilization7, GameColumn, Strategy]
 author: "변성민"
 summary: "지난 2025년 2월 11일 드디어 문명7이 출시됐다."
 original_url: "https://blog.naver.com/qustjdals46/223766147745"
+thumbnail: "/assets/images/posts/223766147745_1.png"
 toc: true
 ---
 

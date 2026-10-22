@@ -7,6 +7,7 @@ tags: [CoreKeeper, SystemDesign, LevelDesign, GameColumn]
 author: "변성민"
 summary: "나는 최근 바쁜 나날을 보내고 있다."
 original_url: "https://blog.naver.com/qustjdals46/223580262469"
+thumbnail: "/assets/images/posts/223580262469_1.png"
 toc: true
 ---
 

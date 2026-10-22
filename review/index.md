@@ -18,45 +18,48 @@ description: "플레이 경험, 레벨 구조 완성도, 핵심 재미와 한계
     {% assign reviews = site.categories.review %}
     {% if reviews and reviews.size > 0 %}
       {% for post in reviews %}
-      <article class="archive-card archive-card-review">
-        <div class="archive-review-header">
-          <div class="archive-card-meta">
-            <span class="cat-badge cat-review">REVIEW</span>
-            <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y년 %m월 %d일" }}</time>
-            {% if post.game_info.genre %}
-            <span class="meta-divider">·</span>
-            <span>{{ post.game_info.genre }}</span>
-            {% endif %}
-            {% if post.game_info.platform %}
-            <span class="meta-divider">·</span>
-            <span>{{ post.game_info.platform }}</span>
+      <article class="archive-card archive-card-review {% if post.thumbnail %}has-thumb{% endif %}">
+        {% if post.thumbnail %}
+        <a href="{{ post.url | relative_url }}" class="archive-thumb-link">
+          <img src="{{ post.thumbnail | relative_url }}" alt="{{ post.title }}" class="archive-thumb" loading="lazy">
+        </a>
+        {% endif %}
+        <div class="archive-card-body">
+          <div class="archive-review-header">
+            <div class="archive-card-meta">
+              <span class="cat-badge cat-review">REVIEW</span>
+              <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y년 %m월 %d일" }}</time>
+              {% if post.game_info.genre %}
+              <span class="meta-divider">·</span>
+              <span>{{ post.game_info.genre }}</span>
+              {% endif %}
+            </div>
+            {% if post.rating %}
+            <div class="rating-pill" title="평점 {{ post.rating }} / 10">
+              <span class="rating-star">★</span>
+              <span class="rating-num">{{ post.rating }}</span><span class="rating-max">/10</span>
+            </div>
             {% endif %}
           </div>
-          {% if post.rating %}
-          <div class="rating-pill" title="평점 {{ post.rating }} / 10">
-            <span class="rating-star">★</span>
-            <span class="rating-num">{{ post.rating }}</span><span class="rating-max">/10</span>
+
+          <h2 class="archive-card-title">
+            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+          </h2>
+
+          {% if post.verdict %}
+          <p class="archive-verdict-quote">"{{ post.verdict }}"</p>
+          {% endif %}
+
+          <p class="archive-card-excerpt">{{ post.summary | default: post.excerpt | strip_html | truncate: 150 }}</p>
+
+          {% if post.tags %}
+          <div class="archive-card-tags">
+            {% for tag in post.tags %}
+            <span class="tag-chip">#{{ tag }}</span>
+            {% endfor %}
           </div>
           {% endif %}
         </div>
-
-        <h2 class="archive-card-title">
-          <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-        </h2>
-
-        {% if post.verdict %}
-        <p class="archive-verdict-quote">"{{ post.verdict }}"</p>
-        {% endif %}
-
-        <p class="archive-card-excerpt">{{ post.summary | default: post.excerpt | strip_html | truncate: 180 }}</p>
-
-        {% if post.tags %}
-        <div class="archive-card-tags">
-          {% for tag in post.tags %}
-          <span class="tag-chip">#{{ tag }}</span>
-          {% endfor %}
-        </div>
-        {% endif %}
       </article>
       {% endfor %}
     {% else %}

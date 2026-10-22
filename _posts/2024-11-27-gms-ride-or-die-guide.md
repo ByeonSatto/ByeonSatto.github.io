@@ -7,6 +7,7 @@ tags: [MapleStory, GMS, EventGuide]
 author: "변성민"
 summary: "GMS Rid or Die가 10주 남았다."
 original_url: "https://blog.naver.com/qustjdals46/223674393103"
+thumbnail: "/assets/images/posts/223674393103_1.png"
 toc: true
 ---
 

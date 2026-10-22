@@ -23,6 +23,7 @@ cons:
   - "와이어 액션의 잠재력에 비해 다소 불편한 조작감"
   - "액션에 완전히 숙달되기 전에 본편 콘텐츠가 마무리되는 아쉬운 볼륨"
 original_url: "https://blog.naver.com/qustjdals46/223792612383"
+thumbnail: "/assets/images/posts/223792612383_1.png"
 toc: true
 ---
 

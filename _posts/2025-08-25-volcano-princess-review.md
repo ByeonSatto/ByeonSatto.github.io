@@ -25,6 +25,7 @@ cons:
   - "58개의 직업 엔딩에 비해 메인 스토리 분기(진엔딩/노말엔딩)와 볼륨이 지나치게 적음"
   - "암흑 스탯이나 등장인물 간 입체적 상호작용이 스토리 분기에 깊이 관여하지 못함"
 original_url: "https://blog.naver.com/qustjdals46/223982464667"
+thumbnail: "/assets/images/posts/223982464667_1.png"
 toc: true
 ---
 

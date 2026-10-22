@@ -7,6 +7,7 @@ tags: [LegendOfMortal, Narrative, GameColumn]
 author: "변성민"
 summary: "최근 활협전이라는 게임이 화제가 되고 있다."
 original_url: "https://blog.naver.com/qustjdals46/223567379907"
+thumbnail: "/assets/images/posts/223567379907_1.png"
 toc: true
 ---
 
