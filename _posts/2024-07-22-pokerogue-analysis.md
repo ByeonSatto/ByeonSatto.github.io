@@ -13,7 +13,6 @@ game_info:
   genre: "덱빌딩 로그라이트 RPG"
   platform: "PC / Mobile Web"
   developer: "Pagefault Games (Fan Project)"
-  perspective: "수집 요소의 인게임 플레이 결합 및 덱빌딩(유전자쐐기) 메커니즘 분석"
 pros:
   - "단순 수집 요소였던 이로치 포켓몬에 '행운 수치'를 부여해 웨이브 보상 등급과 직결시킨 설계"
   - "유전자쐐기를 통한 특성·패시브·기술 압축 등 자유도 높은 덱빌딩 전략성"

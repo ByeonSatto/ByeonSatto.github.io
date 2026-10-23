@@ -15,7 +15,6 @@ game_info:
   developer: "Egg Hatcher Studio"
   publisher: "Gamera Games"
   release_date: "2023. 04"
-  perspective: "육성 시스템 루프 및 다회차 분기 설계 분석"
 pros:
   - "직관적이고 배우기 쉬운 육성 시스템 (호감도, 스폿, 커리큘럼)"
   - "2회차부터 도전과제 보너스로 해금되는 재능·호감도 계승 시스템"

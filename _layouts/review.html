@@ -64,7 +64,6 @@ layout: default
     {% if page.game_info %}
     <section class="game-info-box" aria-label="게임 기본 정보">
       <div class="game-info-header">
-        <span class="info-kicker">SPECIFICATION SHEET</span>
         <h2 class="info-title">{{ page.game_info.title | default: page.title }} 기본 정보</h2>
       </div>
       <div class="game-info-grid">
@@ -81,19 +80,13 @@ layout: default
           <strong class="info-value">{{ page.game_info.developer | default: "-" }}{% if page.game_info.publisher %} / {{ page.game_info.publisher }}{% endif %}</strong>
         </div>
         <div class="info-cell">
-          <span class="info-label">클리어 타임 (Playtime)</span>
+          <span class="info-label">플레이타임</span>
           <strong class="info-value highlight">{{ page.game_info.playtime | default: "-" }}</strong>
         </div>
         {% if page.game_info.release_date %}
         <div class="info-cell">
           <span class="info-label">출시일 (Release)</span>
           <strong class="info-value">{{ page.game_info.release_date }}</strong>
-        </div>
-        {% endif %}
-        {% if page.game_info.perspective %}
-        <div class="info-cell">
-          <span class="info-label">핵심 분석 관점</span>
-          <strong class="info-value">{{ page.game_info.perspective }}</strong>
         </div>
         {% endif %}
       </div>
@@ -106,26 +99,24 @@ layout: default
       <div class="pros-cons-grid">
         <div class="pros-card">
           <div class="pc-card-header pros-header">
-            <span class="pc-icon">+</span>
-            <h3>장점 (PROS)</h3>
+            <h3>장점</h3>
           </div>
-          <ul class="pc-list">
+          <ol class="pc-list">
             {% for item in page.pros %}
             <li>{{ item }}</li>
             {% endfor %}
-          </ul>
+          </ol>
         </div>
 
         <div class="cons-card">
           <div class="pc-card-header cons-header">
-            <span class="pc-icon">−</span>
-            <h3>단점 및 아쉬운 점 (CONS)</h3>
+            <h3>단점</h3>
           </div>
-          <ul class="pc-list">
+          <ol class="pc-list">
             {% for item in page.cons %}
             <li>{{ item }}</li>
             {% endfor %}
-          </ul>
+          </ol>
         </div>
       </div>
     </section>

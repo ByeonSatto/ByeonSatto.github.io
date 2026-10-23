@@ -14,7 +14,6 @@ game_info:
   platform: "PC (Steam), Nintendo Switch"
   developer: "원더포션 (Wonder Potion)"
   publisher: "NEOWIZ"
-  perspective: "내러티브 연출 및 레벨 색감·와이어 액션 분석"
 pros:
   - "최상층의 밝은 분홍색 배경 배치 등 서사적 진실과 완벽히 맞물리는 레벨 색감 기획"
   - "선경례와 카메라 워킹을 활용한 압도적인 감정선 및 내러티브 전달력"

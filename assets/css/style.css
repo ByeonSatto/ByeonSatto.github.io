@@ -1297,33 +1297,30 @@ img {
 
 .pc-list {
   list-style: none;
+  counter-reset: pc-counter;
   display: flex;
   flex-direction: column;
   gap: 0.65rem;
 }
 
 .pc-list li {
+  counter-increment: pc-counter;
   position: relative;
-  padding-left: 1.25rem;
+  padding-left: 1.5rem;
   font-size: 0.94rem;
   color: var(--text-secondary);
   line-height: 1.55;
 }
 
-.pros-card .pc-list li::before {
-  content: "✓";
+.pros-card .pc-list li::before,
+.cons-card .pc-list li::before {
+  content: counter(pc-counter) ".";
   position: absolute;
   left: 0;
-  color: var(--accent-emerald);
+  color: #ffffff;
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
   font-weight: 700;
-}
-
-.cons-card .pc-list li::before {
-  content: "!";
-  position: absolute;
-  left: 0.2rem;
-  color: var(--accent-rose);
-  font-weight: 800;
 }
 
 /* ==========================================================================
