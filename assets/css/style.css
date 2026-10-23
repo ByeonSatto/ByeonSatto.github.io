@@ -332,6 +332,36 @@ img {
   margin-bottom: 1.5rem;
 }
 
+.hero-contact-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  max-width: 100%;
+  font-size: 0.98rem;
+}
+
+.hero-contact-name {
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.hero-contact-divider {
+  color: var(--text-muted);
+  opacity: 0.6;
+}
+
+.hero-contact-email a:hover {
+  color: var(--accent-cyan);
+}
+
+.hero-social-links {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
@@ -1504,7 +1534,9 @@ img {
     text-align: center;
   }
 
-  .hero-actions {
+  .hero-actions,
+  .hero-contact-row,
+  .hero-social-links {
     justify-content: center;
   }
 
