@@ -35,7 +35,7 @@ navigation:
     url: "/"
   - title: "Portfolio"
     url: "/portfolio/"
-  - title: "Column"
+  - title: "Column/Guide"
     url: "/column/"
   - title: "Review"
     url: "/review/"

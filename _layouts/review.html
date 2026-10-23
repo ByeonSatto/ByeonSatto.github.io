@@ -26,29 +26,21 @@ layout: default
           {% if page.subtitle or page.summary %}
           <p class="post-subtitle">{{ page.subtitle | default: page.summary }}</p>
           {% endif %}
-
-          {% if page.tags and page.tags.size > 0 %}
-          <div class="post-tags">
-            {% for tag in page.tags %}
-            <span class="tag-chip">#{{ tag }}</span>
-            {% endfor %}
-          </div>
-          {% endif %}
         </div>
 
-        <!-- Score Badge Area (10점 만점 배지 + 별점 시각화) -->
+        <!-- Score Badge Area (5점 만점 배지 + 별점 시각화) -->
         {% if page.rating %}
-        <div class="review-score-card" aria-label="평점 {{ page.rating }}점 (10점 만점)">
+        <div class="review-score-card" aria-label="평점 {{ page.rating }}점 (5.0점 만점)">
           <span class="score-label">VERDICT SCORE</span>
           <div class="score-number-wrap">
             <span class="score-value">{{ page.rating }}</span>
-            <span class="score-max">/ 10</span>
+            <span class="score-max">/ 5.0</span>
           </div>
           <div class="score-stars" aria-hidden="true">
             {% assign star_score = page.rating | times: 1.0 %}
             {% for i in (1..5) %}
-              {% assign threshold = i | times: 2 %}
-              {% assign half_threshold = threshold | minus: 1 %}
+              {% assign threshold = i | times: 1.0 %}
+              {% assign half_threshold = threshold | minus: 0.5 %}
               {% if star_score >= threshold %}
                 <span class="star filled">★</span>
               {% elsif star_score >= half_threshold %}

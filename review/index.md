@@ -8,13 +8,13 @@ description: "플레이 경험, 레벨 구조 완성도, 핵심 재미와 한계
 <section class="page-hero">
   <div class="container">
     <span class="page-kicker">CRITIQUE &amp; VERDICT ARCHIVE</span>
-    <h1 class="page-title">게임 리뷰 (Reviews)</h1>
+    <h1 class="page-title">게임 리뷰</h1>
     <p class="page-desc">{{ page.description }}</p>
   </div>
 </section>
 
 <div class="container page-container">
-  <div class="archive-list">
+  <div class="archive-list archive-grid-review">
     {% assign reviews = site.categories.review %}
     {% if reviews and reviews.size > 0 %}
       {% for post in reviews %}
@@ -35,9 +35,9 @@ description: "플레이 경험, 레벨 구조 완성도, 핵심 재미와 한계
               {% endif %}
             </div>
             {% if post.rating %}
-            <div class="rating-pill" title="평점 {{ post.rating }} / 10">
+            <div class="rating-pill" title="평점 {{ post.rating }} / 5.0">
               <span class="rating-star">★</span>
-              <span class="rating-num">{{ post.rating }}</span><span class="rating-max">/10</span>
+              <span class="rating-num">{{ post.rating }}</span><span class="rating-max">/5.0</span>
             </div>
             {% endif %}
           </div>
@@ -51,14 +51,6 @@ description: "플레이 경험, 레벨 구조 완성도, 핵심 재미와 한계
           {% endif %}
 
           <p class="archive-card-excerpt">{{ post.summary | default: post.excerpt | strip_html | truncate: 150 }}</p>
-
-          {% if post.tags %}
-          <div class="archive-card-tags">
-            {% for tag in post.tags %}
-            <span class="tag-chip">#{{ tag }}</span>
-            {% endfor %}
-          </div>
-          {% endif %}
         </div>
       </article>
       {% endfor %}

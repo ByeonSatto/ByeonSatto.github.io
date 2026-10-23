@@ -1,11 +1,11 @@
-﻿---
+---
 layout: review
 title: "[산나비] 후기-끝까지 가는 게 중요한 게 아니야(스포일러 포함)"
 date: 2025-03-11 22:21:08 +0900
 categories: [review]
 tags: [GameReview, SANABI, ActionPlatformer, IndieGame]
 author: "변성민"
-rating: 9.2
+rating: 4.5
 verdict: "사슬 팔이라는 스토리적 장치를 게임성으로 녹여내고, 색감 배치와 카메라 연출로 내러티브의 힘을 극대화한 작품."
 summary: "한 아버지의 복수극이 아닌 딸과 함께하는 처음이자 마지막 모험. 마고 그룹 최상층의 색감 기획과 연출이 주는 강렬한 내러티브의 힘을 돌아봅니다."
 game_info:

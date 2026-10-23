@@ -40,13 +40,6 @@ description: "게임 레벨 디자인, 공간의 시선 유도, 패치 방향성
           <p class="archive-card-subtitle">{{ post.subtitle }}</p>
           {% endif %}
           <p class="archive-card-excerpt">{{ post.summary | default: post.excerpt | strip_html | truncate: 150 }}</p>
-          {% if post.tags %}
-          <div class="archive-card-tags">
-            {% for tag in post.tags %}
-            <span class="tag-chip">#{{ tag }}</span>
-            {% endfor %}
-          </div>
-          {% endif %}
         </div>
       </article>
       {% endfor %}

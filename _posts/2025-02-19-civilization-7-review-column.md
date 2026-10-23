@@ -1,11 +1,28 @@
-﻿---
-layout: post
+---
+layout: review
 title: "[문명7] 간단리뷰: 문명은 친절할 필요가 없다"
 date: 2025-02-19 15:59:42 +0900
-categories: [column]
-tags: [Civilization7, GameColumn, Strategy]
+categories: [review]
+tags: [GameReview, Civilization7, Strategy]
 author: "변성민"
-summary: "지난 2025년 2월 11일 드디어 문명7이 출시됐다."
+rating: 3.5
+verdict: "도시와 마을의 분리로 후반 조작 스트레스를 줄이고, 내러티브와 시대별 문명 변경으로 전략적 선택지를 넓힌 매력적인 변화."
+summary: "도시·마을 이원화 시스템으로 후반부 관리 피로도를 낮추고, 내러티브 이벤트와 시대별 문명 교체로 전략적 변수를 늘린 문명 7의 첫인상 리뷰입니다."
+game_info:
+  title: "문명 7 (Sid Meier's Civilization VII)"
+  genre: "4X 턴제 전략 시뮬레이션"
+  platform: "PC (Steam), Console"
+  developer: "Firaxis Games"
+  publisher: "2K"
+  playtime: "13시간+"
+  release_date: "2025. 02"
+  perspective: "조작 스트레스 완화 및 시대·내러티브 선택지 분석"
+pros:
+  - "도시와 마을 시스템 이원화로 후반부 반복 조작 및 특수지구 심시티 스트레스 대폭 감소"
+  - "유산의 길과 내러티브 선택지를 통한 직관적인 플레이 방향성 피드백"
+  - "시대 전환 시 문명 변경과 지도자 레벨 해금을 통한 다회차 빌드 다양성 확보"
+cons:
+  - "입문자 기준으로는 다소 불친절하게 느껴질 수 있는 UI와 설명 부족"
 original_url: "https://blog.naver.com/qustjdals46/223766147745"
 thumbnail: "/assets/images/posts/223766147745_1.png"
 toc: true

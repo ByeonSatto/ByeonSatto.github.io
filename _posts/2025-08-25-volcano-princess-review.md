@@ -1,11 +1,11 @@
-﻿---
+---
 layout: review
 title: "[화산의 딸] 후기- 반찬이 많다고 좋은 식당은 아니다"
 date: 2025-08-25 12:32:22 +0900
 categories: [review]
 tags: [GameReview, VolcanoPrincess, Simulation]
 author: "변성민"
-rating: 7.2
+rating: 2.5
 verdict: "개성 있고 귀여운 캐릭터와 직관적인 육성 재미는 확실하지만, 58개의 직업 엔딩에 비해 얕은 메인 스토리 분기와 반복적인 행동력 루프가 아쉬운 작품."
 summary: "프린세스 메이커 스타일의 육성 시뮬레이션 [화산의 딸]의 호감도·스폿·커리큘럼 시스템과 회차 플레이 구조의 장단점을 분석한 후기입니다."
 game_info:

@@ -1,11 +1,30 @@
-﻿---
-layout: post
+---
+layout: review
 title: "[활협전] - 게임은 덕후가 만들어야 한다"
 date: 2024-08-31 15:05:51 +0900
-categories: [column]
-tags: [LegendOfMortal, Narrative, GameColumn]
+categories: [review]
+tags: [GameReview, LegendOfMortal, Narrative, RPG]
 author: "변성민"
-summary: "최근 활협전이라는 게임이 화제가 되고 있다."
+rating: 4.5
+verdict: "사소한 선택과 스탯, 주사위가 촘촘히 맞물려 무협의 세계관과 서사적 몰입감을 극대화한 작품."
+summary: "70시간 플레이를 통해 분석한 활협전의 다층적 스탯·호감도·주사위 이벤트 트리거 구조의 강점과 전투 및 육성 동선의 아쉬운 점을 다룬 리뷰입니다."
+game_info:
+  title: "활협전 (Legend of Mortal)"
+  genre: "무협 육성 시뮬레이션 RPG"
+  platform: "PC (Steam)"
+  developer: "Obb Studio"
+  publisher: "Paras Games"
+  playtime: "70시간+"
+  release_date: "2024. 06"
+  perspective: "스탯·호감도 기반 다중 이벤트 트리거 및 육성 시스템 분석"
+pros:
+  - "성품·문파 스탯과 인물 호감도가 주사위 보정치 및 스토리 분기로 이어지는 정교한 스노우볼 구조"
+  - "동행 인물과 현재 상태에 따라 대사와 사건 양상이 세밀하게 달라지는 압도적인 서사 디테일"
+  - "무공비급 수련(의술·전술 등)이 단순 전투를 넘어 스토리 이벤트 조건으로 유기적 작동"
+cons:
+  - "주요 육성 행동에 성품 스탯 증감 선택지가 고정되어 있어 특정 스탯 보완 동선이 비효율적"
+  - "후반부 단조로운 개인전 연출과 피아식별·타격 판정·보상이 아쉬운 단체전 전투 시스템"
+  - "일부 히로인 및 당문 내성 제자 입문 등 아직 미구현된 스토리 루트"
 original_url: "https://blog.naver.com/qustjdals46/223567379907"
 thumbnail: "/assets/images/posts/223567379907_1.png"
 toc: true

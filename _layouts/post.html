@@ -37,14 +37,6 @@ layout: default
       <p class="post-subtitle">{{ page.subtitle | default: page.summary }}</p>
       {% endif %}
 
-      {% if page.tags and page.tags.size > 0 %}
-      <div class="post-tags">
-        {% for tag in page.tags %}
-        <span class="tag-chip">#{{ tag }}</span>
-        {% endfor %}
-      </div>
-      {% endif %}
-
       {% if page.tech_stack or page.role or page.team_size %}
       <div class="project-spec-bar">
         {% if page.role %}
