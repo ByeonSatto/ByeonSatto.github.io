@@ -374,6 +374,17 @@ sitemap: false
   const prosTextarea = document.getElementById("review-pros");
   const consTextarea = document.getElementById("review-cons");
 
+  // Preview, Upload, Publish & Modal Elements
+  const previewContainer = document.getElementById("live-preview-container");
+  const uploadSpinner = document.getElementById("upload-spinner");
+  const publishBtn = document.getElementById("btn-publish-github");
+  const publishStatusMsg = document.getElementById("publish-status-msg");
+  const postsModal = document.getElementById("posts-modal");
+  const postsListLoading = document.getElementById("posts-list-loading");
+  const postsListContainer = document.getElementById("posts-list-container");
+  const editModeBanner = document.getElementById("edit-mode-banner");
+  const editingFilePathEl = document.getElementById("editing-file-path");
+
   // State
   let currentCategory = "column";
   let editingFilePath = null;
@@ -666,8 +677,6 @@ sitemap: false
   // =========================================================================
   // 4. 실시간 미리보기 렌더링
   // =========================================================================
-  const previewContainer = document.getElementById("live-preview-container");
-
   function updateLivePreview() {
     const title = titleInput.value.trim() || "글 제목이 여기에 표시됩니다";
     const summary = summaryInput.value.trim();
@@ -804,8 +813,6 @@ sitemap: false
   }
 
   // Image Upload to GitHub (/assets/images/posts/...)
-  const uploadSpinner = document.getElementById("upload-spinner");
-
   async function uploadImageFileToGitHub(file) {
     const token = localStorage.getItem(TOKEN_KEY);
     if (!token) {
@@ -925,9 +932,6 @@ sitemap: false
   // =========================================================================
   // 6. GitHub에 바로 발행하기 / 수정하기
   // =========================================================================
-  const publishBtn = document.getElementById("btn-publish-github");
-  const publishStatusMsg = document.getElementById("publish-status-msg");
-
   function encodeGitHubPath(p) {
     return String(p).replace(/^\/+/, "").split("/").map(encodeURIComponent).join("/");
   }
@@ -1050,12 +1054,6 @@ sitemap: false
   // =========================================================================
   // 7. 기존 글 불러오기 / 수정 / 삭제 기능
   // =========================================================================
-  const postsModal = document.getElementById("posts-modal");
-  const postsListLoading = document.getElementById("posts-list-loading");
-  const postsListContainer = document.getElementById("posts-list-container");
-  const editModeBanner = document.getElementById("edit-mode-banner");
-  const editingFilePathEl = document.getElementById("editing-file-path");
-
   document.getElementById("btn-open-posts-modal").addEventListener("click", function () {
     postsModal.style.display = "flex";
     loadExistingPostsList();
