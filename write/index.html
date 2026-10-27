@@ -21,8 +21,8 @@ sitemap: false
         <span class="auth-kicker">OWNER ONLY ACCESS</span>
         <h1 class="auth-title">관리자 전용 글쓰기 스튜디오</h1>
         <p class="auth-desc">
-          이 페이지는 블로그 소유자(<strong>byeonsatto</strong>)만 사용할 수 있습니다.<br>
-          GitHub 서버에서 소유자 토큰을 직접 검증하므로, 본인 외에는 그 누구도 글을 작성하거나 수정할 수 없습니다.
+          이 페이지는 블로그 소유자(<strong>ByeonSatto</strong>)만 사용할 수 있습니다.<br>
+          한 번 인증하면 이 브라우저에 영구 저장되어 다음부터는 인증 없이 바로 열립니다.
         </p>
 
         <form id="auth-form" class="auth-form" onsubmit="return false;">
@@ -39,7 +39,7 @@ sitemap: false
           </div>
           <div id="auth-error-msg" class="auth-error" style="display: none;"></div>
           <button type="submit" id="auth-submit-btn" class="btn btn-primary auth-submit-btn">
-            소유자 인증 및 에디터 열기
+            소유자 인증 및 에디터 열기 (이후 자동 로그인)
           </button>
         </form>
 
@@ -55,9 +55,9 @@ sitemap: false
                   </a>
                 </div>
               </li>
-              <li><strong>Expiration(만료 기간)</strong>을 <code>No expiration</code>(무기한) 또는 원하는 기간으로 선택합니다.</li>
+              <li><strong>Expiration(만료 기간)</strong>을 <code>No expiration</code>(무기한)으로 선택합니다.</li>
               <li>맨 아래 초록색 <strong>Generate token</strong> 버튼을 누릅니다.</li>
-              <li>생성된 <code>ghp_...</code>로 시작하는 키를 복사해 위 입력창에 붙여넣으면 끝납니다! (한 번 인증하면 내 브라우저에 안전하게 기억됩니다.)</li>
+              <li>생성된 <code>ghp_...</code> 키를 복사해 위 입력창에 붙여넣으면 끝납니다!</li>
             </ol>
           </div>
         </details>
@@ -66,7 +66,7 @@ sitemap: false
   </section>
 
   <!-- =====================================================================
-       2. 에디터 스튜디오 본체 (소유자 인증 완료 후에만 표시)
+       2. 에디터 스튜디오 본체 (소유자 인증 후 즉시 표시)
        ===================================================================== -->
   <section id="editor-studio" class="editor-studio-section" style="display: none;">
     <div class="container">
@@ -75,7 +75,7 @@ sitemap: false
         <div class="studio-topbar-left">
           <span class="owner-verified-badge">
             <span class="status-dot"></span>
-            <strong id="verified-username">byeonsatto</strong> 관리자 인증됨
+            <strong id="verified-username">ByeonSatto</strong> 관리자 인증됨 (자동 로그인 유지 중)
           </span>
           <span id="draft-status" class="draft-status-text">자동 임시저장 활성화</span>
         </div>
@@ -131,7 +131,7 @@ sitemap: false
           </div>
 
           <div class="form-group">
-            <label for="post-slug">파일 영문 슬러그 (URL 주소) <span class="hint">(비워두면 자동 생성)</span></label>
+            <label for="post-slug">파일 슬러그 (URL 주소) <span class="hint">(비워두면 제목으로 자동 생성)</span></label>
             <input type="text" id="post-slug" class="form-input" placeholder="예: hollow-knight-level-design">
           </div>
 
@@ -146,13 +146,13 @@ sitemap: false
           </div>
 
           <div class="form-group">
-            <label for="post-thumbnail">대표 썸네일 이미지 경로 <span class="hint">(본문 이미지 업로드 시 자동 입력 가능)</span></label>
+            <label for="post-thumbnail">대표 썸네일 이미지 경로 <span class="hint">(본문 사진 업로드 시 자동 입력됨)</span></label>
             <div class="input-with-btn">
               <input type="text" id="post-thumbnail" class="form-input" placeholder="/assets/images/posts/...">
-              <label class="btn btn-secondary btn-sm upload-inline-btn">
+              <button type="button" id="btn-upload-thumb" class="btn btn-secondary btn-sm upload-inline-btn">
                 썸네일 업로드
-                <input type="file" id="thumbnail-file-input" accept="image/*" style="display: none;">
-              </label>
+              </button>
+              <input type="file" id="thumbnail-file-input" accept="image/*" style="display: none;">
             </div>
           </div>
 
@@ -183,7 +183,7 @@ sitemap: false
             <div class="rating-control-wrap">
               <input type="range" id="review-rating-range" min="0.5" max="5.0" step="0.5" value="4.5" class="rating-slider">
               <input type="number" id="review-rating" min="0.5" max="5.0" step="0.5" value="4.5" class="form-input rating-num-input">
-              <span id="review-stars-preview" class="rating-stars-preview">★★★★☆</span>
+              <span id="review-stars-preview" class="rating-stars-preview">★★★★☆ (4.5 / 5.0)</span>
             </div>
           </div>
 
@@ -226,12 +226,10 @@ sitemap: false
         </div>
 
         <div class="pros-cons-editor-grid">
-          <!-- 장점 입력 -->
           <div class="pc-editor-box pros-editor-box">
             <label class="pc-editor-label pros-color">👍 장점 (Pros) — 한 줄에 하나씩 입력</label>
             <textarea id="review-pros" class="form-textarea pc-textarea" rows="4" placeholder="서사적 진실과 완벽히 맞물리는 레벨 색감 기획&#10;선경례와 카메라 워킹을 활용한 압도적인 내러티브 전달력&#10;사슬 팔 요소를 와이어 액션으로 녹여낸 매력적인 시도"></textarea>
           </div>
-          <!-- 단점 입력 -->
           <div class="pc-editor-box cons-editor-box">
             <label class="pc-editor-label cons-color">👎 단점 (Cons) — 한 줄에 하나씩 입력</label>
             <textarea id="review-cons" class="form-textarea pc-textarea" rows="4" placeholder="와이어 액션의 잠재력에 비해 다소 불편한 조작감&#10;액션에 완전히 숙달되기 전에 마무리되는 아쉬운 볼륨"></textarea>
@@ -241,23 +239,23 @@ sitemap: false
 
       <!-- 본문 에디터 + 실시간 미리보기 -->
       <div class="studio-card editor-main-card">
-        <div class="editor-toolbar">
+        <div class="editor-toolbar" id="editor-toolbar">
           <div class="toolbar-group">
-            <button type="button" class="tool-btn" data-insert="## " title="소제목 (우측 목차에 자동 등록됩니다)">H2 소제목</button>
-            <button type="button" class="tool-btn" data-insert="### " title="하위 제목">H3</button>
-            <button type="button" class="tool-btn" data-wrap="**" title="굵게"><strong>B</strong></button>
-            <button type="button" class="tool-btn" data-wrap="*" title="기울임"><em>I</em></button>
-            <button type="button" class="tool-btn" data-wrap="~~" title="취소선"><s>S</s></button>
-            <button type="button" class="tool-btn" data-insert="> " title="인용구">❝ 인용</button>
-            <button type="button" class="tool-btn" data-insert="---\n" title="구분선">― 구분선</button>
-            <button type="button" class="tool-btn" id="btn-insert-link" title="링크 삽입">🔗 링크</button>
+            <button type="button" class="tool-btn" data-action="insert" data-val="## " title="소제목 (우측 목차에 자동 등록됩니다)">H2 소제목</button>
+            <button type="button" class="tool-btn" data-action="insert" data-val="### " title="하위 제목">H3</button>
+            <button type="button" class="tool-btn" data-action="wrap" data-val="**" title="굵게"><strong>B</strong></button>
+            <button type="button" class="tool-btn" data-action="wrap" data-val="*" title="기울임"><em>I</em></button>
+            <button type="button" class="tool-btn" data-action="wrap" data-val="~~" title="취소선"><s>S</s></button>
+            <button type="button" class="tool-btn" data-action="insert" data-val="> " title="인용구">❝ 인용</button>
+            <button type="button" class="tool-btn" data-action="divider" title="구분선">― 구분선</button>
+            <button type="button" class="tool-btn" data-action="link" id="btn-insert-link" title="링크 삽입">🔗 링크</button>
           </div>
 
           <div class="toolbar-group">
-            <label class="tool-btn tool-btn-accent" title="클립보드 이미지 붙여넣기(Ctrl+V) 또는 파일 선택으로 GitHub에 즉시 업로드합니다">
+            <button type="button" id="btn-upload-body-image" class="tool-btn tool-btn-accent" title="클립보드 이미지 붙여넣기(Ctrl+V) 또는 파일 선택으로 GitHub에 즉시 업로드합니다">
               🖼️ 사진 업로드 추가
-              <input type="file" id="body-image-input" accept="image/*" multiple style="display: none;">
-            </label>
+            </button>
+            <input type="file" id="body-image-input" accept="image/*" multiple style="display: none;">
             <span id="upload-spinner" class="upload-status-pill" style="display: none;">⏳ 이미지 업로드 중...</span>
           </div>
         </div>
@@ -266,7 +264,7 @@ sitemap: false
           <div class="editor-pane-left">
             <div class="pane-label">
               <span>본문 작성 (Markdown)</span>
-              <span class="pane-hint">💡 캡처한 이미지를 에디터에 바로 붙여넣기(Ctrl+V) 하거나 드래그 앤 드롭하면 자동 업로드됩니다!</span>
+              <span class="pane-hint">💡 캡처한 이미지를 에디터에 바로 붙여넣기(Ctrl+V) 하거나 상단 '사진 업로드 추가'를 누르세요!</span>
             </div>
             <textarea
               id="post-body"
@@ -335,7 +333,43 @@ sitemap: false
   const VERIFIED_KEY = "byeon_admin_verified";
   const DRAFT_KEY = "byeon_blog_editor_draft_v1";
 
-  // Elements
+  // Helper: Cookie + LocalStorage Dual Persistence (새로고침/창 닫아도 인증 절대 풀리지 않음)
+  function getSavedToken() {
+    try {
+      const ls = localStorage.getItem(TOKEN_KEY);
+      if (ls && ls.trim()) return ls.trim();
+    } catch (e) {}
+    try {
+      const m = document.cookie.match(/(?:^|;\s*)byeon_blog_gh_token=([^;]+)/);
+      if (m && m[1]) return decodeURIComponent(m[1]).trim();
+    } catch (e) {}
+    return "";
+  }
+
+  function saveTokenPersistently(token) {
+    const clean = String(token || "").trim();
+    try {
+      localStorage.setItem(TOKEN_KEY, clean);
+      localStorage.setItem(VERIFIED_KEY, "true");
+    } catch (e) {}
+    try {
+      document.cookie = "byeon_blog_gh_token=" + encodeURIComponent(clean) + "; path=/; max-age=31536000; SameSite=Lax";
+    } catch (e) {}
+    document.documentElement.classList.add("is-owner-authenticated");
+  }
+
+  function clearSavedToken() {
+    try {
+      localStorage.removeItem(TOKEN_KEY);
+      localStorage.removeItem(VERIFIED_KEY);
+    } catch (e) {}
+    try {
+      document.cookie = "byeon_blog_gh_token=; path=/; max-age=0; SameSite=Lax";
+    } catch (e) {}
+    document.documentElement.classList.remove("is-owner-authenticated");
+  }
+
+  // DOM Elements (모두 최상단에서 한 번에 참조)
   const authGate = document.getElementById("auth-gate");
   const editorStudio = document.getElementById("editor-studio");
   const authForm = document.getElementById("auth-form");
@@ -344,7 +378,6 @@ sitemap: false
   const authSubmitBtn = document.getElementById("auth-submit-btn");
   const verifiedUsernameEl = document.getElementById("verified-username");
 
-  // Form Elements
   const tabBtnColumn = document.getElementById("tab-btn-column");
   const tabBtnReview = document.getElementById("tab-btn-review");
   const reviewMetaSection = document.getElementById("review-meta-section");
@@ -359,7 +392,6 @@ sitemap: false
   const tocCheckbox = document.getElementById("post-toc");
   const bodyTextarea = document.getElementById("post-body");
 
-  // Review Fields
   const ratingRange = document.getElementById("review-rating-range");
   const ratingInput = document.getElementById("review-rating");
   const ratingStarsPreview = document.getElementById("review-stars-preview");
@@ -374,7 +406,6 @@ sitemap: false
   const prosTextarea = document.getElementById("review-pros");
   const consTextarea = document.getElementById("review-cons");
 
-  // Preview, Upload, Publish & Modal Elements
   const previewContainer = document.getElementById("live-preview-container");
   const uploadSpinner = document.getElementById("upload-spinner");
   const publishBtn = document.getElementById("btn-publish-github");
@@ -390,122 +421,215 @@ sitemap: false
   let editingFilePath = null;
   let editingFileSha = null;
 
-  // Set default current datetime (KST local)
+  // 0. 저장된 토큰이 있으면 네트워크 대기 없이 0초 만에 즉시 에디터 열기!
+  const initialToken = getSavedToken();
+  if (initialToken) {
+    saveTokenPersistently(initialToken);
+    authGate.style.display = "none";
+    editorStudio.style.display = "block";
+  }
+
   function setDefaultDate() {
-    const now = new Date();
-    const tzOffset = now.getTimezoneOffset() * 60000;
-    const localISOTime = new Date(now - tzOffset).toISOString().slice(0, 16);
-    dateInput.value = localISOTime;
+    try {
+      const now = new Date();
+      const tzOffset = now.getTimezoneOffset() * 60000;
+      dateInput.value = new Date(now - tzOffset).toISOString().slice(0, 16);
+    } catch (e) {}
   }
   setDefaultDate();
 
   // =========================================================================
-  // 1. GitHub 소유자 인증 검증 (본인 외 접근 완벽 차단)
+  // 1. 실시간 미리보기 및 로컬 임시저장
   // =========================================================================
-  async function verifyOwnerToken(token) {
-    const cleanToken = token.trim();
-    if (!cleanToken) throw new Error("토큰을 입력해 주세요.");
-
-    const userRes = await fetch("https://api.github.com/user", {
-      headers: {
-        Authorization: "Bearer " + cleanToken,
-        Accept: "application/vnd.github+json"
-      }
-    });
-
-    if (!userRes.ok) {
-      throw new Error("유효하지 않은 GitHub 토큰입니다. 다시 확인해 주세요.");
-    }
-
-    const userData = await userRes.json();
-    if (!userData.login || userData.login.toLowerCase() !== REPO_OWNER.toLowerCase()) {
-      throw new Error("접근 거부: '" + REPO_OWNER + "' 소유자 계정의 토큰만 사용할 수 있습니다. (입력된 계정: " + (userData.login || "알 수 없음") + ")");
-    }
-
-    // Check repo write access
-    const repoRes = await fetch("https://api.github.com/repos/" + REPO_OWNER + "/" + REPO_NAME, {
-      headers: {
-        Authorization: "Bearer " + cleanToken,
-        Accept: "application/vnd.github+json"
-      }
-    });
-
-    if (!repoRes.ok) {
-      throw new Error("저장소 접근 권한이 없습니다. 토큰 발급 시 'repo' 권한을 체크했는지 확인해 주세요.");
-    }
-
-    const repoData = await repoRes.json();
-    if (repoData.default_branch) {
-      BRANCH = repoData.default_branch;
-    }
-    if (repoData.permissions && !repoData.permissions.push) {
-      throw new Error("이 토큰에는 저장소 쓰기(Push) 권한이 없습니다. 'repo' 권한이 포함된 토큰을 사용해 주세요.");
-    }
-
-    return userData;
+  function escapeHtml(str) {
+    return String(str || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
   }
 
-  function unlockStudio(username) {
-    verifiedUsernameEl.textContent = username || REPO_OWNER;
-    authGate.style.display = "none";
-    editorStudio.style.display = "block";
-    document.documentElement.classList.add("is-owner-authenticated");
-    handleUrlParameters();
+  function getFormattedDateParts() {
+    const val = dateInput.value;
+    const d = val ? new Date(val) : new Date();
+    const validDate = isNaN(d.getTime()) ? new Date() : d;
+    const pad = (n) => String(n).padStart(2, "0");
+    const yyyy = validDate.getFullYear();
+    const mm = pad(validDate.getMonth() + 1);
+    const dd = pad(validDate.getDate());
+    const hh = pad(validDate.getHours());
+    const min = pad(validDate.getMinutes());
+    return {
+      datePrefix: `${yyyy}-${mm}-${dd}`,
+      fullDate: `${yyyy}-${mm}-${dd} ${hh}:${min}:00 +0900`,
+      koreanDate: `${yyyy}년 ${mm}월 ${dd}일`
+    };
   }
 
-  // Auto-login if token already saved in browser
-  async function checkSavedAuth() {
-    const savedToken = localStorage.getItem(TOKEN_KEY);
-    if (!savedToken) return;
-
-    authSubmitBtn.disabled = true;
-    authSubmitBtn.textContent = "저장된 소유자 인증 확인 중...";
+  function updateLivePreview() {
+    if (!previewContainer) return;
     try {
-      const user = await verifyOwnerToken(savedToken);
-      localStorage.setItem(VERIFIED_KEY, "true");
-      unlockStudio(user.login);
-    } catch (err) {
-      localStorage.removeItem(TOKEN_KEY);
-      localStorage.removeItem(VERIFIED_KEY);
-      document.documentElement.classList.remove("is-owner-authenticated");
-      authSubmitBtn.disabled = false;
-      authSubmitBtn.textContent = "소유자 인증 및 에디터 열기";
-    }
+      const title = titleInput.value.trim() || "글 제목이 여기에 표시됩니다";
+      const summary = summaryInput.value.trim();
+      const { koreanDate } = getFormattedDateParts();
+      let rawBody = bodyTextarea.value || "";
+
+      const liquidRegex = new RegExp("\\{\\{\\s*['\"]([^'\"]+)['\"]\\s*\\|\\s*relative_url\\s*\\}\\}", "g");
+      rawBody = rawBody.replace(liquidRegex, "$1");
+
+      let html = `<div class="preview-header-box">`;
+      html += `<div class="post-meta-top" style="margin-bottom:0.5rem;">`;
+      html += `<span class="cat-badge cat-${currentCategory}">${currentCategory.toUpperCase()}</span> `;
+      html += `<span class="post-date">${koreanDate}</span>`;
+      html += `</div>`;
+      html += `<h1 style="font-size:1.65rem; margin-bottom:0.4rem;">${escapeHtml(title)}</h1>`;
+      if (summary) {
+        html += `<p style="color:var(--text-secondary); margin-bottom:1rem;">${escapeHtml(summary)}</p>`;
+      }
+
+      if (currentCategory === "review") {
+        const rating = parseFloat(ratingInput.value) || 4.5;
+        const verdict = verdictInput.value.trim();
+        html += `<div class="review-score-card" style="margin: 1rem 0; padding: 1rem;">`;
+        html += `<span class="score-label">VERDICT SCORE</span> `;
+        html += `<strong style="font-size:1.4rem; color:var(--accent-amber);">★ ${rating.toFixed(1)} / 5.0</strong>`;
+        if (verdict) {
+          html += `<p class="score-verdict" style="margin-top:0.4rem;">"${escapeHtml(verdict)}"</p>`;
+        }
+        html += `</div>`;
+
+        const prosList = prosTextarea.value.split("\n").map((s) => s.trim()).filter(Boolean);
+        const consList = consTextarea.value.split("\n").map((s) => s.trim()).filter(Boolean);
+        if (prosList.length > 0 || consList.length > 0) {
+          html += `<div class="pros-cons-grid" style="margin: 1rem 0;">`;
+          if (prosList.length > 0) {
+            html += `<div class="pros-card"><div class="pc-card-header pros-header"><h3>장점</h3></div><ol class="pc-list">`;
+            prosList.forEach((p) => { html += `<li>${escapeHtml(p)}</li>`; });
+            html += `</ol></div>`;
+          }
+          if (consList.length > 0) {
+            html += `<div class="cons-card"><div class="pc-card-header cons-header"><h3>단점</h3></div><ol class="pc-list">`;
+            consList.forEach((c) => { html += `<li>${escapeHtml(c)}</li>`; });
+            html += `</ol></div>`;
+          }
+          html += `</div>`;
+        }
+      }
+      html += `<hr style="border:0; border-top:1px solid var(--border-subtle); margin: 1rem 0;">`;
+      html += `</div>`;
+
+      if (window.marked && typeof window.marked.parse === "function") {
+        html += window.marked.parse(rawBody);
+      } else {
+        html += `<div style="white-space:pre-wrap;">${escapeHtml(rawBody)}</div>`;
+      }
+
+      previewContainer.innerHTML = html;
+    } catch (e) {}
   }
 
-  authForm.addEventListener("submit", async function (e) {
+  function saveDraftToLocal() {
+    if (editingFilePath) return;
+    try {
+      const draft = {
+        category: currentCategory,
+        title: titleInput.value,
+        summary: summaryInput.value,
+        slug: slugInput.value,
+        tags: tagsInput.value,
+        thumbnail: thumbnailInput.value,
+        originalUrl: originalUrlInput.value,
+        rating: ratingInput.value,
+        verdict: verdictInput.value,
+        gameTitle: gameTitleInput.value,
+        gameGenre: gameGenreInput.value,
+        gamePlatform: gamePlatformInput.value,
+        gameDeveloper: gameDeveloperInput.value,
+        gamePublisher: gamePublisherInput.value,
+        gamePlaytime: gamePlaytimeInput.value,
+        gameRelease: gameReleaseInput.value,
+        pros: prosTextarea.value,
+        cons: consTextarea.value,
+        body: bodyTextarea.value
+      };
+      localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+      const draftStatusEl = document.getElementById("draft-status");
+      if (draftStatusEl) {
+        const now = new Date();
+        draftStatusEl.textContent = "임시저장됨 (" + now.toTimeString().slice(0, 8) + ")";
+      }
+    } catch (e) {}
+  }
+
+  // =========================================================================
+  // 2. 에디터 툴바 버튼 (H2, H3, B, I, S, 인용, 구분선, 링크, 사진 업로드)
+  // =========================================================================
+  function insertAtCursor(textarea, text) {
+    textarea.focus();
+    const start = typeof textarea.selectionStart === "number" ? textarea.selectionStart : textarea.value.length;
+    const end = typeof textarea.selectionEnd === "number" ? textarea.selectionEnd : textarea.value.length;
+    const before = textarea.value.substring(0, start);
+    const after = textarea.value.substring(end);
+    textarea.value = before + text + after;
+    textarea.selectionStart = textarea.selectionEnd = start + text.length;
+    textarea.focus();
+    updateLivePreview();
+    saveDraftToLocal();
+  }
+
+  function wrapSelection(textarea, prefix, suffix) {
+    textarea.focus();
+    const start = typeof textarea.selectionStart === "number" ? textarea.selectionStart : textarea.value.length;
+    const end = typeof textarea.selectionEnd === "number" ? textarea.selectionEnd : textarea.value.length;
+    const selected = textarea.value.substring(start, end) || "텍스트";
+    const replacement = prefix + selected + suffix;
+    textarea.value = textarea.value.substring(0, start) + replacement + textarea.value.substring(end);
+    textarea.selectionStart = start + prefix.length;
+    textarea.selectionEnd = start + prefix.length + selected.length;
+    textarea.focus();
+    updateLivePreview();
+    saveDraftToLocal();
+  }
+
+  document.getElementById("editor-toolbar").addEventListener("click", function (e) {
+    const btn = e.target.closest("button.tool-btn");
+    if (!btn) return;
+
+    const action = btn.getAttribute("data-action");
+    const val = btn.getAttribute("data-val") || "";
+
+    if (action === "insert") {
+      e.preventDefault();
+      const needNewline = bodyTextarea.value.length > 0 && !bodyTextarea.value.endsWith("\n");
+      insertAtCursor(bodyTextarea, (needNewline ? "\n" : "") + val);
+    } else if (action === "wrap") {
+      e.preventDefault();
+      wrapSelection(bodyTextarea, val, val);
+    } else if (action === "divider") {
+      e.preventDefault();
+      insertAtCursor(bodyTextarea, "\n\n---\n\n");
+    } else if (action === "link") {
+      e.preventDefault();
+      const url = prompt("삽입할 링크 주소(URL)를 입력하세요:", "https://");
+      if (!url) return;
+      const label = prompt("표시할 링크 이름을 입력하세요:", "링크 텍스트") || url;
+      insertAtCursor(bodyTextarea, `[${label}](${url})`);
+    }
+  });
+
+  // 사진 업로드 버튼 클릭 -> 숨겨진 파일 선택창 열기
+  document.getElementById("btn-upload-body-image").addEventListener("click", function (e) {
     e.preventDefault();
-    authErrorMsg.style.display = "none";
-    authSubmitBtn.disabled = true;
-    authSubmitBtn.textContent = "GitHub 서버에서 소유자 검증 중...";
-
-    try {
-      const token = tokenInput.value.trim();
-      const user = await verifyOwnerToken(token);
-      localStorage.setItem(TOKEN_KEY, token);
-      localStorage.setItem(VERIFIED_KEY, "true");
-      unlockStudio(user.login);
-    } catch (err) {
-      authErrorMsg.textContent = "⚠️ " + err.message;
-      authErrorMsg.style.display = "block";
-    } finally {
-      authSubmitBtn.disabled = false;
-      authSubmitBtn.textContent = "소유자 인증 및 에디터 열기";
-    }
+    document.getElementById("body-image-input").click();
   });
 
-  document.getElementById("btn-logout").addEventListener("click", function () {
-    if (!confirm("이 브라우저에서 관리자 인증을 잠그시겠습니까? (다시 토큰을 입력해야 글쓰기가 가능합니다)")) return;
-    localStorage.removeItem(TOKEN_KEY);
-    localStorage.removeItem(VERIFIED_KEY);
-    document.documentElement.classList.remove("is-owner-authenticated");
-    tokenInput.value = "";
-    editorStudio.style.display = "none";
-    authGate.style.display = "block";
+  document.getElementById("btn-upload-thumb").addEventListener("click", function (e) {
+    e.preventDefault();
+    document.getElementById("thumbnail-file-input").click();
   });
 
   // =========================================================================
-  // 2. 카테고리 전환 및 리뷰 별점 연동
+  // 3. 카테고리 전환 및 리뷰 별점 연동
   // =========================================================================
   function setCategory(cat) {
     currentCategory = cat === "review" ? "review" : "column";
@@ -521,33 +645,167 @@ sitemap: false
     updateLivePreview();
   }
 
-  tabBtnColumn.addEventListener("click", function () { setCategory("column"); });
-  tabBtnReview.addEventListener("click", function () { setCategory("review"); });
+  tabBtnColumn.addEventListener("click", function () { setCategory("column"); saveDraftToLocal(); });
+  tabBtnReview.addEventListener("click", function () { setCategory("review"); saveDraftToLocal(); });
 
   function updateRatingStars(val) {
     const score = parseFloat(val) || 0;
     let stars = "";
     for (let i = 1; i <= 5; i++) {
       if (score >= i) stars += "★";
-      else if (score >= i - 0.5) stars += "☆";
       else stars += "☆";
     }
-    ratingStarsPreview.textContent = stars + " (" + score.toFixed(1) + " / 5.0)";
+    if (ratingStarsPreview) {
+      ratingStarsPreview.textContent = stars + " (" + score.toFixed(1) + " / 5.0)";
+    }
     updateLivePreview();
   }
 
   ratingRange.addEventListener("input", function () {
     ratingInput.value = ratingRange.value;
     updateRatingStars(ratingRange.value);
+    saveDraftToLocal();
   });
   ratingInput.addEventListener("input", function () {
     ratingRange.value = ratingInput.value;
     updateRatingStars(ratingInput.value);
+    saveDraftToLocal();
   });
-  updateRatingStars(4.5);
+
+  [
+    titleInput, summaryInput, slugInput, dateInput, tagsInput,
+    thumbnailInput, originalUrlInput, tocCheckbox, bodyTextarea,
+    verdictInput, gameTitleInput, gameGenreInput, gamePlatformInput,
+    gameDeveloperInput, gamePublisherInput, gamePlaytimeInput,
+    gameReleaseInput, prosTextarea, consTextarea
+  ].forEach((el) => {
+    if (!el) return;
+    el.addEventListener("input", function () {
+      updateLivePreview();
+      saveDraftToLocal();
+    });
+  });
 
   // =========================================================================
-  // 3. 마크다운 & YAML Front-Matter 생성기
+  // 4. 이미지 업로드 처리 (파일 선택 & Ctrl+V 클립보드 붙여넣기)
+  // =========================================================================
+  function fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const result = String(reader.result);
+        resolve(result.split(",")[1]);
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  async function uploadImageFileToGitHub(file) {
+    let token = getSavedToken();
+    if (!token) {
+      token = prompt("GitHub Personal Access Token(ghp_...)을 입력해 주세요:") || "";
+      if (!token.trim()) return null;
+      saveTokenPersistently(token);
+    }
+
+    uploadSpinner.style.display = "inline-block";
+    uploadSpinner.textContent = `⏳ '${file.name}' 업로드 중...`;
+
+    try {
+      const base64Content = await fileToBase64(file);
+      const ext = (file.name.split(".").pop() || "png").toLowerCase().replace(/[^a-z0-9]/g, "");
+      const safeStamp = new Date().toISOString().replace(/[-:T.Z]/g, "").slice(0, 14);
+      const rand = Math.floor(Math.random() * 900 + 100);
+      const fileName = `${safeStamp}_${rand}.${ext || "png"}`;
+      const repoPath = `assets/images/posts/${fileName}`;
+
+      const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${repoPath}`, {
+        method: "PUT",
+        headers: {
+          Authorization: "Bearer " + token,
+          Accept: "application/vnd.github+json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          message: `Upload post image: ${fileName}`,
+          content: base64Content,
+          branch: BRANCH
+        })
+      });
+
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(errData.message || "이미지 업로드 실패 (HTTP " + res.status + ")");
+      }
+
+      return "/" + repoPath;
+    } finally {
+      uploadSpinner.style.display = "none";
+    }
+  }
+
+  document.getElementById("body-image-input").addEventListener("change", async function (e) {
+    const files = Array.from(e.target.files || []);
+    for (const file of files) {
+      try {
+        const uploadedPath = await uploadImageFileToGitHub(file);
+        if (uploadedPath) {
+          const liquidTag = "{" + "{ '" + uploadedPath + "' | relative_url }" + "}";
+          insertAtCursor(bodyTextarea, `\n![이미지](${liquidTag})\n`);
+          if (!thumbnailInput.value.trim()) {
+            thumbnailInput.value = uploadedPath;
+            saveDraftToLocal();
+          }
+        }
+      } catch (err) {
+        alert("이미지 업로드 오류: " + err.message);
+      }
+    }
+    e.target.value = "";
+  });
+
+  document.getElementById("thumbnail-file-input").addEventListener("change", async function (e) {
+    const file = (e.target.files || [])[0];
+    if (!file) return;
+    try {
+      const uploadedPath = await uploadImageFileToGitHub(file);
+      if (uploadedPath) {
+        thumbnailInput.value = uploadedPath;
+        saveDraftToLocal();
+      }
+    } catch (err) {
+      alert("썸네일 업로드 오류: " + err.message);
+    }
+    e.target.value = "";
+  });
+
+  bodyTextarea.addEventListener("paste", async function (e) {
+    const items = (e.clipboardData || e.originalEvent.clipboardData || {}).items || [];
+    for (const item of items) {
+      if (item.type && item.type.indexOf("image") === 0) {
+        e.preventDefault();
+        const file = item.getAsFile();
+        if (!file) continue;
+        try {
+          const uploadedPath = await uploadImageFileToGitHub(file);
+          if (uploadedPath) {
+            const liquidTag = "{" + "{ '" + uploadedPath + "' | relative_url }" + "}";
+            insertAtCursor(bodyTextarea, `\n![이미지](${liquidTag})\n`);
+            if (!thumbnailInput.value.trim()) {
+              thumbnailInput.value = uploadedPath;
+              saveDraftToLocal();
+            }
+          }
+        } catch (err) {
+          alert("클립보드 이미지 업로드 실패: " + err.message);
+        }
+      }
+    }
+  });
+
+  // =========================================================================
+  // 5. 마크다운 생성 및 GitHub 즉시 발행하기
   // =========================================================================
   function escapeYamlString(str) {
     if (!str) return '""';
@@ -569,22 +827,6 @@ sitemap: false
       .trim()
       .replace(/\s+/g, "-");
     return cleaned || ("post-" + Date.now());
-  }
-
-  function getFormattedDateParts() {
-    const val = dateInput.value;
-    const d = val ? new Date(val) : new Date();
-    const pad = (n) => String(n).padStart(2, "0");
-    const yyyy = d.getFullYear();
-    const mm = pad(d.getMonth() + 1);
-    const dd = pad(d.getDate());
-    const hh = pad(d.getHours());
-    const min = pad(d.getMinutes());
-    return {
-      datePrefix: `${yyyy}-${mm}-${dd}`,
-      fullDate: `${yyyy}-${mm}-${dd} ${hh}:${min}:00 +0900`,
-      koreanDate: `${yyyy}년 ${mm}월 ${dd}일`
-    };
   }
 
   function buildFullMarkdown() {
@@ -641,19 +883,13 @@ sitemap: false
         if (gRel) lines.push(`  release_date: ${escapeYamlString(gRel)}`);
       }
 
-      const prosList = prosTextarea.value
-        .split("\n")
-        .map((s) => s.trim())
-        .filter(Boolean);
+      const prosList = prosTextarea.value.split("\n").map((s) => s.trim()).filter(Boolean);
       if (prosList.length > 0) {
         lines.push("pros:");
         prosList.forEach((item) => lines.push(`  - ${escapeYamlString(item)}`));
       }
 
-      const consList = consTextarea.value
-        .split("\n")
-        .map((s) => s.trim())
-        .filter(Boolean);
+      const consList = consTextarea.value.split("\n").map((s) => s.trim()).filter(Boolean);
       if (consList.length > 0) {
         lines.push("cons:");
         consList.forEach((item) => lines.push(`  - ${escapeYamlString(item)}`));
@@ -674,264 +910,6 @@ sitemap: false
     return lines.join("\n");
   }
 
-  // =========================================================================
-  // 4. 실시간 미리보기 렌더링
-  // =========================================================================
-  function updateLivePreview() {
-    const title = titleInput.value.trim() || "글 제목이 여기에 표시됩니다";
-    const summary = summaryInput.value.trim();
-    const { koreanDate } = getFormattedDateParts();
-    let rawBody = bodyTextarea.value || "";
-
-    // Replace Liquid relative_url tags in preview so images render immediately
-    const liquidRegex = new RegExp("\\{\\{\\s*['\"]([^'\"]+)['\"]\\s*\\|\\s*relative_url\\s*\\}\\}", "g");
-    rawBody = rawBody.replace(liquidRegex, "$1");
-
-    let html = "";
-
-    // Header Preview
-    html += `<div class="preview-header-box">`;
-    html += `<div class="post-meta-top" style="margin-bottom:0.5rem;">`;
-    html += `<span class="cat-badge cat-${currentCategory}">${currentCategory.toUpperCase()}</span> `;
-    html += `<span class="post-date">${koreanDate}</span>`;
-    html += `</div>`;
-    html += `<h1 style="font-size:1.65rem; margin-bottom:0.4rem;">${escapeHtml(title)}</h1>`;
-    if (summary) {
-      html += `<p style="color:var(--text-secondary); margin-bottom:1rem;">${escapeHtml(summary)}</p>`;
-    }
-
-    // If Review, render review score & pros/cons preview
-    if (currentCategory === "review") {
-      const rating = parseFloat(ratingInput.value) || 4.5;
-      const verdict = verdictInput.value.trim();
-      html += `<div class="review-score-card" style="margin: 1rem 0; padding: 1rem;">`;
-      html += `<span class="score-label">VERDICT SCORE</span> `;
-      html += `<strong style="font-size:1.4rem; color:var(--accent-amber);">★ ${rating.toFixed(1)} / 5.0</strong>`;
-      if (verdict) {
-        html += `<p class="score-verdict" style="margin-top:0.4rem;">"${escapeHtml(verdict)}"</p>`;
-      }
-      html += `</div>`;
-
-      const prosList = prosTextarea.value.split("\n").map((s) => s.trim()).filter(Boolean);
-      const consList = consTextarea.value.split("\n").map((s) => s.trim()).filter(Boolean);
-      if (prosList.length > 0 || consList.length > 0) {
-        html += `<div class="pros-cons-grid" style="margin: 1rem 0;">`;
-        if (prosList.length > 0) {
-          html += `<div class="pros-card"><div class="pc-card-header pros-header"><h3>장점</h3></div><ol class="pc-list">`;
-          prosList.forEach((p) => { html += `<li>${escapeHtml(p)}</li>`; });
-          html += `</ol></div>`;
-        }
-        if (consList.length > 0) {
-          html += `<div class="cons-card"><div class="pc-card-header cons-header"><h3>단점</h3></div><ol class="pc-list">`;
-          consList.forEach((c) => { html += `<li>${escapeHtml(c)}</li>`; });
-          html += `</ol></div>`;
-        }
-        html += `</div>`;
-      }
-    }
-    html += `<hr style="border:0; border-top:1px solid var(--border-subtle); margin: 1rem 0;">`;
-    html += `</div>`;
-
-    if (window.marked) {
-      html += window.marked.parse(rawBody);
-    } else {
-      html += `<pre style="white-space:pre-wrap;">${escapeHtml(rawBody)}</pre>`;
-    }
-
-    previewContainer.innerHTML = html;
-  }
-
-  function escapeHtml(str) {
-    return String(str)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;");
-  }
-
-  // Attach live preview & draft save listeners
-  [
-    titleInput, summaryInput, slugInput, dateInput, tagsInput,
-    thumbnailInput, originalUrlInput, tocCheckbox, bodyTextarea,
-    verdictInput, gameTitleInput, gameGenreInput, gamePlatformInput,
-    gameDeveloperInput, gamePublisherInput, gamePlaytimeInput,
-    gameReleaseInput, prosTextarea, consTextarea
-  ].forEach((el) => {
-    el.addEventListener("input", function () {
-      updateLivePreview();
-      saveDraftToLocal();
-    });
-  });
-
-  // =========================================================================
-  // 5. 에디터 툴바 및 클립보드/드래그앤드롭 이미지 즉시 업로드
-  // =========================================================================
-  document.querySelectorAll(".tool-btn[data-insert]").forEach((btn) => {
-    btn.addEventListener("click", function () {
-      const text = this.getAttribute("data-insert").replace("\\n", "\n");
-      insertAtCursor(bodyTextarea, text);
-    });
-  });
-
-  document.querySelectorAll(".tool-btn[data-wrap]").forEach((btn) => {
-    btn.addEventListener("click", function () {
-      const wrapper = this.getAttribute("data-wrap");
-      wrapSelection(bodyTextarea, wrapper, wrapper);
-    });
-  });
-
-  document.getElementById("btn-insert-link").addEventListener("click", function () {
-    const url = prompt("삽입할 링크 주소(URL)를 입력하세요:", "https://");
-    if (!url) return;
-    const label = prompt("표시할 텍스트를 입력하세요:", "링크 텍스트") || url;
-    insertAtCursor(bodyTextarea, `[${label}](${url})`);
-  });
-
-  function insertAtCursor(textarea, text) {
-    const start = textarea.selectionStart;
-    const end = textarea.selectionEnd;
-    const before = textarea.value.substring(0, start);
-    const after = textarea.value.substring(end);
-    textarea.value = before + text + after;
-    textarea.selectionStart = textarea.selectionEnd = start + text.length;
-    textarea.focus();
-    updateLivePreview();
-    saveDraftToLocal();
-  }
-
-  function wrapSelection(textarea, prefix, suffix) {
-    const start = textarea.selectionStart;
-    const end = textarea.selectionEnd;
-    const selected = textarea.value.substring(start, end) || "텍스트";
-    const replacement = prefix + selected + suffix;
-    textarea.value = textarea.value.substring(0, start) + replacement + textarea.value.substring(end);
-    textarea.selectionStart = start + prefix.length;
-    textarea.selectionEnd = start + prefix.length + selected.length;
-    textarea.focus();
-    updateLivePreview();
-    saveDraftToLocal();
-  }
-
-  // Image Upload to GitHub (/assets/images/posts/...)
-  async function uploadImageFileToGitHub(file) {
-    const token = localStorage.getItem(TOKEN_KEY);
-    if (!token) {
-      alert("로그인이 필요합니다.");
-      return null;
-    }
-
-    uploadSpinner.style.display = "inline-block";
-    uploadSpinner.textContent = `⏳ '${file.name}' 업로드 중...`;
-
-    try {
-      const base64Content = await fileToBase64(file);
-      const ext = (file.name.split(".").pop() || "png").toLowerCase().replace(/[^a-z0-9]/g, "");
-      const safeStamp = new Date().toISOString().replace(/[-:T.Z]/g, "").slice(0, 14);
-      const rand = Math.floor(Math.random() * 900 + 100);
-      const fileName = `${safeStamp}_${rand}.${ext || "png"}`;
-      const repoPath = `assets/images/posts/${fileName}`;
-
-      const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${repoPath}`, {
-        method: "PUT",
-        headers: {
-          Authorization: "Bearer " + token,
-          Accept: "application/vnd.github+json",
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          message: `Upload post image: ${fileName}`,
-          content: base64Content,
-          branch: BRANCH
-        })
-      });
-
-      if (!res.ok) {
-        const errData = await res.json().catch(() => ({}));
-        throw new Error(errData.message || "이미지 업로드 실패");
-      }
-
-      return "/" + repoPath;
-    } finally {
-      uploadSpinner.style.display = "none";
-    }
-  }
-
-  function fileToBase64(file) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const result = String(reader.result);
-        const base64 = result.split(",")[1];
-        resolve(base64);
-      };
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
-    });
-  }
-
-  // Body image file picker
-  document.getElementById("body-image-input").addEventListener("change", async function (e) {
-    const files = Array.from(e.target.files || []);
-    for (const file of files) {
-      try {
-        const uploadedPath = await uploadImageFileToGitHub(file);
-        if (uploadedPath) {
-          const liquidTag = "{" + "{ '" + uploadedPath + "' | relative_url }" + "}";
-          insertAtCursor(bodyTextarea, `\n![이미지](${liquidTag})\n`);
-          if (!thumbnailInput.value.trim()) {
-            thumbnailInput.value = uploadedPath;
-          }
-        }
-      } catch (err) {
-        alert("이미지 업로드 오류: " + err.message);
-      }
-    }
-    e.target.value = "";
-  });
-
-  // Thumbnail image file picker
-  document.getElementById("thumbnail-file-input").addEventListener("change", async function (e) {
-    const file = (e.target.files || [])[0];
-    if (!file) return;
-    try {
-      const uploadedPath = await uploadImageFileToGitHub(file);
-      if (uploadedPath) {
-        thumbnailInput.value = uploadedPath;
-        saveDraftToLocal();
-      }
-    } catch (err) {
-      alert("썸네일 업로드 오류: " + err.message);
-    }
-    e.target.value = "";
-  });
-
-  // Paste image directly into textarea (Ctrl+V)
-  bodyTextarea.addEventListener("paste", async function (e) {
-    const items = (e.clipboardData || e.originalEvent.clipboardData || {}).items || [];
-    for (const item of items) {
-      if (item.type && item.type.indexOf("image") === 0) {
-        e.preventDefault();
-        const file = item.getAsFile();
-        if (!file) continue;
-        try {
-          const uploadedPath = await uploadImageFileToGitHub(file);
-          if (uploadedPath) {
-            const liquidTag = "{" + "{ '" + uploadedPath + "' | relative_url }" + "}";
-            insertAtCursor(bodyTextarea, `\n![이미지](${liquidTag})\n`);
-            if (!thumbnailInput.value.trim()) {
-              thumbnailInput.value = uploadedPath;
-            }
-          }
-        } catch (err) {
-          alert("클립보드 이미지 업로드 실패: " + err.message);
-        }
-      }
-    }
-  });
-
-  // =========================================================================
-  // 6. GitHub에 바로 발행하기 / 수정하기
-  // =========================================================================
   function encodeGitHubPath(p) {
     return String(p).replace(/^\/+/, "").split("/").map(encodeURIComponent).join("/");
   }
@@ -954,23 +932,30 @@ sitemap: false
     return new TextDecoder("utf-8").decode(bytes);
   }
 
-  publishBtn.addEventListener("click", async function () {
+  publishBtn.addEventListener("click", async function (e) {
+    e.preventDefault();
     const title = titleInput.value.trim();
     if (!title) {
-      alert("글 제목을 입력해 주세요!");
+      publishStatusMsg.style.color = "var(--accent-rose)";
+      publishStatusMsg.textContent = "⚠️ 상단의 '글 제목'을 먼저 입력해 주세요!";
       titleInput.focus();
+      titleInput.scrollIntoView({ behavior: "smooth", block: "center" });
+      alert("상단의 '글 제목'을 입력해 주세요!");
       return;
     }
     if (!bodyTextarea.value.trim()) {
-      alert("본문 내용을 입력해 주세요!");
+      publishStatusMsg.style.color = "var(--accent-rose)";
+      publishStatusMsg.textContent = "⚠️ '본문 내용'을 입력해 주세요!";
       bodyTextarea.focus();
+      alert("본문 내용을 입력해 주세요!");
       return;
     }
 
-    const token = localStorage.getItem(TOKEN_KEY);
+    let token = getSavedToken();
     if (!token) {
-      alert("관리자 인증이 필요합니다.");
-      return;
+      token = prompt("발행을 위해 GitHub 토큰(ghp_...)을 입력해 주세요:") || "";
+      if (!token.trim()) return;
+      saveTokenPersistently(token);
     }
 
     const { datePrefix } = getFormattedDateParts();
@@ -978,11 +963,13 @@ sitemap: false
     const targetPath = editingFilePath || `_posts/${datePrefix}-${slug}.md`;
     const fullMarkdown = buildFullMarkdown();
 
+    const originalBtnText = publishBtn.textContent;
     publishBtn.disabled = true;
-    publishStatusMsg.textContent = "⏳ GitHub 저장소에 글을 발행하는 중...";
+    publishBtn.textContent = "⏳ GitHub에 발행 중...";
+    publishStatusMsg.style.color = "var(--accent-amber)";
+    publishStatusMsg.textContent = "⏳ GitHub 저장소에 글을 업로드하는 중입니다...";
 
     try {
-      // Check if file already exists to get its SHA
       let sha = editingFileSha;
       if (!sha) {
         const checkRes = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${encodeGitHubPath(targetPath)}?ref=${BRANCH}`, {
@@ -1018,7 +1005,7 @@ sitemap: false
 
       if (!putRes.ok) {
         const errData = await putRes.json().catch(() => ({}));
-        throw new Error(errData.message || "발행 중 오류가 발생했습니다.");
+        throw new Error(errData.message || "발행 중 오류가 발생했습니다 (HTTP " + putRes.status + ")");
       }
 
       const resultData = await putRes.json();
@@ -1026,18 +1013,22 @@ sitemap: false
       editingFileSha = resultData.content && resultData.content.sha ? resultData.content.sha : null;
 
       localStorage.removeItem(DRAFT_KEY);
-      publishStatusMsg.innerHTML = `✅ <strong>발행 완료!</strong> GitHub Pages 빌드가 끝나는 약 1~2분 뒤 탭에 자동 반영됩니다.`;
-      alert(`🎉 성공적으로 ${currentCategory === "review" ? "게임 리뷰" : "게임 칼럼"} 탭에 발행되었습니다!\n(파일 위치: ${targetPath})\n\nGitHub Pages 서버 반영까지 약 1분 정도 소요됩니다.`);
+      publishStatusMsg.style.color = "var(--accent-emerald)";
+      publishStatusMsg.innerHTML = `✅ <strong>발행 완료!</strong> 약 1분 뒤 사이트 탭에 반영됩니다.`;
+      alert(`🎉 성공적으로 ${currentCategory === "review" ? "게임 리뷰" : "게임 칼럼"} 탭에 발행되었습니다!\n(저장 경로: ${targetPath})\n\n약 1분 뒤 탭 페이지에서 확인하실 수 있습니다.`);
     } catch (err) {
-      publishStatusMsg.textContent = "❌ 오류: " + err.message;
+      publishStatusMsg.style.color = "var(--accent-rose)";
+      publishStatusMsg.textContent = "❌ 발행 실패: " + err.message;
       alert("발행 실패: " + err.message);
     } finally {
       publishBtn.disabled = false;
+      publishBtn.textContent = editingFilePath ? "💾 수정사항 사이트에 반영하기" : originalBtnText;
     }
   });
 
-  // .md 백업 다운로드
-  document.getElementById("btn-download-md").addEventListener("click", function () {
+  // 백업용 .md 파일 다운로드
+  document.getElementById("btn-download-md").addEventListener("click", function (e) {
+    e.preventDefault();
     const title = titleInput.value.trim() || "post";
     const { datePrefix } = getFormattedDateParts();
     const slug = generateSlug(title);
@@ -1047,12 +1038,70 @@ sitemap: false
     const a = document.createElement("a");
     a.href = url;
     a.download = filename;
+    document.body.appendChild(a);
     a.click();
+    document.body.removeChild(a);
     URL.revokeObjectURL(url);
   });
 
   // =========================================================================
-  // 7. 기존 글 불러오기 / 수정 / 삭제 기능
+  // 6. 소유자 인증 (최초 1회만 입력하면 영구 유지)
+  // =========================================================================
+  async function verifyOwnerToken(token) {
+    const cleanToken = String(token || "").trim();
+    if (!cleanToken) throw new Error("토큰을 입력해 주세요.");
+
+    const userRes = await fetch("https://api.github.com/user", {
+      headers: {
+        Authorization: "Bearer " + cleanToken,
+        Accept: "application/vnd.github+json"
+      }
+    });
+
+    if (!userRes.ok) {
+      throw new Error("유효하지 않은 GitHub 토큰입니다. 다시 확인해 주세요.");
+    }
+
+    const userData = await userRes.json();
+    if (!userData.login || userData.login.toLowerCase() !== REPO_OWNER.toLowerCase()) {
+      throw new Error("접근 거부: '" + REPO_OWNER + "' 소유자 계정의 토큰만 사용할 수 있습니다.");
+    }
+
+    return userData;
+  }
+
+  authForm.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    authErrorMsg.style.display = "none";
+    authSubmitBtn.disabled = true;
+    authSubmitBtn.textContent = "소유자 확인 중...";
+
+    try {
+      const token = tokenInput.value.trim();
+      const user = await verifyOwnerToken(token);
+      saveTokenPersistently(token);
+      verifiedUsernameEl.textContent = user.login || REPO_OWNER;
+      authGate.style.display = "none";
+      editorStudio.style.display = "block";
+    } catch (err) {
+      authErrorMsg.textContent = "⚠️ " + err.message;
+      authErrorMsg.style.display = "block";
+    } finally {
+      authSubmitBtn.disabled = false;
+      authSubmitBtn.textContent = "소유자 인증 및 에디터 열기 (이후 자동 로그인)";
+    }
+  });
+
+  document.getElementById("btn-logout").addEventListener("click", function () {
+    if (!confirm("이 브라우저에서 관리자 자동 로그인을 해제하시겠습니까?")) return;
+    clearSavedToken();
+    tokenInput.value = "";
+    editorStudio.style.display = "none";
+    authGate.style.display = "block";
+  });
+
+  // =========================================================================
+  // 7. 기존 글 불러오기 / 수정 / 삭제 모달
   // =========================================================================
   document.getElementById("btn-open-posts-modal").addEventListener("click", function () {
     postsModal.style.display = "flex";
@@ -1064,14 +1113,17 @@ sitemap: false
   });
 
   async function loadExistingPostsList() {
-    const token = localStorage.getItem(TOKEN_KEY);
+    const token = getSavedToken();
     postsListLoading.style.display = "block";
+    postsListLoading.textContent = "GitHub 저장소에서 글 목록을 불러오는 중...";
     postsListContainer.innerHTML = "";
 
     try {
       const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/_posts?ref=${BRANCH}`, {
-        headers: {
+        headers: token ? {
           Authorization: "Bearer " + token,
+          Accept: "application/vnd.github+json"
+        } : {
           Accept: "application/vnd.github+json"
         }
       });
@@ -1122,20 +1174,19 @@ sitemap: false
   }
 
   async function loadPostIntoEditor(filePath) {
-    const token = localStorage.getItem(TOKEN_KEY);
-    if (!token) return;
-
+    const token = getSavedToken();
     try {
       const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${encodeGitHubPath(filePath)}?ref=${BRANCH}`, {
-        headers: {
+        headers: token ? {
           Authorization: "Bearer " + token,
+          Accept: "application/vnd.github+json"
+        } : {
           Accept: "application/vnd.github+json"
         }
       });
       if (!res.ok) throw new Error("파일을 불러올 수 없습니다.");
       const data = await res.json();
       const rawMarkdown = base64ToUtf8(data.content);
-
       parseMarkdownIntoForm(rawMarkdown, filePath, data.sha);
     } catch (err) {
       alert("글 불러오기 실패: " + err.message);
@@ -1175,12 +1226,10 @@ sitemap: false
     thumbnailInput.value = getScalar("thumbnail");
     originalUrlInput.value = getScalar("original_url");
 
-    // Extract slug from filename
     const fileNameOnly = filePath.split("/").pop().replace(/\.md$/, "");
     const slugMatch = fileNameOnly.match(/^\d{4}-\d{2}-\d{2}-(.+)$/);
     if (slugMatch) slugInput.value = slugMatch[1];
 
-    // Date
     const dateStr = getScalar("date");
     if (dateStr) {
       const parsedDate = new Date(dateStr.replace(/\s+\+\d{4}$/, ""));
@@ -1190,7 +1239,6 @@ sitemap: false
       }
     }
 
-    // Tags
     const tagsMatch = frontMatter.match(/^tags:\s*\[([^\]]*)\]/m);
     if (tagsMatch) {
       tagsInput.value = tagsMatch[1]
@@ -1200,7 +1248,6 @@ sitemap: false
         .join(", ");
     }
 
-    // Review fields
     if (isReview) {
       const ratingVal = getScalar("rating") || "4.5";
       ratingInput.value = ratingVal;
@@ -1244,7 +1291,7 @@ sitemap: false
 
   async function deletePostFromGitHub(filePath, sha, fileName) {
     if (!confirm(`정말로 '${fileName}' 글을 삭제하시겠습니까?\n삭제 후에는 되돌릴 수 없습니다.`)) return;
-    const token = localStorage.getItem(TOKEN_KEY);
+    const token = getSavedToken();
 
     try {
       const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${encodeGitHubPath(filePath)}`, {
@@ -1301,35 +1348,6 @@ sitemap: false
     resetEditorForm();
   });
 
-  // =========================================================================
-  // 8. 로컬 자동 임시저장 & URL 파라미터 처리 (?category=review, ?edit=...)
-  // =========================================================================
-  function saveDraftToLocal() {
-    if (editingFilePath) return; // 수정 모드일 때는 새 글 임시저장 덮어쓰기 방지
-    const draft = {
-      category: currentCategory,
-      title: titleInput.value,
-      summary: summaryInput.value,
-      slug: slugInput.value,
-      tags: tagsInput.value,
-      thumbnail: thumbnailInput.value,
-      originalUrl: originalUrlInput.value,
-      rating: ratingInput.value,
-      verdict: verdictInput.value,
-      gameTitle: gameTitleInput.value,
-      gameGenre: gameGenreInput.value,
-      gamePlatform: gamePlatformInput.value,
-      gameDeveloper: gameDeveloperInput.value,
-      gamePublisher: gamePublisherInput.value,
-      gamePlaytime: gamePlaytimeInput.value,
-      gameRelease: gameReleaseInput.value,
-      pros: prosTextarea.value,
-      cons: consTextarea.value,
-      body: bodyTextarea.value
-    };
-    localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
-  }
-
   function restoreDraftFromLocal() {
     try {
       const saved = localStorage.getItem(DRAFT_KEY);
@@ -1358,26 +1376,21 @@ sitemap: false
       if (d.pros) prosTextarea.value = d.pros;
       if (d.cons) consTextarea.value = d.cons;
       if (d.body) bodyTextarea.value = d.body;
-      updateLivePreview();
     } catch (e) {}
   }
 
-  function handleUrlParameters() {
-    const params = new URLSearchParams(window.location.search);
-    const catParam = params.get("category");
-    const editParam = params.get("edit");
-
-    if (editParam) {
-      loadPostIntoEditor(editParam);
-    } else {
-      restoreDraftFromLocal();
-      if (catParam === "review" || catParam === "column") {
-        setCategory(catParam);
-      }
-    }
+  // 초기 실행: 임시저장 복원 & URL 파라미터 적용 & 미리보기 렌더링
+  restoreDraftFromLocal();
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("category") === "review" || params.get("category") === "column") {
+    setCategory(params.get("category"));
   }
-
-  // Initial check
-  checkSavedAuth();
+  if (params.get("edit")) {
+    authGate.style.display = "none";
+    editorStudio.style.display = "block";
+    loadPostIntoEditor(params.get("edit"));
+  }
+  updateRatingStars(ratingInput.value || 4.5);
+  updateLivePreview();
 })();
 </script>

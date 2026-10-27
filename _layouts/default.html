@@ -37,7 +37,9 @@
   <script>
     (function() {
       try {
-        if (localStorage.getItem('byeon_admin_verified') === 'true' && localStorage.getItem('byeon_blog_gh_token')) {
+        var hasLs = localStorage.getItem('byeon_blog_gh_token');
+        var hasCookie = document.cookie.indexOf('byeon_blog_gh_token=') !== -1;
+        if (hasLs || hasCookie) {
           document.documentElement.classList.add('is-owner-authenticated');
         }
       } catch (e) {}
