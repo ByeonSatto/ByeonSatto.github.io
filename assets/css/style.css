@@ -1043,6 +1043,11 @@ img {
   align-items: start;
 }
 
+.post-layout-grid.no-toc {
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 920px;
+}
+
 /* Sticky Table of Contents */
 .post-sidebar {
   position: sticky;

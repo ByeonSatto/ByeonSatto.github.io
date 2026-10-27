@@ -71,7 +71,7 @@ layout: default
     </div>
   </header>
 
-  <div class="container post-layout-grid">
+  <div class="container post-layout-grid {% if page.toc == false %}no-toc{% endif %}">
     <!-- Main Prose Content -->
     <div class="post-body prose" id="post-content">
       {{ content }}
