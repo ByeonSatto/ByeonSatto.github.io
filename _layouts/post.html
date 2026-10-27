@@ -126,7 +126,42 @@ layout: default
     var content = document.getElementById("post-content");
     var tocNav = document.getElementById("toc-nav");
     var tocContainer = document.getElementById("toc-container");
-    if (!content || !tocNav) return;
+    if (!content) return;
+
+    // Auto-embed standalone YouTube links & convert video-ext img tags
+    function extractYouTubeId(url) {
+      var m = String(url || "").match(/(?:youtube\.com\/(?:watch\?.*v=|embed\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+      return m ? m[1] : null;
+    }
+    content.querySelectorAll("a").forEach(function (a) {
+      var href = a.getAttribute("href") || "";
+      var text = (a.textContent || "").trim();
+      var ytId = extractYouTubeId(href);
+      if (ytId && (text === href || text.indexOf("youtube.com") !== -1 || text.indexOf("youtu.be") !== -1)) {
+        var wrapper = document.createElement("div");
+        wrapper.className = "video-embed-container";
+        wrapper.innerHTML = '<iframe src="https://www.youtube.com/embed/' + ytId + '" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>';
+        if (a.parentElement && a.parentElement.tagName === "P" && a.parentElement.childNodes.length === 1) {
+          a.parentElement.replaceWith(wrapper);
+        } else {
+          a.replaceWith(wrapper);
+        }
+      }
+    });
+    content.querySelectorAll("img").forEach(function (img) {
+      var src = img.getAttribute("src") || "";
+      if (/\.(mp4|webm|mov|ogg)(\?.*)?$/i.test(src)) {
+        var video = document.createElement("video");
+        video.className = "post-video";
+        video.controls = true;
+        video.playsInline = true;
+        video.preload = "metadata";
+        video.src = src;
+        img.replaceWith(video);
+      }
+    });
+
+    if (!tocNav) return;
 
     var headings = content.querySelectorAll("h2, h3");
     if (headings.length === 0) {

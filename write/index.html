@@ -249,14 +249,21 @@ sitemap: false
             <button type="button" class="tool-btn" data-action="insert" data-val="> " title="인용구">❝ 인용</button>
             <button type="button" class="tool-btn" data-action="divider" title="구분선">― 구분선</button>
             <button type="button" class="tool-btn" data-action="link" id="btn-insert-link" title="링크 삽입">🔗 링크</button>
+            <button type="button" class="tool-btn" data-action="youtube" id="btn-insert-youtube" title="유튜브 영상 임베드">▶️ 유튜브 임베드</button>
           </div>
 
           <div class="toolbar-group">
-            <button type="button" id="btn-upload-body-image" class="tool-btn tool-btn-accent" title="클립보드 이미지 붙여넣기(Ctrl+V) 또는 파일 선택으로 GitHub에 즉시 업로드합니다">
-              🖼️ 사진 업로드 추가
+            <button type="button" id="btn-upload-body-image" class="tool-btn tool-btn-accent" title="사진 및 움짤(GIF) 업로드 (클립보드 Ctrl+V 또는 드래그앤드롭 지원)">
+              🖼️ 사진 / GIF 업로드
             </button>
-            <input type="file" id="body-image-input" accept="image/*" multiple style="display: none;">
-            <span id="upload-spinner" class="upload-status-pill" style="display: none;">⏳ 이미지 업로드 중...</span>
+            <input type="file" id="body-image-input" accept="image/*,.gif,.webp" multiple style="display: none;">
+
+            <button type="button" id="btn-upload-body-video" class="tool-btn tool-btn-video" title="동영상 파일(.mp4, .webm, .mov) 직접 업로드 및 삽입">
+              🎬 동영상 업로드
+            </button>
+            <input type="file" id="body-video-input" accept="video/mp4,video/webm,video/ogg,video/quicktime,.mp4,.webm,.mov,.gif" multiple style="display: none;">
+
+            <span id="upload-spinner" class="upload-status-pill" style="display: none;">⏳ 미디어 업로드 중...</span>
           </div>
         </div>
 
@@ -525,6 +532,23 @@ sitemap: false
       }
 
       previewContainer.innerHTML = html;
+
+      // Auto-embed standalone YouTube links in Live Preview as well
+      previewContainer.querySelectorAll("a").forEach((a) => {
+        const href = a.getAttribute("href") || "";
+        const text = (a.textContent || "").trim();
+        const ytId = extractYouTubeId(href);
+        if (ytId && (text === href || text.indexOf("youtube.com") !== -1 || text.indexOf("youtu.be") !== -1)) {
+          const wrapper = document.createElement("div");
+          wrapper.className = "video-embed-container";
+          wrapper.innerHTML = `<iframe src="https://www.youtube.com/embed/${ytId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>`;
+          if (a.parentElement && a.parentElement.tagName === "P" && a.parentElement.childNodes.length === 1) {
+            a.parentElement.replaceWith(wrapper);
+          } else {
+            a.replaceWith(wrapper);
+          }
+        }
+      });
     } catch (e) {}
   }
 
@@ -591,6 +615,11 @@ sitemap: false
     saveDraftToLocal();
   }
 
+  function extractYouTubeId(url) {
+    const m = String(url || "").match(/(?:youtube\.com\/(?:watch\?.*v=|embed\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+    return m ? m[1] : null;
+  }
+
   document.getElementById("editor-toolbar").addEventListener("click", function (e) {
     const btn = e.target.closest("button.tool-btn");
     if (!btn) return;
@@ -614,13 +643,31 @@ sitemap: false
       if (!url) return;
       const label = prompt("표시할 링크 이름을 입력하세요:", "링크 텍스트") || url;
       insertAtCursor(bodyTextarea, `[${label}](${url})`);
+    } else if (action === "youtube") {
+      e.preventDefault();
+      const url = prompt("삽입할 유튜브(YouTube) 영상 주소를 붙여넣으세요:\n(예: https://www.youtube.com/watch?v=... 또는 https://youtu.be/...)", "");
+      if (!url || !url.trim()) return;
+      const ytId = extractYouTubeId(url.trim());
+      if (ytId) {
+        insertAtCursor(
+          bodyTextarea,
+          `\n<div class="video-embed-container"><iframe src="https://www.youtube.com/embed/${ytId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe></div>\n`
+        );
+      } else {
+        alert("유효한 유튜브 영상 주소를 인식하지 못했습니다. 주소를 다시 확인해 주세요.");
+      }
     }
   });
 
-  // 사진 업로드 버튼 클릭 -> 숨겨진 파일 선택창 열기
+  // 사진/GIF 및 동영상 업로드 버튼 클릭 -> 파일 선택창 열기
   document.getElementById("btn-upload-body-image").addEventListener("click", function (e) {
     e.preventDefault();
     document.getElementById("body-image-input").click();
+  });
+
+  document.getElementById("btn-upload-body-video").addEventListener("click", function (e) {
+    e.preventDefault();
+    document.getElementById("body-video-input").click();
   });
 
   document.getElementById("btn-upload-thumb").addEventListener("click", function (e) {
@@ -745,12 +792,38 @@ sitemap: false
     }
   }
 
-  document.getElementById("body-image-input").addEventListener("change", async function (e) {
-    const files = Array.from(e.target.files || []);
+  function isVideoFile(file) {
+    if (!file) return false;
+    if (file.type && file.type.indexOf("video/") === 0) return true;
+    return /\.(mp4|webm|mov|ogg)$/i.test(file.name || "");
+  }
+
+  async function handleBodyMediaFiles(files) {
     for (const file of files) {
+      if (file.size > 75 * 1024 * 1024) {
+        alert(`'${file.name}' 파일 크기가 너무 큽니다 (${(file.size / 1024 / 1024).toFixed(1)}MB).\nGitHub 직접 업로드는 약 70MB 이하만 지원하므로, 대용량 영상은 유튜브에 올린 뒤 '▶️ 유튜브 임베드' 버튼을 사용해 주세요.`);
+        continue;
+      }
       try {
         const uploadedPath = await uploadImageFileToGitHub(file);
-        if (uploadedPath) {
+        if (!uploadedPath) continue;
+
+        if (isVideoFile(file)) {
+          const asLoop = confirm(
+            `'${file.name}' 동영상 업로드 완료!\n\n[확인] = 움짤(GIF)처럼 무음 자동·무한반복 재생으로 넣기\n[취소] = 일반 동영상 플레이어(재생바·소리 포함)로 넣기`
+          );
+          if (asLoop) {
+            insertAtCursor(
+              bodyTextarea,
+              `\n<video class="post-video post-video-loop" autoplay loop muted playsinline src="${uploadedPath}"></video>\n`
+            );
+          } else {
+            insertAtCursor(
+              bodyTextarea,
+              `\n<video class="post-video" controls playsinline preload="metadata" src="${uploadedPath}"></video>\n`
+            );
+          }
+        } else {
           const liquidTag = "{" + "{ '" + uploadedPath + "' | relative_url }" + "}";
           insertAtCursor(bodyTextarea, `\n![이미지](${liquidTag})\n`);
           if (!thumbnailInput.value.trim()) {
@@ -759,9 +832,20 @@ sitemap: false
           }
         }
       } catch (err) {
-        alert("이미지 업로드 오류: " + err.message);
+        alert("미디어 업로드 오류: " + err.message);
       }
     }
+  }
+
+  document.getElementById("body-image-input").addEventListener("change", async function (e) {
+    const files = Array.from(e.target.files || []);
+    await handleBodyMediaFiles(files);
+    e.target.value = "";
+  });
+
+  document.getElementById("body-video-input").addEventListener("change", async function (e) {
+    const files = Array.from(e.target.files || []);
+    await handleBodyMediaFiles(files);
     e.target.value = "";
   });
 
@@ -780,27 +864,38 @@ sitemap: false
     e.target.value = "";
   });
 
+  // 클립보드 붙여넣기 (Ctrl+V: 이미지, GIF, 동영상 모두 지원)
   bodyTextarea.addEventListener("paste", async function (e) {
     const items = (e.clipboardData || e.originalEvent.clipboardData || {}).items || [];
+    const mediaFiles = [];
     for (const item of items) {
-      if (item.type && item.type.indexOf("image") === 0) {
-        e.preventDefault();
-        const file = item.getAsFile();
-        if (!file) continue;
-        try {
-          const uploadedPath = await uploadImageFileToGitHub(file);
-          if (uploadedPath) {
-            const liquidTag = "{" + "{ '" + uploadedPath + "' | relative_url }" + "}";
-            insertAtCursor(bodyTextarea, `\n![이미지](${liquidTag})\n`);
-            if (!thumbnailInput.value.trim()) {
-              thumbnailInput.value = uploadedPath;
-              saveDraftToLocal();
-            }
-          }
-        } catch (err) {
-          alert("클립보드 이미지 업로드 실패: " + err.message);
-        }
+      if (item.type && (item.type.indexOf("image") === 0 || item.type.indexOf("video") === 0)) {
+        const f = item.getAsFile();
+        if (f) mediaFiles.push(f);
       }
+    }
+    if (mediaFiles.length > 0) {
+      e.preventDefault();
+      await handleBodyMediaFiles(mediaFiles);
+    }
+  });
+
+  // 드래그 앤 드롭 (탐색기에서 사진, GIF, MP4 동영상 끌어다 놓기)
+  bodyTextarea.addEventListener("dragover", function (e) {
+    e.preventDefault();
+    bodyTextarea.style.borderColor = "var(--accent-cyan)";
+  });
+  bodyTextarea.addEventListener("dragleave", function () {
+    bodyTextarea.style.borderColor = "";
+  });
+  bodyTextarea.addEventListener("drop", async function (e) {
+    e.preventDefault();
+    bodyTextarea.style.borderColor = "";
+    const files = Array.from((e.dataTransfer && e.dataTransfer.files) || []).filter(
+      (f) => (f.type && (f.type.indexOf("image") === 0 || f.type.indexOf("video") === 0)) || /\.(png|jpe?g|gif|webp|mp4|webm|mov|ogg)$/i.test(f.name)
+    );
+    if (files.length > 0) {
+      await handleBodyMediaFiles(files);
     }
   });
 
