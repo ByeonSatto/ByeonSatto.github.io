@@ -34,6 +34,16 @@
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
 
+  <script>
+    (function() {
+      try {
+        if (localStorage.getItem('byeon_admin_verified') === 'true' && localStorage.getItem('byeon_blog_gh_token')) {
+          document.documentElement.classList.add('is-owner-authenticated');
+        }
+      } catch (e) {}
+    })();
+  </script>
+
   {% seo title=false %}
 </head>
 <body class="layout-{{ page.layout | default: 'default' }}">

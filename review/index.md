@@ -6,10 +6,15 @@ description: "플레이 경험, 레벨 구조 완성도, 핵심 재미와 한계
 ---
 
 <section class="page-hero">
-  <div class="container">
-    <span class="page-kicker">CRITIQUE &amp; VERDICT ARCHIVE</span>
-    <h1 class="page-title">게임 리뷰</h1>
-    <p class="page-desc">{{ page.description }}</p>
+  <div class="container page-hero-flex">
+    <div>
+      <span class="page-kicker">CRITIQUE &amp; VERDICT ARCHIVE</span>
+      <h1 class="page-title">게임 리뷰</h1>
+      <p class="page-desc">{{ page.description }}</p>
+    </div>
+    <div class="owner-only page-hero-action">
+      <a href="{{ '/write/?category=review' | relative_url }}" class="btn btn-primary">✏️ 새 리뷰 작성</a>
+    </div>
   </div>
 </section>
 

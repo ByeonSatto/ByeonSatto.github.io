@@ -19,6 +19,9 @@ layout: default
             <span class="meta-divider">·</span>
             <span class="review-genre-meta">{{ page.game_info.genre }}</span>
             {% endif %}
+            {% if page.path contains '_posts/' %}
+            <a href="{{ '/write/?edit=' | append: page.path | relative_url }}" class="owner-only post-edit-chip">✏️ 이 글 수정</a>
+            {% endif %}
           </div>
 
           <h1 class="post-title">{{ page.title }}</h1>

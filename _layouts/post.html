@@ -29,6 +29,9 @@ layout: default
         {% assign read_min = words | divided_by: 220 | plus: 1 %}
         <span class="meta-divider">·</span>
         <span class="post-readtime">약 {{ read_min }}분 소요</span>
+        {% if page.path contains '_posts/' %}
+        <a href="{{ '/write/?edit=' | append: page.path | relative_url }}" class="owner-only post-edit-chip">✏️ 이 글 수정</a>
+        {% endif %}
       </div>
 
       <h1 class="post-title">{{ page.title }}</h1>

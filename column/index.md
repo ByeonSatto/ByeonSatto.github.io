@@ -6,10 +6,15 @@ description: "게임 레벨 디자인, 공간의 시선 유도, 패치 방향성
 ---
 
 <section class="page-hero">
-  <div class="container">
-    <span class="page-kicker">LEVEL &amp; SYSTEM DESIGN ARCHIVE</span>
-    <h1 class="page-title">게임 칼럼 (Columns)</h1>
-    <p class="page-desc">{{ page.description }}</p>
+  <div class="container page-hero-flex">
+    <div>
+      <span class="page-kicker">LEVEL &amp; SYSTEM DESIGN ARCHIVE</span>
+      <h1 class="page-title">게임 칼럼 (Columns)</h1>
+      <p class="page-desc">{{ page.description }}</p>
+    </div>
+    <div class="owner-only page-hero-action">
+      <a href="{{ '/write/?category=column' | relative_url }}" class="btn btn-primary">✏️ 새 칼럼 작성</a>
+    </div>
   </div>
 </section>
 
