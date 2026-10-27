@@ -60,8 +60,7 @@ author:
       url: "https://app.notion.com/p/36ee398987dc801a8339fc3a361769c2?source=copy_link&assetsVersion=23.13.20260529.1029"
 
 # Include underscore-prefixed files in Jekyll build
-include:
-  - "_sample-project.md"
+include: []
 
 # Default Front-matter Values
 defaults:

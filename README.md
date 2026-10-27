@@ -25,7 +25,7 @@
 │   └── 2026-10-22-sample-game-review.md     # 샘플 게임 리뷰 (category: review)
 ├── portfolio/
 │   ├── index.md                             # 포트폴리오 목록 페이지 (/portfolio/)
-│   └── _sample-project.md                   # 샘플 프로젝트 상세 페이지 (/portfolio/sample-project/)
+│   └── elden-ring-siofra-river.md           # 엘든 링 시프라 강 역기획 포트폴리오 상세 페이지 (/portfolio/elden-ring-siofra-river/)
 ├── column/
 │   └── index.md                             # 게임 칼럼 카테고리 아카이브 (/column/)
 ├── review/
