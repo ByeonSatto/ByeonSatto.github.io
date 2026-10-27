@@ -43,11 +43,6 @@ layout: default
             {% endfor %}
           </div>
           <h2 class="card-title">{{ project.title }}</h2>
-          <p class="card-summary">{{ project.summary | default: project.excerpt | strip_html | truncate: 130 }}</p>
-          <div class="card-footer">
-            <span class="card-role">{{ project.role | default: 'Level Design' }}</span>
-            <span class="card-cta">프로젝트 상세 →</span>
-          </div>
         </div>
       </a>
     </article>
@@ -76,11 +71,6 @@ layout: default
               {% endfor %}
             </div>
             <h2 class="card-title">{{ item.title }}</h2>
-            <p class="card-summary">{{ item.summary }}</p>
-            <div class="card-footer">
-              <span class="card-role">{{ item.role | default: 'Level & System Design' }}</span>
-              <span class="card-cta">프로젝트 상세 →</span>
-            </div>
           </div>
         </a>
       </article>

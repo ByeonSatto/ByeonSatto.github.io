@@ -95,11 +95,6 @@ layout: default
                 {% endfor %}
               </div>
               <h3 class="card-title">{{ project.title }}</h3>
-              <p class="card-summary">{{ project.summary | default: project.excerpt | strip_html | truncate: 110 }}</p>
-              <div class="card-footer">
-                <span class="card-role">{{ project.role | default: 'Level Design' }}</span>
-                <span class="card-cta">상세 보기 →</span>
-              </div>
             </div>
           </a>
         </article>

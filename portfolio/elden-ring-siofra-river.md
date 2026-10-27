@@ -8,13 +8,122 @@ period: "2026.03 - 2026.04 (2개월)"
 genre: "3D Open-World Action RPG / Level Design"
 thumbnail: "/assets/images/portfolio/siofra-river/cover.jpg"
 tags:
-  - "UnrealEngine5"
-  - "LevelDesign"
-  - "ReverseDesign"
-  - "EldenRing"
+  - "역기획"
+  - "언리얼5"
+  - "오픈월드"
 summary: "언리얼 엔진 5.6을 활용하여 『엘든 링』의 지하 오픈월드 '시프라 강 하층 - 각해의 영지(약 520m × 180m)'를 역기획 및 재구축한 레벨 디자인 프로젝트입니다."
 toc: false
 ---
+
+<style>
+  .portfolio-feature-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14rem;
+    margin: 8rem 0;
+    width: min(1420px, calc(100vw - 3.5rem));
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .portfolio-feature-item {
+    display: grid;
+    grid-template-columns: 1.25fr 1fr;
+    gap: 4.5rem;
+    align-items: center;
+    padding-bottom: 14rem;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .portfolio-feature-item.is-reversed {
+    grid-template-columns: 1fr 1.25fr;
+  }
+  .portfolio-feature-item.is-reversed .portfolio-feature-media {
+    order: 2;
+  }
+  .portfolio-feature-item.is-reversed .portfolio-feature-content {
+    order: 1;
+  }
+  .portfolio-feature-item:last-child {
+    padding-bottom: 2rem;
+    border-bottom: none;
+  }
+  .portfolio-feature-media {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.7);
+  }
+  .portfolio-feature-media img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .portfolio-feature-content h2 {
+    margin-top: 0 !important;
+    margin-bottom: 1.5rem !important;
+    padding-bottom: 0.85rem !important;
+    font-size: 1.95rem !important;
+    line-height: 1.3 !important;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .portfolio-feature-num {
+    font-family: var(--font-mono);
+    color: var(--accent-cyan);
+    font-size: 0.98rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  .portfolio-feature-list ul {
+    margin: 0 !important;
+    padding-left: 1.4rem !important;
+    display: flex;
+    flex-direction: column;
+    gap: 1.15rem;
+  }
+  .portfolio-feature-list li {
+    margin-bottom: 0 !important;
+    font-size: 1.16rem !important;
+    line-height: 1.8 !important;
+  }
+  .scroll-reveal {
+    opacity: 0;
+    transform: translateY(68px);
+    transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1), transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+  .scroll-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  @media (max-width: 960px) {
+    .portfolio-feature-list {
+      width: 100%;
+      left: 0;
+      transform: none;
+      gap: 7rem;
+      margin: 4.5rem 0;
+    }
+    .portfolio-feature-item,
+    .portfolio-feature-item.is-reversed {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      padding-bottom: 7rem;
+    }
+    .portfolio-feature-item.is-reversed .portfolio-feature-media,
+    .portfolio-feature-item.is-reversed .portfolio-feature-content {
+      order: initial;
+    }
+    .portfolio-feature-content h2 {
+      font-size: 1.55rem !important;
+    }
+    .portfolio-feature-list li {
+      font-size: 1.05rem !important;
+    }
+  }
+</style>
 
 ## 프로젝트 개요
 
@@ -28,14 +137,8 @@ toc: false
 
 <p style="text-align: center; font-weight: 700; color: var(--text-primary); margin: 2rem 0 0.75rem;">▼플레이영상</p>
 
-<div class="video-embed-container" style="margin-top: 0.5rem;">
+<div class="video-embed-container" style="margin-top: 0.5rem; margin-bottom: 3.5rem;">
   <iframe src="https://www.youtube.com/embed/DzPZhLIEnJw" title="엘든 링 시프라 강 역기획 시연 영상" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
-</div>
-
-<div style="margin: 2rem 0 3.5rem; text-align: center;">
-  <a href="{{ '/assets/images/portfolio/siofra-river/elden-ring-siofra-river-reverse-design.pdf' | relative_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-    📄 역기획서 원본 PDF 전체 보기 / 다운로드
-  </a>
 </div>
 
 ---
@@ -58,8 +161,8 @@ toc: false
     </div>
   </section>
 
-  <!-- 02 -->
-  <section class="portfolio-feature-item scroll-reveal">
+  <!-- 02 (교차: 텍스트 좌측 / 이미지 우측) -->
+  <section class="portfolio-feature-item is-reversed scroll-reveal">
     <div class="portfolio-feature-media">
       <img src="{{ '/assets/images/portfolio/siofra-river/vertical_level.png' | relative_url }}" alt="높은 성벽에서 아래 플레이 구역을 조망하는 뷰" loading="lazy">
     </div>
