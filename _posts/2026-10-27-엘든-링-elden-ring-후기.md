@@ -4,7 +4,7 @@ title: "엘든 링 Elden Ring 후기"
 date: 2026-10-27 11:37:00 +0900
 categories: [review]
 author: "변성민"
-rating: 4.5
+rating: 5
 verdict: "압도적인 몰입감의 전투경험"
 summary: "소울이 친절하진 않아도 섬세할 수는 있다"
 game_info:
