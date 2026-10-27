@@ -16,6 +16,8 @@ summary: "언리얼 엔진 5.6을 활용하여 『엘든 링』의 지하 오픈
 toc: false
 ---
 
+## 프로젝트 개요
+
 | 항목 | 내용 |
 | :--- | :--- |
 | **대상 게임** | 엘든 링 (Elden Ring) |
@@ -24,7 +26,9 @@ toc: false
 | **사용 툴** | 언리얼 엔진 5.6 (Unreal Engine 5.6) |
 | **크기** | 약 `520m × 180m` |
 
-<div class="video-embed-container">
+<p style="text-align: center; font-weight: 700; color: var(--text-primary); margin: 2rem 0 0.75rem;">▼플레이영상</p>
+
+<div class="video-embed-container" style="margin-top: 0.5rem;">
   <iframe src="https://www.youtube.com/embed/DzPZhLIEnJw" title="엘든 링 시프라 강 역기획 시연 영상" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
 </div>
 
