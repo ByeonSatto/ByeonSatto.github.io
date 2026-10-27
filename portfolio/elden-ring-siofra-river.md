@@ -43,7 +43,7 @@ toc: false
 <div class="portfolio-feature-list">
 
   <!-- 01 -->
-  <section class="portfolio-feature-item">
+  <section class="portfolio-feature-item scroll-reveal">
     <div class="portfolio-feature-media">
       <img src="{{ '/assets/images/portfolio/siofra-river/cover.jpg' | relative_url }}" alt="엘든 링 시프라 강 각해의 영지 역기획 전경" loading="lazy">
     </div>
@@ -59,7 +59,7 @@ toc: false
   </section>
 
   <!-- 02 -->
-  <section class="portfolio-feature-item">
+  <section class="portfolio-feature-item scroll-reveal">
     <div class="portfolio-feature-media">
       <img src="{{ '/assets/images/portfolio/siofra-river/vertical_level.png' | relative_url }}" alt="높은 성벽에서 아래 플레이 구역을 조망하는 뷰" loading="lazy">
     </div>
@@ -75,7 +75,7 @@ toc: false
   </section>
 
   <!-- 03 -->
-  <section class="portfolio-feature-item">
+  <section class="portfolio-feature-item scroll-reveal">
     <div class="portfolio-feature-media">
       <img src="{{ '/assets/images/portfolio/siofra-river/blueprint_gimmick.png' | relative_url }}" alt="기둥 점화 카운트 및 각해 보스전 활성화 블루프린트" loading="lazy">
     </div>
@@ -91,11 +91,34 @@ toc: false
 
 </div>
 
-<div style="margin: 2rem 0 1rem; padding: 2rem; background: var(--bg-card); border: 1px solid var(--border-highlight); border-radius: var(--radius-lg); text-align: center;">
-  <p style="margin-bottom: 1rem; color: var(--text-primary); font-weight: 600; font-size: 1.05rem;">
+<div class="scroll-reveal" style="margin: 3rem 0 1rem; padding: 2.5rem; background: var(--bg-card); border: 1px solid var(--border-highlight); border-radius: var(--radius-lg); text-align: center;">
+  <p style="margin-bottom: 1.25rem; color: var(--text-primary); font-weight: 600; font-size: 1.15rem;">
     85개 세부 동선 포인트의 시선 유도(프레이밍·지그재그 배치) 분석과<br>구획별 상세 규격 도면은 아래 기획서 원문에서 확인하실 수 있습니다.
   </p>
-  <a href="{{ '/assets/images/portfolio/siofra-river/elden-ring-siofra-river-reverse-design.pdf' | relative_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+  <a href="{{ '/assets/images/portfolio/siofra-river/elden-ring-siofra-river-reverse-design.pdf' | relative_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="font-size: 1.02rem; padding: 0.8rem 1.6rem;">
     📄 역기획서 전체 PDF 열람하기 (43 Pages)
   </a>
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var revealEls = document.querySelectorAll(".scroll-reveal");
+    if (!("IntersectionObserver" in window)) {
+      revealEls.forEach(function (el) { el.classList.add("is-visible"); });
+      return;
+    }
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+        } else {
+          entry.target.classList.remove("is-visible");
+        }
+      });
+    }, {
+      threshold: 0.16,
+      rootMargin: "0px 0px -8% 0px"
+    });
+    revealEls.forEach(function (el) { observer.observe(el); });
+  });
+</script>
