@@ -5,11 +5,16 @@ permalink: /column/
 description: "게임 레벨 디자인, 공간의 시선 유도, 패치 방향성 및 코어 메커니즘을 심층 분석하는 칼럼 아카이브입니다."
 ---
 
+{% assign columns = site.categories.column %}
+
 <section class="page-hero">
   <div class="container page-hero-flex">
     <div>
       <span class="page-kicker">LEVEL &amp; SYSTEM DESIGN ARCHIVE</span>
-      <h1 class="page-title">게임 칼럼 (Columns)</h1>
+      <h1 class="page-title">
+        게임 칼럼 (Columns)
+        <span class="page-count-badge">총 {{ columns.size | default: 0 }}편</span>
+      </h1>
       <p class="page-desc">{{ page.description }}</p>
     </div>
     <div class="owner-only page-hero-action">
