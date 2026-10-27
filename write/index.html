@@ -519,7 +519,7 @@ sitemap: false
       html += `</div>`;
 
       if (window.marked && typeof window.marked.parse === "function") {
-        html += window.marked.parse(rawBody);
+        html += window.marked.parse(rawBody, { breaks: true, gfm: true });
       } else {
         html += `<div style="white-space:pre-wrap;">${escapeHtml(rawBody)}</div>`;
       }
