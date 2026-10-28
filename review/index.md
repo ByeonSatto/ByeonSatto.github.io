@@ -56,9 +56,9 @@ description: "플레이 경험, 레벨 구조 완성도, 핵심 재미와 한계
               {% endif %}
             </div>
             {% if post.rating %}
-            <div class="rating-pill" title="평점 {{ post.rating }} / 5.0">
+            <div class="rating-pill" title="평점 {{ post.rating | times: 1.0 }} / 5.0">
               <span class="rating-star">★</span>
-              <span class="rating-num">{{ post.rating }}</span><span class="rating-max">/5.0</span>
+              <span class="rating-num">{{ post.rating | times: 1.0 }}</span><span class="rating-max">/5.0</span>
             </div>
             {% endif %}
           </div>

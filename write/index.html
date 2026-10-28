@@ -947,7 +947,7 @@ sitemap: false
     lines.push(`author: "변성민"`);
 
     if (currentCategory === "review") {
-      const rating = parseFloat(ratingInput.value) || 4.5;
+      const rating = (parseFloat(ratingInput.value) || 4.5).toFixed(1);
       lines.push(`rating: ${rating}`);
       if (verdictInput.value.trim()) {
         lines.push(`verdict: ${escapeYamlString(verdictInput.value.trim())}`);

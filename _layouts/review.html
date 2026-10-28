@@ -33,10 +33,10 @@ layout: default
 
         <!-- Score Badge Area (5점 만점 배지 + 별점 시각화) -->
         {% if page.rating %}
-        <div class="review-score-card" aria-label="평점 {{ page.rating }}점 (5.0점 만점)">
+        <div class="review-score-card" aria-label="평점 {{ page.rating | times: 1.0 }}점 (5.0점 만점)">
           <span class="score-label">VERDICT SCORE</span>
           <div class="score-number-wrap">
-            <span class="score-value">{{ page.rating }}</span>
+            <span class="score-value">{{ page.rating | times: 1.0 }}</span>
             <span class="score-max">/ 5.0</span>
           </div>
           <div class="score-stars" aria-hidden="true">

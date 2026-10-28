@@ -171,9 +171,9 @@ layout: default
                   <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y.%m.%d" }}</time>
                 </div>
                 {% if post.rating %}
-                <div class="rating-pill" title="평점 {{ post.rating }} / 5.0">
+                <div class="rating-pill" title="평점 {{ post.rating | times: 1.0 }} / 5.0">
                   <span class="rating-star">★</span>
-                  <span class="rating-num">{{ post.rating }}</span><span class="rating-max">/5.0</span>
+                  <span class="rating-num">{{ post.rating | times: 1.0 }}</span><span class="rating-max">/5.0</span>
                 </div>
                 {% endif %}
               </div>
