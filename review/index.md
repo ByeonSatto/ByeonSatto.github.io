@@ -67,8 +67,9 @@ description: "플레이 경험, 레벨 구조 완성도, 핵심 재미와 한계
             <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
           </h2>
 
-          {% if post.verdict %}
-          <p class="archive-verdict-quote">"{{ post.verdict }}"</p>
+          {% assign rev_sub = post.subtitle | default: post.summary %}
+          {% if rev_sub and rev_sub != "" %}
+          <p class="archive-card-excerpt" style="margin-bottom: 0;">{{ rev_sub }}</p>
           {% endif %}
         </div>
       </article>
