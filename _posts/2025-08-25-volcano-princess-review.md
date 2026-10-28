@@ -1,18 +1,19 @@
 ---
 layout: review
 title: "[화산의 딸] 후기- 반찬이 많다고 좋은 식당은 아니다"
-date: 2025-08-25 12:32:22 +0900
+date: 2025-08-25 12:32:00 +0900
 categories: [review]
-tags: [GameReview, VolcanoPrincess, Simulation]
+tags: ["GameReview", "VolcanoPrincess", "Simulation"]
 author: "변성민"
 rating: 2.5
-verdict: "개성 있고 귀여운 캐릭터와 직관적인 육성 재미는 확실하지만, 58개의 직업 엔딩에 비해 얕은 메인 스토리 분기와 반복적인 행동력 루프가 아쉬운 작품."
+verdict: "프린세스 메이커를 생각하면 실망할 것"
 game_info:
   title: "화산의 딸 (Volcano Princess)"
   genre: "육성 시뮬레이션 RPG"
   platform: "PC (Steam)"
   developer: "Egg Hatcher Studio"
   publisher: "Gamera Games"
+  playtime: "20시간"
   release_date: "2023. 04"
 pros:
   - "직관적이고 배우기 쉬운 육성 시스템 (호감도, 스폿, 커리큘럼)"
