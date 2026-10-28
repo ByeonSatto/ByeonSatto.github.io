@@ -132,10 +132,9 @@ layout: default
               <h3 class="feed-title">
                 <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
               </h3>
-              {% if post.subtitle %}
-              <p class="feed-subtitle">{{ post.subtitle }}</p>
-              {% else %}
-              <p class="feed-excerpt">{{ post.summary | default: post.excerpt | strip_html | truncate: 95 }}</p>
+              {% assign col_sub = post.subtitle | default: post.summary %}
+              {% if col_sub and col_sub != "" %}
+              <p class="feed-excerpt">{{ col_sub }}</p>
               {% endif %}
             </div>
           </article>
@@ -181,7 +180,10 @@ layout: default
               <h3 class="feed-title">
                 <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
               </h3>
-              <p class="feed-excerpt">{{ post.summary | default: post.excerpt | strip_html | truncate: 95 }}</p>
+              {% assign rev_sub = post.subtitle | default: post.summary %}
+              {% if rev_sub and rev_sub != "" %}
+              <p class="feed-excerpt">{{ rev_sub }}</p>
+              {% endif %}
             </div>
           </article>
           {% endfor %}

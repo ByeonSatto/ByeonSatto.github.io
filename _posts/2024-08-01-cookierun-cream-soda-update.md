@@ -1,11 +1,10 @@
-﻿---
+---
 layout: post
 title: "[쿠키런: 오븐브레이크] - 크림소다맛 쿠키 업데이트"
 date: 2024-08-01 19:21:02 +0900
 categories: [column]
 tags: [CookieRun, CharacterAnalysis, GameColumn]
 author: "변성민"
-summary: "쿠키런: 모험의 탑의 오리지널 캐릭터다."
 original_url: "https://blog.naver.com/qustjdals46/223533280099"
 thumbnail: "/assets/images/posts/223533280099_1.jpeg"
 toc: true

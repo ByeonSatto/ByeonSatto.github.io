@@ -1,11 +1,10 @@
-﻿---
+---
 layout: post
 title: "[GMS: Ride or Die] 이벤트 뉴비한정 공략"
 date: 2024-11-27 10:52:37 +0900
 categories: [column]
 tags: [MapleStory, GMS, EventGuide]
 author: "변성민"
-summary: "GMS Rid or Die가 10주 남았다."
 original_url: "https://blog.naver.com/qustjdals46/223674393103"
 thumbnail: "/assets/images/posts/223674393103_1.png"
 toc: true

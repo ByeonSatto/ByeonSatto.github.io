@@ -1,11 +1,10 @@
-﻿---
+---
 layout: post
 title: "[gms공략]-유니온 140LV작"
 date: 2024-12-14 12:01:08 +0900
 categories: [column]
 tags: [MapleStory, GMS, GameGuide]
 author: "변성민"
-summary: "오늘은 gms에서 유니온을 키우는 방법에 대해 포스팅하려고 한다."
 original_url: "https://blog.naver.com/qustjdals46/223693206421"
 toc: true
 ---

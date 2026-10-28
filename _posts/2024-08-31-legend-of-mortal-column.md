@@ -7,7 +7,6 @@ tags: [GameReview, LegendOfMortal, Narrative, RPG]
 author: "변성민"
 rating: 4.5
 verdict: "사소한 선택과 스탯, 주사위가 촘촘히 맞물려 무협의 세계관과 서사적 몰입감을 극대화한 작품."
-summary: "70시간 플레이를 통해 분석한 활협전의 다층적 스탯·호감도·주사위 이벤트 트리거 구조의 강점과 전투 및 육성 동선의 아쉬운 점을 다룬 리뷰입니다."
 game_info:
   title: "활협전 (Legend of Mortal)"
   genre: "무협 육성 시뮬레이션 RPG"

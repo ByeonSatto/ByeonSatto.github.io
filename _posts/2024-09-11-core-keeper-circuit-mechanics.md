@@ -7,7 +7,6 @@ tags: [GameReview, CoreKeeper, SystemDesign, LevelDesign]
 author: "변성민"
 rating: 3.5
 verdict: "코어 중심의 거리 기반 탐사 유도와 직관적인 자동화 설비가 매력적인 플랫포머 RPG이나, 루팅 편중 파밍과 낮은 보스 난이도는 아쉬운 작품."
-summary: "190시간 플레이를 바탕으로 코어키퍼의 게임 진행과 보스 거리 배치, 장비 업그레이드, 스폰 타일 기반 자동화 설비, 생활(농사·낚시·요리) 시스템을 종합 분석한 리뷰입니다."
 game_info:
   title: "코어 키퍼 (Core Keeper)"
   genre: "샌드박스 탐험 액션 RPG"

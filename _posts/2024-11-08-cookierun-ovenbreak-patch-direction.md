@@ -1,11 +1,10 @@
-﻿---
+---
 layout: post
 title: "[쿠키런: 오븐브레이크] 패치방향성 솎아보기"
 date: 2024-11-08 18:24:51 +0900
 categories: [column]
 tags: [CookieRun, PatchAnalysis, GameColumn]
 author: "변성민"
-summary: "최근 쿠키런: 오븐브레이크가 8주년을 맞이했다."
 original_url: "https://blog.naver.com/qustjdals46/223652505767"
 thumbnail: "/assets/images/posts/223652505767_1.png"
 toc: true

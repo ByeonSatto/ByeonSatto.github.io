@@ -46,10 +46,10 @@ description: "게임 레벨 디자인, 공간의 시선 유도, 패치 방향성
           <h2 class="archive-card-title">
             <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
           </h2>
-          {% if post.subtitle %}
-          <p class="archive-card-subtitle">{{ post.subtitle }}</p>
+          {% assign col_sub = post.subtitle | default: post.summary %}
+          {% if col_sub and col_sub != "" %}
+          <p class="archive-card-subtitle">{{ col_sub }}</p>
           {% endif %}
-          <p class="archive-card-excerpt">{{ post.summary | default: post.excerpt | strip_html | truncate: 150 }}</p>
         </div>
       </article>
       {% endfor %}

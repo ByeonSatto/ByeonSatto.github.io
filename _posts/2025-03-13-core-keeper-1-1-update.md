@@ -1,11 +1,10 @@
-﻿---
+---
 layout: post
 title: "[코어 키퍼 1.1.0 업데이트] - 가방과 폭발"
 date: 2025-03-13 23:22:57 +0900
 categories: [column]
 tags: [CoreKeeper, UpdateAnalysis, GameColumn]
 author: "변성민"
-summary: "지난 2025년 3월 10일 코어 키퍼에"
 original_url: "https://blog.naver.com/qustjdals46/223795202439"
 thumbnail: "/assets/images/posts/223795202439_1.png"
 toc: true

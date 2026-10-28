@@ -7,7 +7,6 @@ tags: [GameReview, PokeRogue, Roguelike, DeckBuilding]
 author: "변성민"
 rating: 4.0
 verdict: "수집 요소를 실전 행운 수치로 연결하고, 유전자쐐기 융합으로 본가에서 상상만 하던 덱빌딩의 정수를 구현한 팬게임."
-summary: "포켓몬스터 IP와 덱빌딩 로그라이트를 결합한 포켓로그의 코스트·이로치 행운 시스템과 유전자쐐기 메커니즘의 재미, 그리고 반복 사탕작의 한계를 분석한 리뷰입니다."
 game_info:
   title: "포켓로그 (PokéRogue)"
   genre: "덱빌딩 로그라이트 RPG"

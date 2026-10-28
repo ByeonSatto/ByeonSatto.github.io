@@ -7,7 +7,6 @@ tags: [GameReview, Civilization7, Strategy]
 author: "변성민"
 rating: 3.5
 verdict: "도시와 마을의 분리로 후반 조작 스트레스를 줄이고, 내러티브와 시대별 문명 변경으로 전략적 선택지를 넓힌 매력적인 변화."
-summary: "도시·마을 이원화 시스템으로 후반부 관리 피로도를 낮추고, 내러티브 이벤트와 시대별 문명 교체로 전략적 변수를 늘린 문명 7의 첫인상 리뷰입니다."
 game_info:
   title: "문명 7 (Sid Meier's Civilization VII)"
   genre: "4X 턴제 전략 시뮬레이션"
