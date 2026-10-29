@@ -104,22 +104,30 @@ layout: default
           <div class="pc-card-header pros-header">
             <h3>장점</h3>
           </div>
+          {% if page.pros and page.pros.size > 0 %}
           <ol class="pc-list">
             {% for item in page.pros %}
             <li>{{ item }}</li>
             {% endfor %}
           </ol>
+          {% else %}
+          <div class="pc-empty">없음</div>
+          {% endif %}
         </div>
 
         <div class="cons-card">
           <div class="pc-card-header cons-header">
             <h3>단점</h3>
           </div>
+          {% if page.cons and page.cons.size > 0 %}
           <ol class="pc-list">
             {% for item in page.cons %}
             <li>{{ item }}</li>
             {% endfor %}
           </ol>
+          {% else %}
+          <div class="pc-empty">없음</div>
+          {% endif %}
         </div>
       </div>
     </section>

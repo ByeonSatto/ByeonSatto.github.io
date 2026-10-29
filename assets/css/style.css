@@ -2570,3 +2570,23 @@ html.is-owner-authenticated div.owner-only {
   }
 }
 
+
+/* ==========================================================================
+   Pros & Cons Empty State Centering
+   ========================================================================== */
+.pros-card, .cons-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.pc-empty {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  font-weight: 500;
+  min-height: 64px;
+}

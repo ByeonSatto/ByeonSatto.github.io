@@ -509,16 +509,25 @@ sitemap: false
         const consList = consTextarea.value.split("\n").map((s) => s.trim()).filter(Boolean);
         if (prosList.length > 0 || consList.length > 0) {
           html += `<div class="pros-cons-grid" style="margin: 1rem 0;">`;
+          html += `<div class="pros-card"><div class="pc-card-header pros-header"><h3>장점</h3></div>`;
           if (prosList.length > 0) {
-            html += `<div class="pros-card"><div class="pc-card-header pros-header"><h3>장점</h3></div><ol class="pc-list">`;
+            html += `<ol class="pc-list">`;
             prosList.forEach((p) => { html += `<li>${escapeHtml(p)}</li>`; });
-            html += `</ol></div>`;
+            html += `</ol>`;
+          } else {
+            html += `<div class="pc-empty">없음</div>`;
           }
+          html += `</div>`;
+
+          html += `<div class="cons-card"><div class="pc-card-header cons-header"><h3>단점</h3></div>`;
           if (consList.length > 0) {
-            html += `<div class="cons-card"><div class="pc-card-header cons-header"><h3>단점</h3></div><ol class="pc-list">`;
+            html += `<ol class="pc-list">`;
             consList.forEach((c) => { html += `<li>${escapeHtml(c)}</li>`; });
-            html += `</ol></div>`;
+            html += `</ol>`;
+          } else {
+            html += `<div class="pc-empty">없음</div>`;
           }
+          html += `</div>`;
           html += `</div>`;
         }
       }
