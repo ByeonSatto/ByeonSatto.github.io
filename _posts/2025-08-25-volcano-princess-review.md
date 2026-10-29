@@ -5,7 +5,7 @@ date: 2025-08-25 12:32:00 +0900
 categories: [review]
 tags: ["GameReview", "VolcanoPrincess", "Simulation"]
 author: "변성민"
-rating: 2.5
+rating: 2.0
 verdict: "프린세스 메이커를 생각하면 실망할 것"
 game_info:
   title: "화산의 딸 (Volcano Princess)"
