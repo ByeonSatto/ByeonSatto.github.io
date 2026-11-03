@@ -80,9 +80,6 @@ sitemap: false
           <span id="draft-status" class="draft-status-text">자동 임시저장 활성화</span>
         </div>
         <div class="studio-topbar-right">
-          <button type="button" id="btn-open-steam-radar" class="btn btn-primary btn-sm">
-            🔥 스팀 인디·인기 동향 레이더
-          </button>
           <button type="button" id="btn-open-posts-modal" class="btn btn-secondary btn-sm">
             📂 기존 글 불러오기 / 수정
           </button>
@@ -129,9 +126,6 @@ sitemap: false
               게임 이름(한글/영문)이나 스팀 상점 주소(URL) 또는 AppID를 입력하면 공식 고화질 커버 썸네일과 게임 스펙을 자동으로 채워줍니다.
             </p>
           </div>
-          <button type="button" id="btn-open-steam-radar-sub" class="btn btn-secondary btn-sm">
-            🌱 인기 인디게임 동향에서 고르기
-          </button>
         </div>
 
         <div class="steam-search-bar-row">
@@ -356,33 +350,6 @@ sitemap: false
     <div class="studio-modal-body">
       <div id="posts-list-loading" class="modal-loading">GitHub 저장소에서 글 목록을 불러오는 중...</div>
       <div id="posts-list-container" class="posts-manage-list"></div>
-    </div>
-  </div>
-</div>
-
-<!-- =======================================================================
-     [신규 기능 5] 스팀 인기 인디게임 & 화제작 동향 레이더 모달
-     ======================================================================= -->
-<div id="steam-radar-modal" class="studio-modal-backdrop" style="display: none;">
-  <div class="studio-modal studio-modal-wide">
-    <div class="studio-modal-header">
-      <div>
-        <span class="cat-badge cat-column" style="margin-bottom: 0.25rem;">STEAM INDIE &amp; TREND RADAR</span>
-        <h3>🔥 스팀 인기 인디게임 &amp; 최신 동향 레이더</h3>
-      </div>
-      <button type="button" id="btn-close-steam-radar" class="modal-close-btn">&times;</button>
-    </div>
-    <div class="studio-modal-body">
-      <div class="radar-toolbar">
-        <div class="sort-tabs" role="tablist">
-          <button type="button" class="sort-tab-btn active" data-radar-filter="indie">🌱 인기 인디게임 (Indie)</button>
-          <button type="button" class="sort-tab-btn" data-radar-filter="all">🔥 전체 인기·신작</button>
-          <button type="button" class="sort-tab-btn" data-radar-filter="discount">💸 현재 할인작</button>
-        </div>
-        <span id="radar-updated-at" class="hint">GitHub Actions 매일 자동 업데이트</span>
-      </div>
-      <div id="radar-list-loading" class="modal-loading">스팀 동향 데이터를 불러오는 중...</div>
-      <div id="radar-list-container" class="radar-cards-grid"></div>
     </div>
   </div>
 </div>
@@ -802,16 +769,12 @@ sitemap: false
   });
 
   // =========================================================================
-  // 3.5. [신규 기능 1 & 5] Steam 게임 검색 자동완성 & 인디게임 동향 레이더
+  // 3.5. [신규 기능 1] Steam 게임 검색 & 기본정보·썸네일 1초 자동완성
   // =========================================================================
   const steamSearchInput = document.getElementById("steam-search-input");
   const steamSearchBtn = document.getElementById("btn-steam-search");
   const steamSearchStatus = document.getElementById("steam-search-status");
   const steamSearchResults = document.getElementById("steam-search-results");
-  const steamRadarModal = document.getElementById("steam-radar-modal");
-  const radarListLoading = document.getElementById("radar-list-loading");
-  const radarListContainer = document.getElementById("radar-list-container");
-  const radarUpdatedAtEl = document.getElementById("radar-updated-at");
 
   async function fetchSteamJsonWithCorsFallback(targetUrl) {
     const proxies = [
@@ -827,7 +790,7 @@ sitemap: false
         }
       } catch (e) {}
     }
-    throw new Error("스팀 API 응답 지연 (잠시 후 다시 시도하거나 동향 레이더에서 선택해 주세요)");
+    throw new Error("스팀 API 응답 지연 (잠시 후 다시 시도해 주세요)");
   }
 
   function applyGameInfoToForm(game) {
@@ -881,15 +844,6 @@ sitemap: false
     steamSearchStatus.textContent = `⏳ 스팀에서 '${fallbackName || appid}' 상세 스펙(개발사·장르·출시일)을 가져오는 중...`;
 
     try {
-      // 먼저 로컬 캐시된 트렌드 데이터에 있는지 확인
-      if (cachedTrendsData && Array.isArray(cachedTrendsData.items)) {
-        const found = cachedTrendsData.items.find((it) => String(it.appid) === String(appid));
-        if (found) {
-          applyGameInfoToForm(found);
-          return;
-        }
-      }
-
       const detailUrl = `https://store.steampowered.com/api/appdetails?appids=${appid}&l=koreana&cc=kr`;
       const data = await fetchSteamJsonWithCorsFallback(detailUrl);
       const entry = data && data[String(appid)];
@@ -1007,112 +961,6 @@ sitemap: false
       e.preventDefault();
       handleSteamSearch();
     }
-  });
-
-  // [기능 5] 스팀 인기 인디게임 & 트렌드 레이더 모달 열기/렌더링
-  async function openSteamRadarModal() {
-    steamRadarModal.style.display = "flex";
-    if (cachedTrendsData) {
-      renderRadarCards();
-      return;
-    }
-    radarListLoading.style.display = "block";
-    radarListContainer.innerHTML = "";
-    try {
-      const res = await fetch("{{ '/assets/data/steam-trends.json' | relative_url }}?v=" + Date.now());
-      if (!res.ok) throw new Error("동향 데이터를 불러올 수 없습니다.");
-      cachedTrendsData = await res.json();
-      if (cachedTrendsData.updated_at && radarUpdatedAtEl) {
-        radarUpdatedAtEl.textContent = "최근 업데이트: " + cachedTrendsData.updated_at;
-      }
-      radarListLoading.style.display = "none";
-      renderRadarCards();
-    } catch (e) {
-      radarListLoading.textContent = "⚠️ 동향 데이터를 불러오지 못했습니다: " + e.message;
-    }
-  }
-
-  function renderRadarCards() {
-    if (!cachedTrendsData || !Array.isArray(cachedTrendsData.items)) return;
-    let list = cachedTrendsData.items;
-    if (currentRadarFilter === "indie") {
-      list = list.filter((g) => g.is_indie);
-    } else if (currentRadarFilter === "discount") {
-      list = list.filter((g) => (g.discount_percent || 0) > 0);
-    }
-
-    radarListContainer.innerHTML = "";
-    if (list.length === 0) {
-      radarListContainer.innerHTML = `<p class="text-muted">해당 필터에 맞는 게임이 없습니다.</p>`;
-      return;
-    }
-
-    list.forEach((game) => {
-      const card = document.createElement("div");
-      card.className = "radar-game-card";
-      const discountBadge = game.discount_percent > 0
-        ? `<span class="radar-discount-badge">-${game.discount_percent}%</span>`
-        : "";
-      const indieBadge = game.is_indie
-        ? `<span class="cat-badge cat-column" style="font-size:0.68rem;">INDIE</span>`
-        : "";
-
-      card.innerHTML = `
-        <div class="radar-thumb-wrap">
-          <img src="${escapeHtml(game.header_image)}" alt="${escapeHtml(game.name)}" class="radar-thumb" loading="lazy">
-          ${discountBadge}
-        </div>
-        <div class="radar-card-body">
-          <div class="radar-meta-row">
-            ${indieBadge}
-            <span>${escapeHtml(game.genres || "Steam Game")}</span>
-            <span>·</span>
-            <span>${escapeHtml(game.price || "-")}</span>
-          </div>
-          <h4 class="radar-game-title">${escapeHtml(game.name)}</h4>
-          <p class="radar-game-desc">${escapeHtml(game.short_description || "")}</p>
-          <div class="radar-sub-meta">
-            <span>개발: ${escapeHtml(game.developer || "-")}</span>
-            ${game.release_date ? `<span>· 출시: ${escapeHtml(game.release_date)}</span>` : ""}
-          </div>
-          <div class="radar-card-actions">
-            <button type="button" class="btn btn-primary btn-sm btn-select-radar-game" data-appid="${game.appid}">
-              ✨ 이 게임으로 글쓰기 세팅
-            </button>
-            <a href="${escapeHtml(game.store_url)}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
-              스팀 상점 ↗
-            </a>
-          </div>
-        </div>
-      `;
-      radarListContainer.appendChild(card);
-    });
-
-    radarListContainer.querySelectorAll(".btn-select-radar-game").forEach((btn) => {
-      btn.addEventListener("click", function () {
-        const aid = this.getAttribute("data-appid");
-        const found = cachedTrendsData.items.find((it) => String(it.appid) === String(aid));
-        if (found) {
-          applyGameInfoToForm(found);
-          steamRadarModal.style.display = "none";
-        }
-      });
-    });
-  }
-
-  document.getElementById("btn-open-steam-radar").addEventListener("click", openSteamRadarModal);
-  document.getElementById("btn-open-steam-radar-sub").addEventListener("click", openSteamRadarModal);
-  document.getElementById("btn-close-steam-radar").addEventListener("click", function () {
-    steamRadarModal.style.display = "none";
-  });
-
-  document.querySelectorAll("[data-radar-filter]").forEach((btn) => {
-    btn.addEventListener("click", function () {
-      currentRadarFilter = this.getAttribute("data-radar-filter");
-      document.querySelectorAll("[data-radar-filter]").forEach((b) => b.classList.remove("active"));
-      this.classList.add("active");
-      renderRadarCards();
-    });
   });
 
   // =========================================================================
