@@ -10,6 +10,7 @@ description: >-
 
 baseurl: ""
 url: "https://byeonsatto.github.io"
+og_image: "/assets/images/og-cover.png"
 lang: "ko-KR"
 timezone: "Asia/Seoul"
 
@@ -64,6 +65,10 @@ include: []
 
 # Default Front-matter Values
 defaults:
+  - scope:
+      path: ""
+    values:
+      image: "/assets/images/og-cover.png"
   - scope:
       path: ""
       type: "posts"
