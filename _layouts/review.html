@@ -102,7 +102,8 @@ layout: default
       <div class="pros-cons-grid">
         <div class="pros-card">
           <div class="pc-card-header pros-header">
-            <h3>장점</h3>
+            <span class="pc-icon" aria-hidden="true">+</span>
+            <h3>장점 (PROS)</h3>
           </div>
           {% if page.pros and page.pros.size > 0 %}
           <ol class="pc-list">
@@ -117,7 +118,8 @@ layout: default
 
         <div class="cons-card">
           <div class="pc-card-header cons-header">
-            <h3>단점</h3>
+            <span class="pc-icon" aria-hidden="true">−</span>
+            <h3>단점 (CONS)</h3>
           </div>
           {% if page.cons and page.cons.size > 0 %}
           <ol class="pc-list">

@@ -17,7 +17,13 @@ layout: default
         <div class="hero-subtitle hero-contact-row">
           <span class="hero-contact-name">변성민</span>
           <span class="hero-contact-divider">|</span>
-          <span class="hero-contact-email">이메일: <a href="mailto:{{ site.author.email }}">{{ site.author.email }}</a></span>
+          <span class="hero-contact-email">
+            <svg class="email-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="4" width="20" height="16" rx="3"></rect>
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+            </svg>
+            <a href="mailto:{{ site.author.email }}">{{ site.author.email }}</a>
+          </span>
           {% if site.author.links %}
           <span class="hero-contact-divider">|</span>
           <div class="hero-social-links">
@@ -40,15 +46,37 @@ layout: default
               </svg>
               {% endif %}
               <span>{{ link.label }}</span>
+              <span class="ext-arrow" aria-hidden="true">↗</span>
             </a>
             {% endfor %}
           </div>
           {% endif %}
         </div>
         <div class="hero-actions">
-          <a href="{{ '/portfolio/' | relative_url }}" class="btn btn-primary">포트폴리오 보기</a>
-          <a href="{{ '/column/' | relative_url }}" class="btn btn-secondary">게임 칼럼 읽기</a>
-          <a href="{{ '/review/' | relative_url }}" class="btn btn-outline">게임 리뷰</a>
+          <a href="{{ '/portfolio/' | relative_url }}" class="btn btn-primary">
+            <svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+              <polyline points="2 17 12 22 22 17"></polyline>
+              <polyline points="2 12 12 17 22 12"></polyline>
+            </svg>
+            <span>포트폴리오 보기</span>
+            <span class="btn-arrow" aria-hidden="true">→</span>
+          </a>
+          <a href="{{ '/column/' | relative_url }}" class="btn btn-secondary">
+            <svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+            </svg>
+            <span>게임 칼럼 읽기</span>
+          </a>
+          <a href="{{ '/review/' | relative_url }}" class="btn btn-outline">
+            <svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+            <span>게임 리뷰</span>
+          </a>
         </div>
       </div>
     </div>

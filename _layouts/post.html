@@ -2,7 +2,7 @@
 layout: default
 ---
 
-<article class="post-article">
+<article class="post-article {% if page.category == 'portfolio-item' %}portfolio-article{% endif %}">
   <header class="post-header">
     <div class="container post-header-inner">
       <div class="post-meta-top">
@@ -25,12 +25,10 @@ layout: default
         <span class="post-period">개발 기간: {{ page.period }}</span>
         {% endif %}
 
-        {% if page.category != 'portfolio-item' %}
         {% assign words = content | strip_html | number_of_words %}
         {% assign read_min = words | divided_by: 220 | plus: 1 %}
         <span class="meta-divider">·</span>
         <span class="post-readtime">약 {{ read_min }}분 소요</span>
-        {% endif %}
         {% if page.path contains '_posts/' %}
         <a href="{{ '/write/?edit=' | append: page.path | relative_url }}" class="owner-only post-edit-chip">✏️ 이 글 수정</a>
         {% endif %}
@@ -104,7 +102,47 @@ layout: default
       </div>
     </div>
 
-    {% if page.previous or page.next %}
+    {% if page.category == 'portfolio-item' %}
+      {% assign portfolio_items = site.pages | where: "category", "portfolio-item" | sort: "order" %}
+      {% assign prev_project = nil %}
+      {% assign next_project = nil %}
+      {% for item in portfolio_items %}
+        {% if item.url == page.url %}
+          {% assign prev_index = forloop.index0 | minus: 1 %}
+          {% assign next_index = forloop.index0 | plus: 1 %}
+          {% if prev_index >= 0 %}
+            {% assign prev_project = portfolio_items[prev_index] %}
+          {% endif %}
+          {% if next_index < portfolio_items.size %}
+            {% assign next_project = portfolio_items[next_index] %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+      <nav class="post-pagination portfolio-pagination" aria-label="포트폴리오 프로젝트 이동">
+        {% if prev_project %}
+        <a href="{{ prev_project.url | relative_url }}" class="page-nav-card prev">
+          <span class="nav-label">← 이전 포트폴리오</span>
+          <strong class="nav-post-title">{{ prev_project.title }}</strong>
+        </a>
+        {% else %}
+        <a href="{{ '/portfolio/' | relative_url }}" class="page-nav-card prev">
+          <span class="nav-label">← 목록으로</span>
+          <strong class="nav-post-title">전체 포트폴리오 아카이브 보기</strong>
+        </a>
+        {% endif %}
+        {% if next_project %}
+        <a href="{{ next_project.url | relative_url }}" class="page-nav-card next">
+          <span class="nav-label">다음 포트폴리오 →</span>
+          <strong class="nav-post-title">{{ next_project.title }}</strong>
+        </a>
+        {% else %}
+        <a href="{{ '/portfolio/' | relative_url }}" class="page-nav-card next">
+          <span class="nav-label">목록으로 →</span>
+          <strong class="nav-post-title">전체 포트폴리오 아카이브 보기</strong>
+        </a>
+        {% endif %}
+      </nav>
+    {% elsif page.previous or page.next %}
     <nav class="post-pagination" aria-label="이전/다음 글">
       {% if page.previous %}
       <a href="{{ page.previous.url | relative_url }}" class="page-nav-card prev">
