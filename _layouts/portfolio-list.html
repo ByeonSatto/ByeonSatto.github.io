@@ -20,7 +20,7 @@ layout: default
   {% endif %}
 
   <div class="portfolio-grid portfolio-grid-full">
-    {% assign portfolio_pages = site.pages | where: "category", "portfolio-item" %}
+    {% assign portfolio_pages = site.pages | where: "category", "portfolio-item" | sort: "order" %}
     {% for project in portfolio_pages %}
     <article class="portfolio-card">
       <a href="{{ project.url | relative_url }}" class="card-link-wrapper">

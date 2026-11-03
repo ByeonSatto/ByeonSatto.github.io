@@ -71,7 +71,7 @@ layout: default
     </div>
 
     <div class="portfolio-grid">
-      {% assign portfolio_pages = site.pages | where: "category", "portfolio-item" %}
+      {% assign portfolio_pages = site.pages | where: "category", "portfolio-item" | sort: "order" %}
       {% if portfolio_pages.size > 0 %}
         {% for project in portfolio_pages limit: 3 %}
         <article class="portfolio-card">

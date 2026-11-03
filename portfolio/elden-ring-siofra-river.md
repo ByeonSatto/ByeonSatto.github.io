@@ -3,6 +3,7 @@ layout: post
 title: "엘든 링: 시프라 강 (각해의 영지) 역기획"
 subtitle: "수직적 공간 구성을 통한 정복감과 가시적 목표(기둥) 기반의 비선형 오픈월드 동선 설계"
 category: portfolio-item
+order: 1
 permalink: /portfolio/elden-ring-siofra-river/
 period: "2026.03 - 2026.04 (2개월)"
 genre: "3D Open-World Action RPG / Level Design"
