@@ -5,7 +5,7 @@ subtitle: "히로익 월드(79.1%) 중심의 유저 데이터 분석을 통한 �
 category: portfolio-item
 order: 2
 permalink: /portfolio/maplestory-victoria-cup/
-period: "2025.06"
+period: "2025.06 (약 2주)"
 genre: "MMORPG Live Service / Event & Localization Design"
 thumbnail: "/assets/images/portfolio/victoria-cup/slide_01.png"
 tags:
@@ -132,7 +132,7 @@ toc: false
 | :--- | :--- |
 | **대상 게임** | 메이플스토리 (MapleStory — GMS / KMS) |
 | **분석 대상** | 빅토리아컵 이벤트 (KMS 21주년 / GMS 20주년) |
-| **작성 일자** | 2025.06.20 |
+| **작업 기간** | 2025.06 (약 2주) |
 | **핵심 타겟** | GMS 히로익(구 리부트) 월드 유저 및 강화·성장 콘텐츠 |
 | **조사 방식** | 양 서버 데이터 비교 분석 및 레딧(Reddit) 유저 설문조사 (67명 응답) |
 

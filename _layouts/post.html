@@ -25,10 +25,12 @@ layout: default
         <span class="post-period">개발 기간: {{ page.period }}</span>
         {% endif %}
 
+        {% if page.category != 'portfolio-item' %}
         {% assign words = content | strip_html | number_of_words %}
         {% assign read_min = words | divided_by: 220 | plus: 1 %}
         <span class="meta-divider">·</span>
         <span class="post-readtime">약 {{ read_min }}분 소요</span>
+        {% endif %}
         {% if page.path contains '_posts/' %}
         <a href="{{ '/write/?edit=' | append: page.path | relative_url }}" class="owner-only post-edit-chip">✏️ 이 글 수정</a>
         {% endif %}
