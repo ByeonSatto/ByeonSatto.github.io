@@ -51,6 +51,23 @@
 <body class="layout-{{ page.layout | default: 'default' }}">
   <a class="skip-link" href="#main-content">본문 바로가기</a>
 
+  <!-- Night Sky Starfield & Vercel-style Shooting Stars Backdrop -->
+  <div class="night-sky-canvas" aria-hidden="true">
+    <div class="starfield starfield-sm"></div>
+    <div class="starfield starfield-md"></div>
+    <div class="starfield starfield-lg"></div>
+    <div class="shooting-stars">
+      <span class="shooting-star"></span>
+      <span class="shooting-star"></span>
+      <span class="shooting-star"></span>
+      <span class="shooting-star"></span>
+      <span class="shooting-star"></span>
+      <span class="shooting-star"></span>
+      <span class="shooting-star"></span>
+      <span class="shooting-star"></span>
+    </div>
+  </div>
+
   {% include header.html %}
 
   <main id="main-content" class="site-main" role="main">
