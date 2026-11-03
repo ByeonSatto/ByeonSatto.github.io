@@ -80,6 +80,9 @@ sitemap: false
           <span id="draft-status" class="draft-status-text">자동 임시저장 활성화</span>
         </div>
         <div class="studio-topbar-right">
+          <button type="button" id="btn-open-steam-radar" class="btn btn-primary btn-sm">
+            🔥 스팀 인디·인기 동향 레이더
+          </button>
           <button type="button" id="btn-open-posts-modal" class="btn btn-secondary btn-sm">
             📂 기존 글 불러오기 / 수정
           </button>
@@ -116,6 +119,37 @@ sitemap: false
         </div>
       </div>
 
+      <!-- [신규 기능 1] Steam 게임 검색 & 기본정보·썸네일 1초 자동완성 바 -->
+      <div class="studio-card steam-autofill-card">
+        <div class="steam-autofill-header">
+          <div>
+            <span class="cat-badge cat-column" style="margin-bottom: 0.35rem;">STEAM API AUTO-FILL</span>
+            <h2 class="studio-card-title" style="margin-bottom: 0.2rem;">🎮 스팀 게임 검색 → 썸네일·개발사·장르·출시일 1초 자동완성</h2>
+            <p class="hint" style="font-size: 0.84rem; color: var(--text-muted);">
+              게임 이름(한글/영문)이나 스팀 상점 주소(URL) 또는 AppID를 입력하면 공식 고화질 커버 썸네일과 게임 스펙을 자동으로 채워줍니다.
+            </p>
+          </div>
+          <button type="button" id="btn-open-steam-radar-sub" class="btn btn-secondary btn-sm">
+            🌱 인기 인디게임 동향에서 고르기
+          </button>
+        </div>
+
+        <div class="steam-search-bar-row">
+          <input
+            type="text"
+            id="steam-search-input"
+            class="form-input"
+            placeholder="예: 산나비, Balatro, 엘든 링, Core Keeper 또는 https://store.steampowered.com/app/1245620/..."
+          >
+          <button type="button" id="btn-steam-search" class="btn btn-primary" style="white-space: nowrap;">
+            🔍 스팀 검색
+          </button>
+        </div>
+
+        <div id="steam-search-status" class="steam-search-status" style="display: none;"></div>
+        <div id="steam-search-results" class="steam-search-results-grid" style="display: none;"></div>
+      </div>
+
       <!-- 메타데이터 입력 카드 -->
       <div class="studio-card meta-card">
         <h2 class="studio-card-title">기본 글 정보</h2>
@@ -146,9 +180,9 @@ sitemap: false
           </div>
 
           <div class="form-group">
-            <label for="post-thumbnail">대표 썸네일 이미지 경로 <span class="hint">(본문 사진 업로드 시 자동 입력됨)</span></label>
+            <label for="post-thumbnail">대표 썸네일 이미지 경로 <span class="hint">(스팀 검색 선택 또는 본문 사진 업로드 시 자동 입력됨)</span></label>
             <div class="input-with-btn">
-              <input type="text" id="post-thumbnail" class="form-input" placeholder="/assets/images/posts/...">
+              <input type="text" id="post-thumbnail" class="form-input" placeholder="/assets/images/posts/... 또는 https://shared.akamai.steamstatic.com/...">
               <button type="button" id="btn-upload-thumb" class="btn btn-secondary btn-sm upload-inline-btn">
                 썸네일 업로드
               </button>
@@ -326,6 +360,33 @@ sitemap: false
   </div>
 </div>
 
+<!-- =======================================================================
+     [신규 기능 5] 스팀 인기 인디게임 & 화제작 동향 레이더 모달
+     ======================================================================= -->
+<div id="steam-radar-modal" class="studio-modal-backdrop" style="display: none;">
+  <div class="studio-modal studio-modal-wide">
+    <div class="studio-modal-header">
+      <div>
+        <span class="cat-badge cat-column" style="margin-bottom: 0.25rem;">STEAM INDIE &amp; TREND RADAR</span>
+        <h3>🔥 스팀 인기 인디게임 &amp; 최신 동향 레이더</h3>
+      </div>
+      <button type="button" id="btn-close-steam-radar" class="modal-close-btn">&times;</button>
+    </div>
+    <div class="studio-modal-body">
+      <div class="radar-toolbar">
+        <div class="sort-tabs" role="tablist">
+          <button type="button" class="sort-tab-btn active" data-radar-filter="indie">🌱 인기 인디게임 (Indie)</button>
+          <button type="button" class="sort-tab-btn" data-radar-filter="all">🔥 전체 인기·신작</button>
+          <button type="button" class="sort-tab-btn" data-radar-filter="discount">💸 현재 할인작</button>
+        </div>
+        <span id="radar-updated-at" class="hint">GitHub Actions 매일 자동 업데이트</span>
+      </div>
+      <div id="radar-list-loading" class="modal-loading">스팀 동향 데이터를 불러오는 중...</div>
+      <div id="radar-list-container" class="radar-cards-grid"></div>
+    </div>
+  </div>
+</div>
+
 <!-- Marked.js for clean live Markdown preview -->
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
@@ -340,7 +401,6 @@ sitemap: false
   const VERIFIED_KEY = "byeon_admin_verified";
   const DRAFT_KEY = "byeon_blog_editor_draft_v1";
 
-  // Helper: Cookie + LocalStorage Dual Persistence (새로고침/창 닫아도 인증 절대 풀리지 않음)
   function getSavedToken() {
     try {
       const ls = localStorage.getItem(TOKEN_KEY);
@@ -376,7 +436,7 @@ sitemap: false
     document.documentElement.classList.remove("is-owner-authenticated");
   }
 
-  // DOM Elements (모두 최상단에서 한 번에 참조)
+  // DOM Elements
   const authGate = document.getElementById("auth-gate");
   const editorStudio = document.getElementById("editor-studio");
   const authForm = document.getElementById("auth-form");
@@ -427,8 +487,9 @@ sitemap: false
   let currentCategory = "column";
   let editingFilePath = null;
   let editingFileSha = null;
+  let cachedTrendsData = null;
+  let currentRadarFilter = "indie";
 
-  // 0. 저장된 토큰이 있으면 네트워크 대기 없이 0초 만에 즉시 에디터 열기!
   const initialToken = getSavedToken();
   if (initialToken) {
     saveTokenPersistently(initialToken);
@@ -509,7 +570,7 @@ sitemap: false
         const consList = consTextarea.value.split("\n").map((s) => s.trim()).filter(Boolean);
         if (prosList.length > 0 || consList.length > 0) {
           html += `<div class="pros-cons-grid" style="margin: 1rem 0;">`;
-          html += `<div class="pros-card"><div class="pc-card-header pros-header"><h3>장점</h3></div>`;
+          html += `<div class="pros-card"><div class="pc-card-header pros-header"><span class="pc-icon">+</span><h3>장점</h3></div>`;
           if (prosList.length > 0) {
             html += `<ol class="pc-list">`;
             prosList.forEach((p) => { html += `<li>${escapeHtml(p)}</li>`; });
@@ -519,7 +580,7 @@ sitemap: false
           }
           html += `</div>`;
 
-          html += `<div class="cons-card"><div class="pc-card-header cons-header"><h3>단점</h3></div>`;
+          html += `<div class="cons-card"><div class="pc-card-header cons-header"><span class="pc-icon">−</span><h3>단점</h3></div>`;
           if (consList.length > 0) {
             html += `<ol class="pc-list">`;
             consList.forEach((c) => { html += `<li>${escapeHtml(c)}</li>`; });
@@ -542,7 +603,6 @@ sitemap: false
 
       previewContainer.innerHTML = html;
 
-      // Auto-embed standalone YouTube links in Live Preview as well
       previewContainer.querySelectorAll("a").forEach((a) => {
         const href = a.getAttribute("href") || "";
         const text = (a.textContent || "").trim();
@@ -595,7 +655,7 @@ sitemap: false
   }
 
   // =========================================================================
-  // 2. 에디터 툴바 버튼 (H2, H3, B, I, S, 인용, 구분선, 링크, 사진 업로드)
+  // 2. 에디터 툴바 버튼
   // =========================================================================
   function insertAtCursor(textarea, text) {
     textarea.focus();
@@ -668,7 +728,6 @@ sitemap: false
     }
   });
 
-  // 사진/GIF 및 동영상 업로드 버튼 클릭 -> 파일 선택창 열기
   document.getElementById("btn-upload-body-image").addEventListener("click", function (e) {
     e.preventDefault();
     document.getElementById("body-image-input").click();
@@ -739,6 +798,320 @@ sitemap: false
     el.addEventListener("input", function () {
       updateLivePreview();
       saveDraftToLocal();
+    });
+  });
+
+  // =========================================================================
+  // 3.5. [신규 기능 1 & 5] Steam 게임 검색 자동완성 & 인디게임 동향 레이더
+  // =========================================================================
+  const steamSearchInput = document.getElementById("steam-search-input");
+  const steamSearchBtn = document.getElementById("btn-steam-search");
+  const steamSearchStatus = document.getElementById("steam-search-status");
+  const steamSearchResults = document.getElementById("steam-search-results");
+  const steamRadarModal = document.getElementById("steam-radar-modal");
+  const radarListLoading = document.getElementById("radar-list-loading");
+  const radarListContainer = document.getElementById("radar-list-container");
+  const radarUpdatedAtEl = document.getElementById("radar-updated-at");
+
+  async function fetchSteamJsonWithCorsFallback(targetUrl) {
+    const proxies = [
+      (u) => `https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
+      (u) => `https://corsproxy.io/?${encodeURIComponent(u)}`,
+      (u) => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(u)}`
+    ];
+    for (const buildProxyUrl of proxies) {
+      try {
+        const res = await fetch(buildProxyUrl(targetUrl));
+        if (res.ok) {
+          return await res.json();
+        }
+      } catch (e) {}
+    }
+    throw new Error("스팀 API 응답 지연 (잠시 후 다시 시도하거나 동향 레이더에서 선택해 주세요)");
+  }
+
+  function applyGameInfoToForm(game) {
+    if (!game) return;
+    const headerImg = game.header_image || (game.appid ? `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${game.appid}/header.jpg` : "");
+    if (headerImg) {
+      thumbnailInput.value = headerImg;
+    }
+    if (game.name) {
+      gameTitleInput.value = game.name;
+      if (!titleInput.value.trim()) {
+        titleInput.value = currentCategory === "review" ? `${game.name} 후기` : `[${game.name}] 레벨 및 시스템 분석`;
+      }
+    }
+    if (game.short_description && !summaryInput.value.trim()) {
+      summaryInput.value = game.short_description;
+    }
+    if (game.genres) {
+      gameGenreInput.value = game.genres;
+      if (!tagsInput.value.trim()) {
+        const cleanTags = [game.name].concat(game.genres.split(",").map((s) => s.trim()).slice(0, 3)).filter(Boolean);
+        tagsInput.value = cleanTags.join(", ");
+      }
+    }
+    if (game.platforms) {
+      gamePlatformInput.value = game.platforms;
+    } else {
+      gamePlatformInput.value = "PC (Steam)";
+    }
+    if (game.developer) {
+      gameDeveloperInput.value = game.developer;
+    }
+    if (game.publisher) {
+      gamePublisherInput.value = game.publisher;
+    }
+    if (game.release_date) {
+      gameReleaseInput.value = game.release_date;
+    }
+
+    updateLivePreview();
+    saveDraftToLocal();
+
+    steamSearchStatus.style.display = "block";
+    steamSearchStatus.style.color = "var(--accent-emerald)";
+    steamSearchStatus.innerHTML = `✅ <strong>'${escapeHtml(game.name)}'</strong>의 공식 썸네일과 게임 기본 정보가 자동으로 입력되었습니다!`;
+  }
+
+  async function fetchAndApplyByAppId(appid, fallbackName) {
+    steamSearchStatus.style.display = "block";
+    steamSearchStatus.style.color = "var(--accent-cyan)";
+    steamSearchStatus.textContent = `⏳ 스팀에서 '${fallbackName || appid}' 상세 스펙(개발사·장르·출시일)을 가져오는 중...`;
+
+    try {
+      // 먼저 로컬 캐시된 트렌드 데이터에 있는지 확인
+      if (cachedTrendsData && Array.isArray(cachedTrendsData.items)) {
+        const found = cachedTrendsData.items.find((it) => String(it.appid) === String(appid));
+        if (found) {
+          applyGameInfoToForm(found);
+          return;
+        }
+      }
+
+      const detailUrl = `https://store.steampowered.com/api/appdetails?appids=${appid}&l=koreana&cc=kr`;
+      const data = await fetchSteamJsonWithCorsFallback(detailUrl);
+      const entry = data && data[String(appid)];
+      if (entry && entry.success && entry.data) {
+        const d = entry.data;
+        const genres = (d.genres || []).map((g) => g.description).filter(Boolean).join(", ");
+        const devs = (d.developers || []).join(", ");
+        const pubs = (d.publishers || []).join(", ");
+        const platforms = ["PC (Steam)"];
+        if (d.platforms && d.platforms.mac) platforms.push("macOS");
+
+        applyGameInfoToForm({
+          appid: appid,
+          name: d.name || fallbackName,
+          header_image: `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${appid}/header.jpg`,
+          short_description: d.short_description || "",
+          genres: genres,
+          developer: devs,
+          publisher: pubs,
+          platforms: platforms.join(", "),
+          release_date: (d.release_date && d.release_date.date) || ""
+        });
+      } else {
+        applyGameInfoToForm({
+          appid: appid,
+          name: fallbackName || `Steam App ${appid}`,
+          header_image: `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${appid}/header.jpg`,
+          platforms: "PC (Steam)"
+        });
+      }
+    } catch (e) {
+      applyGameInfoToForm({
+        appid: appid,
+        name: fallbackName || `Steam App ${appid}`,
+        header_image: `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${appid}/header.jpg`,
+        platforms: "PC (Steam)"
+      });
+    }
+  }
+
+  async function handleSteamSearch() {
+    const raw = (steamSearchInput.value || "").trim();
+    if (!raw) {
+      steamSearchInput.focus();
+      return;
+    }
+
+    // URL 또는 숫자 AppID 직접 입력인지 판별
+    const urlAppIdMatch = raw.match(/store\.steampowered\.com\/app\/(\d+)/i) || raw.match(/^(\d{3,10})$/);
+    if (urlAppIdMatch) {
+      steamSearchResults.style.display = "none";
+      await fetchAndApplyByAppId(urlAppIdMatch[1], "");
+      return;
+    }
+
+    steamSearchStatus.style.display = "block";
+    steamSearchStatus.style.color = "var(--accent-cyan)";
+    steamSearchStatus.textContent = `🔍 스팀 스토어에서 '${raw}' 검색 중...`;
+    steamSearchResults.style.display = "none";
+    steamSearchResults.innerHTML = "";
+
+    try {
+      const searchUrl = `https://store.steampowered.com/api/storesearch/?term=${encodeURIComponent(raw)}&l=koreana&cc=kr`;
+      const data = await fetchSteamJsonWithCorsFallback(searchUrl);
+      const items = (data && data.items) || [];
+
+      if (items.length === 0) {
+        steamSearchStatus.style.color = "var(--accent-amber)";
+        steamSearchStatus.textContent = `⚠️ '${raw}'에 대한 스팀 검색 결과가 없습니다. 영문 제목이나 스팀 상점 주소를 입력해 보세요.`;
+        return;
+      }
+
+      steamSearchStatus.style.display = "none";
+      steamSearchResults.style.display = "grid";
+
+      items.slice(0, 6).forEach((item) => {
+        const appid = item.id;
+        const headerImg = `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${appid}/header.jpg`;
+        const priceStr = item.price
+          ? (item.price.final === 0 ? "무료" : `${(item.price.final / 100).toLocaleString()}원`)
+          : "스팀 게임";
+
+        const card = document.createElement("div");
+        card.className = "steam-result-card";
+        card.innerHTML = `
+          <img src="${headerImg}" alt="${escapeHtml(item.name)}" class="steam-result-thumb" loading="lazy">
+          <div class="steam-result-body">
+            <strong class="steam-result-title">${escapeHtml(item.name)}</strong>
+            <span class="steam-result-meta">AppID: ${appid} · ${priceStr}</span>
+            <button type="button" class="btn btn-primary btn-sm btn-pick-steam" data-appid="${appid}" data-name="${escapeHtml(item.name)}">
+              ✨ 이 게임 정보 자동채우기
+            </button>
+          </div>
+        `;
+        steamSearchResults.appendChild(card);
+      });
+
+      steamSearchResults.querySelectorAll(".btn-pick-steam").forEach((btn) => {
+        btn.addEventListener("click", function () {
+          const aid = this.getAttribute("data-appid");
+          const nm = this.getAttribute("data-name");
+          steamSearchResults.style.display = "none";
+          fetchAndApplyByAppId(aid, nm);
+        });
+      });
+    } catch (err) {
+      steamSearchStatus.style.color = "var(--accent-rose)";
+      steamSearchStatus.textContent = "⚠️ " + err.message;
+    }
+  }
+
+  steamSearchBtn.addEventListener("click", handleSteamSearch);
+  steamSearchInput.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleSteamSearch();
+    }
+  });
+
+  // [기능 5] 스팀 인기 인디게임 & 트렌드 레이더 모달 열기/렌더링
+  async function openSteamRadarModal() {
+    steamRadarModal.style.display = "flex";
+    if (cachedTrendsData) {
+      renderRadarCards();
+      return;
+    }
+    radarListLoading.style.display = "block";
+    radarListContainer.innerHTML = "";
+    try {
+      const res = await fetch("{{ '/assets/data/steam-trends.json' | relative_url }}?v=" + Date.now());
+      if (!res.ok) throw new Error("동향 데이터를 불러올 수 없습니다.");
+      cachedTrendsData = await res.json();
+      if (cachedTrendsData.updated_at && radarUpdatedAtEl) {
+        radarUpdatedAtEl.textContent = "최근 업데이트: " + cachedTrendsData.updated_at;
+      }
+      radarListLoading.style.display = "none";
+      renderRadarCards();
+    } catch (e) {
+      radarListLoading.textContent = "⚠️ 동향 데이터를 불러오지 못했습니다: " + e.message;
+    }
+  }
+
+  function renderRadarCards() {
+    if (!cachedTrendsData || !Array.isArray(cachedTrendsData.items)) return;
+    let list = cachedTrendsData.items;
+    if (currentRadarFilter === "indie") {
+      list = list.filter((g) => g.is_indie);
+    } else if (currentRadarFilter === "discount") {
+      list = list.filter((g) => (g.discount_percent || 0) > 0);
+    }
+
+    radarListContainer.innerHTML = "";
+    if (list.length === 0) {
+      radarListContainer.innerHTML = `<p class="text-muted">해당 필터에 맞는 게임이 없습니다.</p>`;
+      return;
+    }
+
+    list.forEach((game) => {
+      const card = document.createElement("div");
+      card.className = "radar-game-card";
+      const discountBadge = game.discount_percent > 0
+        ? `<span class="radar-discount-badge">-${game.discount_percent}%</span>`
+        : "";
+      const indieBadge = game.is_indie
+        ? `<span class="cat-badge cat-column" style="font-size:0.68rem;">INDIE</span>`
+        : "";
+
+      card.innerHTML = `
+        <div class="radar-thumb-wrap">
+          <img src="${escapeHtml(game.header_image)}" alt="${escapeHtml(game.name)}" class="radar-thumb" loading="lazy">
+          ${discountBadge}
+        </div>
+        <div class="radar-card-body">
+          <div class="radar-meta-row">
+            ${indieBadge}
+            <span>${escapeHtml(game.genres || "Steam Game")}</span>
+            <span>·</span>
+            <span>${escapeHtml(game.price || "-")}</span>
+          </div>
+          <h4 class="radar-game-title">${escapeHtml(game.name)}</h4>
+          <p class="radar-game-desc">${escapeHtml(game.short_description || "")}</p>
+          <div class="radar-sub-meta">
+            <span>개발: ${escapeHtml(game.developer || "-")}</span>
+            ${game.release_date ? `<span>· 출시: ${escapeHtml(game.release_date)}</span>` : ""}
+          </div>
+          <div class="radar-card-actions">
+            <button type="button" class="btn btn-primary btn-sm btn-select-radar-game" data-appid="${game.appid}">
+              ✨ 이 게임으로 글쓰기 세팅
+            </button>
+            <a href="${escapeHtml(game.store_url)}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
+              스팀 상점 ↗
+            </a>
+          </div>
+        </div>
+      `;
+      radarListContainer.appendChild(card);
+    });
+
+    radarListContainer.querySelectorAll(".btn-select-radar-game").forEach((btn) => {
+      btn.addEventListener("click", function () {
+        const aid = this.getAttribute("data-appid");
+        const found = cachedTrendsData.items.find((it) => String(it.appid) === String(aid));
+        if (found) {
+          applyGameInfoToForm(found);
+          steamRadarModal.style.display = "none";
+        }
+      });
+    });
+  }
+
+  document.getElementById("btn-open-steam-radar").addEventListener("click", openSteamRadarModal);
+  document.getElementById("btn-open-steam-radar-sub").addEventListener("click", openSteamRadarModal);
+  document.getElementById("btn-close-steam-radar").addEventListener("click", function () {
+    steamRadarModal.style.display = "none";
+  });
+
+  document.querySelectorAll("[data-radar-filter]").forEach((btn) => {
+    btn.addEventListener("click", function () {
+      currentRadarFilter = this.getAttribute("data-radar-filter");
+      document.querySelectorAll("[data-radar-filter]").forEach((b) => b.classList.remove("active"));
+      this.classList.add("active");
+      renderRadarCards();
     });
   });
 
@@ -873,7 +1246,6 @@ sitemap: false
     e.target.value = "";
   });
 
-  // 클립보드 붙여넣기 (Ctrl+V: 이미지, GIF, 동영상 모두 지원)
   bodyTextarea.addEventListener("paste", async function (e) {
     const items = (e.clipboardData || e.originalEvent.clipboardData || {}).items || [];
     const mediaFiles = [];
@@ -889,7 +1261,6 @@ sitemap: false
     }
   });
 
-  // 드래그 앤 드롭 (탐색기에서 사진, GIF, MP4 동영상 끌어다 놓기)
   bodyTextarea.addEventListener("dragover", function (e) {
     e.preventDefault();
     bodyTextarea.style.borderColor = "var(--accent-cyan)";
@@ -1130,7 +1501,6 @@ sitemap: false
     }
   });
 
-  // 백업용 .md 파일 다운로드
   document.getElementById("btn-download-md").addEventListener("click", function (e) {
     e.preventDefault();
     const title = titleInput.value.trim() || "post";
@@ -1149,7 +1519,7 @@ sitemap: false
   });
 
   // =========================================================================
-  // 6. 소유자 인증 (최초 1회만 입력하면 영구 유지)
+  // 6. 소유자 인증
   // =========================================================================
   async function verifyOwnerToken(token) {
     const cleanToken = String(token || "").trim();
@@ -1483,7 +1853,6 @@ sitemap: false
     } catch (e) {}
   }
 
-  // 초기 실행: 임시저장 복원 & URL 파라미터 적용 & 미리보기 렌더링
   restoreDraftFromLocal();
   const params = new URLSearchParams(window.location.search);
   if (params.get("category") === "review" || params.get("category") === "column") {
