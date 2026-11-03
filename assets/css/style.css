@@ -3103,3 +3103,282 @@ body {
     display: none;
   }
 }
+
+
+/* ==========================================================================
+   Vercel Design × Night Sky: 5 Complete Enhancements
+   (1. 1+2 Bento Grid | 2. Cursor Spotlight | 3. + Crosshairs | 4. Starlight Title | 5. Progress & TOC Spy)
+   ========================================================================== */
+
+/* 1. 1+2 Featured Bento Portfolio Grid & Card Details */
+.portfolio-card .card-title {
+  margin-bottom: 0.55rem;
+}
+
+.portfolio-card .card-summary {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.62;
+  margin-bottom: 1.25rem;
+  flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.portfolio-card .card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-top: 0.9rem;
+  margin-top: auto;
+  border-top: 1px solid var(--border-subtle);
+  font-size: 0.82rem;
+}
+
+.portfolio-card .card-role {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.portfolio-card .card-cta {
+  color: var(--accent-cyan);
+  font-weight: 600;
+  flex-shrink: 0;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.portfolio-card:hover .card-cta {
+  color: #ffffff;
+  transform: translateX(4px);
+}
+
+.tag-chip-featured {
+  background: rgba(34, 211, 238, 0.14);
+  border-color: rgba(34, 211, 238, 0.45);
+  color: var(--accent-cyan);
+  font-family: var(--font-mono);
+  font-size: 0.73rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+@media (min-width: 961px) {
+  .portfolio-grid > .portfolio-card:first-child:nth-last-child(odd) {
+    grid-column: 1 / -1;
+  }
+
+  .portfolio-grid > .portfolio-card:first-child:nth-last-child(odd) .card-link-wrapper {
+    display: grid;
+    grid-template-columns: 1.32fr 1fr;
+    align-items: stretch;
+  }
+
+  .portfolio-grid > .portfolio-card:first-child:nth-last-child(odd) .card-thumb {
+    height: 100%;
+    min-height: 360px;
+    border-bottom: 0;
+    border-right: 1px solid var(--border-subtle);
+  }
+
+  .portfolio-grid > .portfolio-card:first-child:nth-last-child(odd) .card-body {
+    padding: 2.2rem 2.4rem;
+    justify-content: center;
+  }
+
+  .portfolio-grid > .portfolio-card:first-child:nth-last-child(odd) .card-title {
+    font-size: 1.72rem;
+    line-height: 1.32;
+    margin-bottom: 0.8rem;
+  }
+
+  .portfolio-grid > .portfolio-card:first-child:nth-last-child(odd) .card-summary {
+    font-size: 0.98rem;
+    line-height: 1.72;
+    -webkit-line-clamp: 3;
+    margin-bottom: 1.6rem;
+  }
+}
+
+/* 2. Cursor-Tracking Card Spotlight (Vercel / Linear Surface Glow) */
+.portfolio-card,
+.feed-card,
+.archive-card,
+.toc-box,
+.game-info-box,
+.pros-card,
+.cons-card,
+.review-score-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.portfolio-card::before,
+.feed-card::before,
+.archive-card::before,
+.toc-box::before,
+.game-info-box::before,
+.pros-card::before,
+.cons-card::before,
+.review-score-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    460px circle at var(--mouse-x, 50%) var(--mouse-y, 0%),
+    rgba(56, 189, 248, 0.12),
+    rgba(99, 102, 241, 0.06) 42%,
+    transparent 75%
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.portfolio-card:hover::before,
+.feed-card:hover::before,
+.archive-card:hover::before,
+.toc-box:hover::before,
+.game-info-box:hover::before,
+.pros-card:hover::before,
+.cons-card:hover::before,
+.review-score-card:hover::before {
+  opacity: 1;
+}
+
+.portfolio-card > *,
+.feed-card > *,
+.archive-card > *,
+.toc-box > *,
+.game-info-box > *,
+.pros-card > *,
+.cons-card > *,
+.review-score-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* 3. Grid Coordinate Crosshair Markers (+) */
+.hero-inner {
+  position: relative;
+}
+
+.hero-inner::before,
+.hero-inner::after {
+  content: "+";
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 400;
+  line-height: 1;
+  color: rgba(148, 163, 184, 0.35);
+  pointer-events: none;
+  user-select: none;
+}
+
+.hero-inner::before {
+  top: -1.75rem;
+  left: 0.25rem;
+}
+
+.hero-inner::after {
+  bottom: -1.75rem;
+  right: 0.25rem;
+}
+
+.section-header::before {
+  content: "+";
+  position: absolute;
+  right: 0;
+  bottom: -0.58rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  line-height: 1;
+  color: rgba(34, 211, 238, 0.45);
+  pointer-events: none;
+}
+
+/* 4. Hero Title Starlight Metallic Gradient & Avatar Orbital Ring */
+.hero-title {
+  background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 45%, #c7d2fe 78%, #67e8f9 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-avatar-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.hero-avatar-wrap::before {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1px dashed rgba(34, 211, 238, 0.32);
+  animation: orbitalSpin 28s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes orbitalSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 5. Top Reading Progress Starlight Beam & Active TOC Scroll-Spy */
+.scroll-progress-track {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: transparent;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.scroll-progress-bar {
+  width: 100%;
+  height: 100%;
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  opacity: 0;
+  background: linear-gradient(90deg, var(--accent-primary) 0%, var(--accent-cyan) 75%, #ffffff 100%);
+  box-shadow: 0 0 12px rgba(34, 211, 238, 0.75);
+  transition: transform 0.08s linear, opacity 0.2s ease;
+}
+
+.toc-link {
+  border-left: 2px solid transparent;
+  padding-left: 0.45rem;
+  transition: color 0.2s ease, border-color 0.2s ease, padding-left 0.2s ease;
+}
+
+.toc-link.is-active {
+  color: var(--accent-cyan);
+  font-weight: 700;
+  border-left-color: var(--accent-cyan);
+  padding-left: 0.65rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-avatar-wrap::before {
+    animation: none !important;
+  }
+}

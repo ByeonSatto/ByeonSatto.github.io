@@ -22,7 +22,7 @@ layout: default
   <div class="portfolio-grid portfolio-grid-full">
     {% assign portfolio_pages = site.pages | where: "category", "portfolio-item" | sort: "order" %}
     {% for project in portfolio_pages %}
-    <article class="portfolio-card">
+    <article class="portfolio-card {% if forloop.first %}is-featured-card{% endif %}">
       <a href="{{ project.url | relative_url }}" class="card-link-wrapper">
         <div class="card-thumb">
           {% if project.thumbnail %}
@@ -38,11 +38,22 @@ layout: default
         </div>
         <div class="card-body">
           <div class="card-tags">
+            {% if forloop.first %}
+            <span class="tag-chip tag-chip-featured">★ FLAGSHIP</span>
+            {% endif %}
             {% for tag in project.tags %}
             <span class="tag-chip">{{ tag }}</span>
             {% endfor %}
           </div>
           <h2 class="card-title">{{ project.title }}</h2>
+          {% assign proj_desc = project.subtitle | default: project.summary %}
+          {% if proj_desc and proj_desc != "" %}
+          <p class="card-summary">{{ proj_desc }}</p>
+          {% endif %}
+          <div class="card-footer">
+            <span class="card-role">{{ project.genre | default: 'LEVEL & SYSTEM DESIGN' }}</span>
+            <span class="card-cta">프로젝트 열람 →</span>
+          </div>
         </div>
       </a>
     </article>
@@ -71,6 +82,14 @@ layout: default
               {% endfor %}
             </div>
             <h2 class="card-title">{{ item.title }}</h2>
+            {% assign item_desc = item.subtitle | default: item.summary %}
+            {% if item_desc and item_desc != "" %}
+            <p class="card-summary">{{ item_desc }}</p>
+            {% endif %}
+            <div class="card-footer">
+              <span class="card-role">{{ item.genre | default: 'LEVEL & SYSTEM DESIGN' }}</span>
+              <span class="card-cta">프로젝트 열람 →</span>
+            </div>
           </div>
         </a>
       </article>

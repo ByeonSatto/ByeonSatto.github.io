@@ -7,7 +7,9 @@ layout: default
   <div class="container hero-inner">
     <div class="hero-profile">
       {% if site.author.avatar %}
-      <img src="{{ site.author.avatar | relative_url }}" alt="{{ site.author.name }}" class="hero-avatar" onerror="this.style.display='none'">
+      <div class="hero-avatar-wrap">
+        <img src="{{ site.author.avatar | relative_url }}" alt="{{ site.author.name }}" class="hero-avatar" onerror="this.style.display='none'">
+      </div>
       {% endif %}
       <div class="hero-text">
         <span class="hero-eyebrow">{{ site.author.role | default: 'LEVEL DESIGNER' }}</span>
@@ -74,7 +76,7 @@ layout: default
       {% assign portfolio_pages = site.pages | where: "category", "portfolio-item" | sort: "order" %}
       {% if portfolio_pages.size > 0 %}
         {% for project in portfolio_pages limit: 3 %}
-        <article class="portfolio-card">
+        <article class="portfolio-card {% if forloop.first %}is-featured-card{% endif %}">
           <a href="{{ project.url | relative_url }}" class="card-link-wrapper">
             <div class="card-thumb">
               {% if project.thumbnail %}
@@ -90,11 +92,22 @@ layout: default
             </div>
             <div class="card-body">
               <div class="card-tags">
+                {% if forloop.first %}
+                <span class="tag-chip tag-chip-featured">★ FLAGSHIP</span>
+                {% endif %}
                 {% for tag in project.tags limit: 4 %}
                 <span class="tag-chip">{{ tag }}</span>
                 {% endfor %}
               </div>
               <h3 class="card-title">{{ project.title }}</h3>
+              {% assign proj_desc = project.subtitle | default: project.summary %}
+              {% if proj_desc and proj_desc != "" %}
+              <p class="card-summary">{{ proj_desc }}</p>
+              {% endif %}
+              <div class="card-footer">
+                <span class="card-role">{{ project.genre | default: 'LEVEL & SYSTEM DESIGN' }}</span>
+                <span class="card-cta">프로젝트 열람 →</span>
+              </div>
             </div>
           </a>
         </article>
@@ -109,6 +122,7 @@ layout: default
     <section class="home-section">
       <div class="section-header">
         <div>
+          <span class="section-kicker">ANALYSIS &amp; GUIDES</span>
           <h2 class="section-title">게임 칼럼 &amp; 공략 가이드</h2>
         </div>
         <a href="{{ '/column/' | relative_url }}" class="section-more">더보기 →</a>
@@ -149,6 +163,7 @@ layout: default
     <section class="home-section">
       <div class="section-header">
         <div>
+          <span class="section-kicker">CRITIQUE &amp; VERDICT</span>
           <h2 class="section-title">게임 리뷰</h2>
         </div>
         <a href="{{ '/review/' | relative_url }}" class="section-more">더보기 →</a>
