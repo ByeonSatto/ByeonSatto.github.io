@@ -2590,3 +2590,216 @@ html.is-owner-authenticated div.owner-only {
   font-weight: 500;
   min-height: 64px;
 }
+
+
+/* ==========================================================================
+   60:25:15 Hybrid Theme Enhancement
+   (Luminous Dark Craft + Blueprint Schematic + Editorial & Ambient Glow)
+   ========================================================================== */
+
+:root {
+  --specular-top: inset 0 1px 0 0 rgba(255, 255, 255, 0.085);
+  --specular-top-hover: inset 0 1px 0 0 rgba(129, 140, 248, 0.36);
+  --shadow-ambient: 0 20px 45px -15px rgba(0, 0, 0, 0.72), 0 0 32px -8px rgba(99, 102, 241, 0.28);
+}
+
+/* Zone A: Hero & Page Banner Blueprint Grid + Spotlight */
+.hero-section,
+.page-hero,
+.post-header {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-section {
+  background:
+    radial-gradient(ellipse 65% 85% at 50% -12%, rgba(99, 102, 241, 0.16), transparent 70%),
+    radial-gradient(ellipse 45% 60% at 80% 10%, rgba(34, 211, 238, 0.08), transparent 65%),
+    linear-gradient(180deg, rgba(18, 23, 34, 0.78) 0%, rgba(11, 14, 20, 0) 100%);
+}
+
+.page-hero,
+.post-header {
+  background:
+    radial-gradient(ellipse 65% 80% at 50% -15%, rgba(99, 102, 241, 0.14), transparent 70%),
+    var(--bg-secondary);
+}
+
+.hero-section::before,
+.page-hero::before,
+.post-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(148, 163, 184, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148, 163, 184, 0.045) 1px, transparent 1px);
+  background-size: 32px 32px;
+  -webkit-mask-image: radial-gradient(ellipse 85% 95% at 50% 20%, #000 30%, transparent 95%);
+  mask-image: radial-gradient(ellipse 85% 95% at 50% 20%, #000 30%, transparent 95%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-section > .container,
+.page-hero > .container,
+.post-header > .container {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-avatar {
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.14), var(--shadow-glow);
+}
+
+/* Zone C: Tactical HUD & Monospace Labels */
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  margin-bottom: 0.65rem;
+  padding: 0.22rem 0.65rem;
+  background: rgba(34, 211, 238, 0.08);
+  border: 1px solid rgba(34, 211, 238, 0.28);
+  border-radius: 4px;
+  box-shadow: var(--specular-top);
+}
+
+.hero-eyebrow::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-cyan);
+  box-shadow: 0 0 8px var(--accent-cyan);
+}
+
+.section-header {
+  position: relative;
+}
+
+.section-header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 56px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-cyan));
+  border-radius: 2px;
+}
+
+.section-kicker,
+.page-kicker {
+  font-weight: 600;
+}
+
+.section-kicker::before,
+.page-kicker::before {
+  content: "// ";
+  color: var(--accent-cyan);
+  opacity: 0.85;
+  font-weight: 700;
+}
+
+.post-body .portfolio-feature-num,
+.portfolio-feature-num {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.86rem;
+  padding: 0.22rem 0.65rem;
+  background: rgba(34, 211, 238, 0.08);
+  border: 1px solid rgba(34, 211, 238, 0.28);
+  border-radius: 4px;
+  box-shadow: var(--specular-top);
+  margin-bottom: 0.75rem;
+}
+
+.post-body .portfolio-feature-num::before,
+.portfolio-feature-num::before {
+  content: "//";
+  opacity: 0.75;
+}
+
+/* Zone B: Luminous Dark Cards & Double-Ring Media Showcase Frame */
+.portfolio-card {
+  background: linear-gradient(180deg, rgba(28, 37, 54, 0.85) 0%, var(--bg-card) 100%);
+  box-shadow: var(--specular-top), var(--shadow-card);
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.portfolio-card:hover {
+  box-shadow: var(--specular-top-hover), var(--shadow-ambient);
+}
+
+.feed-card,
+.archive-card {
+  background: linear-gradient(180deg, rgba(28, 37, 54, 0.72) 0%, var(--bg-card) 100%);
+  box-shadow: var(--specular-top);
+  transition: border-color 0.22s ease, transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.22s ease;
+}
+
+.feed-card:hover,
+.archive-card:hover {
+  box-shadow: var(--specular-top-hover), var(--shadow-ambient);
+}
+
+.post-body .portfolio-feature-media,
+.portfolio-feature-media {
+  background: linear-gradient(180deg, rgba(30, 41, 59, 0.68) 0%, rgba(15, 23, 42, 0.92) 100%);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: var(--radius-lg);
+  padding: 0.45rem;
+  box-shadow: var(--specular-top), 0 24px 54px -14px rgba(0, 0, 0, 0.78), 0 0 35px -10px rgba(99, 102, 241, 0.18);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.portfolio-feature-item:hover .portfolio-feature-media {
+  border-color: var(--border-highlight);
+  box-shadow: var(--specular-top-hover), 0 24px 54px -12px rgba(0, 0, 0, 0.82), 0 0 42px -6px rgba(99, 102, 241, 0.3);
+}
+
+.post-body .portfolio-feature-media img,
+.portfolio-feature-media img {
+  border-radius: calc(var(--radius-lg) - 5px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.video-embed-container {
+  padding: 0.4rem;
+  background: linear-gradient(180deg, rgba(30, 41, 59, 0.68) 0%, rgba(15, 23, 42, 0.92) 100%);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--specular-top), 0 22px 48px -12px rgba(0, 0, 0, 0.75);
+}
+
+.video-embed-container iframe {
+  inset: 0.4rem;
+  width: calc(100% - 0.8rem);
+  height: calc(100% - 0.8rem);
+  border-radius: calc(var(--radius-lg) - 5px);
+}
+
+/* Zone D: Editorial & Critique Components Refinement */
+.toc-box,
+.game-info-box,
+.pros-card,
+.cons-card,
+.post-author-card,
+.page-nav-card,
+.project-spec-bar {
+  box-shadow: var(--specular-top), var(--shadow-card);
+}
+
+.review-score-card {
+  box-shadow: inset 0 1px 0 0 rgba(251, 191, 36, 0.28), 0 14px 34px rgba(0, 0, 0, 0.55);
+}
+
+@media (max-width: 720px) {
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+  }
+}
