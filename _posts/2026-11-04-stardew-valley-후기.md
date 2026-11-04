@@ -18,7 +18,7 @@ pros:
   - "마음이 편안해지는 게임성"
 cons:
   - "누군가에겐 정말 안 맞을 수도"
-thumbnail: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/413150/header.jpg"
+thumbnail: "/assets/images/posts/official-stardew-valley.jpg"
 toc: true
 ---
 

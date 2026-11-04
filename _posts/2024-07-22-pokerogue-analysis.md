@@ -20,7 +20,7 @@ cons:
   - "코스트 감소·패시브 해금·레어 알기술 획득을 위한 클래식 모드 초반 반복 '사탕작'의 극심한 피로도"
   - "초반 고정 지형(평야)과 단조로운 전투 양상으로 인해 다회차 챌린지 준비 과정에서 발생하는 지루함"
 original_url: "https://blog.naver.com/qustjdals46/223521682551"
-thumbnail: "/assets/images/posts/223521682551_1.png"
+thumbnail: "/assets/images/posts/official-pokerogue.png"
 toc: true
 ---
 
