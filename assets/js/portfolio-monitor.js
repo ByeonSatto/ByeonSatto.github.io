@@ -238,29 +238,23 @@
 
           var dailyContent = buildDailyContent(st);
 
+          // Daily report is sent once at 9:00 PM KST by the scheduled bot.
+          // If today's 9 PM message already exists (or ?test_monitor=1 is used), update it silently.
           var ensureDailyMsg = st.msg_id
             ? fetch(baseWh + "/messages/" + st.msg_id, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ content: dailyContent })
-              }).then(function (r) {
-                if (!r.ok) {
-                  return fetch(baseWh + "?wait=true", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ username: "AIPortfolio Monitor", content: dailyContent })
-                  })
-                    .then(function (pr) { return pr.json(); })
-                    .then(function (pd) { st.msg_id = pd.id; });
-                }
               })
-            : fetch(baseWh + "?wait=true", {
+            : isTest
+            ? fetch(baseWh + "?wait=true", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ username: "AIPortfolio Monitor", content: dailyContent })
               })
                 .then(function (pr) { return pr.json(); })
-                .then(function (pd) { st.msg_id = pd.id; });
+                .then(function (pd) { st.msg_id = pd.id; })
+            : Promise.resolve();
 
           return ensureDailyMsg.then(function () {
             return fetch(baseWh + "/messages/" + stateMsgId, {
