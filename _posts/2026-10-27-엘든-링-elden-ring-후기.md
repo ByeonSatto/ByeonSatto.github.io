@@ -19,7 +19,7 @@ pros:
   - "몰입감 있는 전투 경험"
   - "섬세한 레벨 디자인"
   - "매력적인 세계관"
-thumbnail: "/assets/images/posts/20261029025956_144.png"
+thumbnail: "/assets/images/posts/official-elden-ring.jpg"
 toc: true
 ---
 

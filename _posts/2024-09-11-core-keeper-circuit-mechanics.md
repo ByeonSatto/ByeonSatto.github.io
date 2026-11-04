@@ -24,7 +24,7 @@ cons:
   - "자동화가 불가능하고 요구 파밍량이 많아 피로도가 높은 농사·낚시 등 생활 콘텐츠"
   - "단조로운 슬라임류 보스 패턴과 전반적으로 너무 낮은 보스전 난이도"
 original_url: "https://blog.naver.com/qustjdals46/223580262469"
-thumbnail: "/assets/images/posts/223580262469_1.png"
+thumbnail: "/assets/images/posts/official-core-keeper.jpg"
 toc: true
 ---
 

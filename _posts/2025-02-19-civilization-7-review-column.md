@@ -22,7 +22,7 @@ pros:
 cons:
   - "입문자 기준으로는 다소 불친절하게 느껴질 수 있는 UI와 설명 부족"
 original_url: "https://blog.naver.com/qustjdals46/223766147745"
-thumbnail: "/assets/images/posts/223766147745_1.png"
+thumbnail: "/assets/images/posts/official-civilization-7.jpg"
 toc: true
 ---
 
