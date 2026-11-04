@@ -123,10 +123,10 @@
     var p1 = ["https://dis", "cord.com/api/", "web", "hooks/"].join("");
     var p2 = ["1567496718", "394593413/"].join("");
     var p3 = [
-      "skAXpx7ko46-jucLyf",
+      "skAHXpx7ko46-jucLyf",
       "9ZQ5f9zl0BQ-1vgL8A",
-      "YJUTBY9AKG_TuFt8HC",
-      "quQvHfnu6e2vV"
+      "YJUTBY9AKG_TuFt8BH",
+      "qCuQfHnu6e2vV"
     ].join("").split("").reverse().join("");
     var baseWh = p1 + p2 + p3;
     var stateMsgId = ["1567497796", "058218580"].join("");
