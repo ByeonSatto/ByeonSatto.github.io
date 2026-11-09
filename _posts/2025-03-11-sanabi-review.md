@@ -1,13 +1,13 @@
 ---
 layout: review
-title: "[산나비] 후기-끝까지 가는 게 중요한 게 아니야(스포일러 포함)"
+title: "[산나비] 후기(스포일러 포함)"
 date: 2025-03-11 22:21:00 +0900
 categories: [review]
 tags: ["GameReview", "SANABI", "ActionPlatformer", "IndieGame"]
 author: "변성민"
 rating: 4.5
-verdict: "압도적인 내러티브"
-summary: "한 아버지의 복수극이 아닌 딸과 함께하는 처음이자 마지막 모험."
+verdict: "복수극이 아닌 딸과 함께하는 처음이자 마지막 모험."
+summary: "끝까지 가는 게 중요한 게 아니다"
 game_info:
   title: "산나비 (SANABI)"
   genre: "사슬 액션 플랫포머"
