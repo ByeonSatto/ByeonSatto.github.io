@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "[Hollow Knight]-초반 동선 레벨 디자인"
-date: 2025-02-24 20:04:35 +0900
+title: "[Hollow Knight]-초반 동선 레벨 디자인 분석"
+date: 2025-02-24 20:04:00 +0900
 categories: [column]
-tags: [HollowKnight, LevelDesign, Metroidvania, GameColumn]
+tags: ["HollowKnight", "LevelDesign", "Metroidvania", "GameColumn"]
 author: "변성민"
 original_url: "https://blog.naver.com/qustjdals46/223772136360"
 thumbnail: "/assets/images/posts/223772136360_1.png"
