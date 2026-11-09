@@ -1,8 +1,9 @@
 ---
 layout: review
-title: "엘든 링 Elden Ring 후기"
+title: "[엘든 링 Elden Ring] 후기"
 date: 2026-10-27 11:37:00 +0900
 categories: [review]
+tags: ["GameReview", "SANABI", "ActionPlatformer", "IndieGame"]
 author: "변성민"
 rating: 5.0
 verdict: "압도적인 몰입감의 전투경험"
