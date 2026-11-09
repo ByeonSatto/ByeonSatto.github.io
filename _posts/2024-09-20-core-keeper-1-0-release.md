@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[코어키퍼Core Keeper] - 1.0 정식버전 패치 후기"
+title: "[코어키퍼Core Keeper] - 1.0 정식버전 패치 분석 및 공략"
 date: 2024-09-20 19:17:00 +0900
 categories: [column]
 tags: ["CoreKeeper", "PatchAnalysis", "GameColumn"]
