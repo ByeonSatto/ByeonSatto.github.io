@@ -1,12 +1,13 @@
 ---
 layout: review
-title: "[활협전] - 게임은 덕후가 만들어야 한다"
-date: 2024-08-31 15:05:51 +0900
+title: "[활협전] 후기"
+date: 2024-08-31 15:05:00 +0900
 categories: [review]
-tags: [GameReview, LegendOfMortal, Narrative, RPG]
+tags: ["GameReview", "LegendOfMortal", "Narrative", "RPG"]
 author: "변성민"
 rating: 4.5
 verdict: "사소한 선택과 스탯, 주사위가 촘촘히 맞물려 무협의 세계관과 서사적 몰입감을 극대화한 작품."
+summary: "게임은 덕후가 만들어야 한다"
 game_info:
   title: "활협전 (Legend of Mortal)"
   genre: "무협 육성 시뮬레이션 RPG"
