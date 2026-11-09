@@ -1,12 +1,13 @@
 ---
 layout: review
-title: "[코어키퍼(Core Keeper)] - 회로가 플랫포머에서 가지는 힘"
-date: 2024-09-11 12:43:13 +0900
+title: "[코어키퍼(Core Keeper)] 후기"
+date: 2024-09-11 12:43:00 +0900
 categories: [review]
-tags: [GameReview, CoreKeeper, SystemDesign, LevelDesign]
+tags: ["GameReview", "CoreKeeper", "SystemDesign", "LevelDesign"]
 author: "변성민"
 rating: 3.5
 verdict: "코어 중심의 거리 기반 탐사 유도와 직관적인 자동화 설비가 매력적인 플랫포머 RPG이나, 루팅 편중 파밍과 낮은 보스 난이도는 아쉬운 작품."
+summary: "회로가 플랫포머에서 가지는 힘"
 game_info:
   title: "코어 키퍼 (Core Keeper)"
   genre: "샌드박스 탐험 액션 RPG"
@@ -16,13 +17,13 @@ game_info:
   playtime: "190시간 (AFK 포함)"
   release_date: "2024. 08 (1.0 정식 출시)"
 pros:
-  - "코어로부터의 거리(반지름)를 기준으로 주요 보스와 구조물을 배치해 원형 맵의 탐사 피로도를 완화"
+  - "맵의 탐사 피로도를 완화하는 구역 배치규칙"
   - "업그레이드 제작대를 통해 초반 파밍 장비도 최종 세팅에 활용할 수 있는 성장 구조"
-  - "드릴·컨베이어 벨트·로봇 팔과 스폰 타일을 결합한 직관적이고 재미있는 자동화 설비 시스템"
+  - "직관적이고 재미있는 자동화 설비 시스템"
 cons:
-  - "제작 방어구의 성능이 지나치게 낮아 장비 파밍이 몬스터 루팅에만 편중됨"
-  - "자동화가 불가능하고 요구 파밍량이 많아 피로도가 높은 농사·낚시 등 생활 콘텐츠"
-  - "단조로운 슬라임류 보스 패턴과 전반적으로 너무 낮은 보스전 난이도"
+  - "제작 방어구의 성능이 지나치게 낮아 장비 파밍이 몬스터 루팅에만 편중"
+  - "자동화가 불가능하고 요구 파밍량이 많아 피로도가 높은 생활 콘텐츠"
+  - "단조로운 슬라임류 보스 패턴과 전반적으로 낮은 보스전 난이도"
 original_url: "https://blog.naver.com/qustjdals46/223580262469"
 thumbnail: "/assets/images/posts/official-core-keeper.jpg"
 toc: true
