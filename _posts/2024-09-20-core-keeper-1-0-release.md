@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "[코어키퍼Core Keeper] - 1.0 정식버전 패치"
-date: 2024-09-20 19:17:57 +0900
+title: "[코어키퍼Core Keeper] - 1.0 정식버전 패치 후기"
+date: 2024-09-20 19:17:00 +0900
 categories: [column]
-tags: [CoreKeeper, PatchAnalysis, GameColumn]
+tags: ["CoreKeeper", "PatchAnalysis", "GameColumn"]
 author: "변성민"
 original_url: "https://blog.naver.com/qustjdals46/223590333180"
 thumbnail: "/assets/images/posts/223590333180_1.png"
