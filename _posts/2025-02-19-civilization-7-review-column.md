@@ -1,12 +1,13 @@
 ---
 layout: review
-title: "[문명7] 간단리뷰: 문명은 친절할 필요가 없다"
-date: 2025-02-19 15:59:42 +0900
+title: "[시드마이어의 문명7] 간단후기"
+date: 2025-02-19 15:59:00 +0900
 categories: [review]
-tags: [GameReview, Civilization7, Strategy]
+tags: ["GameReview", "Civilization7", "Strategy"]
 author: "변성민"
 rating: 3.5
 verdict: "도시와 마을의 분리로 후반 조작 스트레스를 줄이고, 내러티브와 시대별 문명 변경으로 전략적 선택지를 넓힌 매력적인 변화."
+summary: "문명은 친절할 필요가 없다"
 game_info:
   title: "문명 7 (Sid Meier's Civilization VII)"
   genre: "4X 턴제 전략 시뮬레이션"
