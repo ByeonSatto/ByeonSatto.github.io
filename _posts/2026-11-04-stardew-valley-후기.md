@@ -1,6 +1,6 @@
 ---
 layout: review
-title: "Stardew Valley 후기"
+title: "[Stardew Valley] 후기"
 date: 2026-11-04 10:39:00 +0900
 categories: [review]
 tags: ["스타듀 밸리", "인디", "RPG", "시뮬레이션"]
