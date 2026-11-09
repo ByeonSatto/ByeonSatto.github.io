@@ -1,12 +1,13 @@
 ---
 layout: review
-title: "[화산의 딸] 후기- 반찬이 많다고 좋은 식당은 아니다"
+title: "[화산의 딸] 후기"
 date: 2025-08-25 12:32:00 +0900
 categories: [review]
 tags: ["GameReview", "VolcanoPrincess", "Simulation"]
 author: "변성민"
 rating: 2.0
 verdict: "프린세스 메이커를 생각하면 실망할 것"
+summary: "반찬이 많다고 좋은 식당은 아니다"
 game_info:
   title: "화산의 딸 (Volcano Princess)"
   genre: "육성 시뮬레이션 RPG"
