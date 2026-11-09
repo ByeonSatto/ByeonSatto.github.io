@@ -1,8 +1,9 @@
 ---
 layout: review
-title: "Slay the Spire 후기"
+title: "[Slay the Spire] 후기"
 date: 2026-11-04 10:10:00 +0900
 categories: [review]
+tags: ["더 바인딩 오브 아이작: 리버스", "액션 어드벤처"]
 author: "변성민"
 rating: 4.5
 verdict: "이해도와 운이 서로를 상호 보완하는 완벽한 로그라이크적 재미와 덱빌딩이 갖는 매력이 모두 있는 게임"
