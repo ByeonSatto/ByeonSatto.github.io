@@ -1,24 +1,25 @@
 ---
 layout: review
-title: "[포켓로그] - 원조 맛집을 뛰어넘는 체인점"
-date: 2024-07-22 18:07:01 +0900
+title: "[포켓로그] 후기"
+date: 2024-07-22 18:07:00 +0900
 categories: [review]
-tags: [GameReview, PokeRogue, Roguelike, DeckBuilding]
+tags: ["GameReview", "PokeRogue", "Roguelike", "DeckBuilding"]
 author: "변성민"
 rating: 4.0
-verdict: "수집 요소를 실전 행운 수치로 연결하고, 유전자쐐기 융합으로 본가에서 상상만 하던 덱빌딩의 정수를 구현한 팬게임."
+verdict: "수집 요소를 적절히 활용하고 본가 유저의 상상에만 있던 덱빌딩의 정수를 구현한 팬게임"
+summary: "원조 맛집을 뛰어넘는 체인점"
 game_info:
   title: "포켓로그 (PokéRogue)"
   genre: "덱빌딩 로그라이트 RPG"
   platform: "PC / Mobile Web"
   developer: "Pagefault Games (Fan Project)"
 pros:
-  - "단순 수집 요소였던 이로치 포켓몬에 '행운 수치'를 부여해 웨이브 보상 등급과 직결시킨 설계"
+  - "단순 수집 요소였던 이로치 포켓몬에 '행운 수치'를 부여한 설계"
   - "유전자쐐기를 통한 특성·패시브·기술 압축 등 자유도 높은 덱빌딩 전략성"
-  - "코스트 제한 시스템과 약한 포켓몬의 존재가 맞물려 수집과 고성능 포켓몬 획득 동기를 강화"
+  - "코스트 제한 시스템과 약한 포켓몬의 존재가 맞물려 수집, 고성능 포켓몬 획득 동기 강화"
 cons:
-  - "코스트 감소·패시브 해금·레어 알기술 획득을 위한 클래식 모드 초반 반복 '사탕작'의 극심한 피로도"
-  - "초반 고정 지형(평야)과 단조로운 전투 양상으로 인해 다회차 챌린지 준비 과정에서 발생하는 지루함"
+  - "반복작업인 사탕작의 극심한 피로도"
+  - "초반 고정 지형으로 인해 다회차 챌린지 준비 과정에서 발생하는 지루함"
 original_url: "https://blog.naver.com/qustjdals46/223521682551"
 thumbnail: "/assets/images/posts/official-pokerogue.png"
 toc: true
